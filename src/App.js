@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import VacationForm from './components/vacationForm.js';
+import Header from './components/header.js';
 
 export default class App extends React.Component {
   constructor(props){
@@ -18,6 +18,7 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <VacationForm/>
+        <Header/>
         {this.state.name}
       </div>
     );
