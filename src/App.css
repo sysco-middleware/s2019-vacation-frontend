@@ -23,6 +23,20 @@
   color: #61dafb;
 }
 
+.box {
+  background: #61dafb;
+  height: 50px;
+  width: 100px;
+  margin-left: 25%;
+}
+
+button{
+  background-color: blue;
+  height: 100px;
+  width: 100px;
+
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
