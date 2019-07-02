@@ -13,9 +13,6 @@ export default class App extends React.Component {
       endDate: ""
     }
   }
-
-
-
   
   render(){
     return (
@@ -40,7 +37,7 @@ export default class App extends React.Component {
          <Input type="textarea" name="comment" id="comment" placeholder="Anything we need to know?"></Input>
         </Row>
       
-        <Button id="knapp">Sign in</Button>
+        <Button id="knapp">Make your wishes come true</Button>
       </Form>
  
       </div>
