@@ -1,4 +1,5 @@
 import React from 'react';
+import './general.css';
 
 
 export default class Header extends React.Component {
@@ -11,9 +12,8 @@ export default class Header extends React.Component {
   render(){
     return (
       <div className="header">
-          <img src="../uploads/sysco.png"></img>
+          <img src="https://haugesundil.no/wp-content/uploads/2017/04/Sysco_logo_RGB-1-e1467987962479.jpg" id="syscoLogo"></img>
         <h1>Sysco Vacation Form</h1>
-    
       </div>
     );
   }

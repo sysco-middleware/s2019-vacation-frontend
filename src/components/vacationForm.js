@@ -1,32 +1,48 @@
 import React from 'react';
+import './general.css';
+import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+
+
+
 
 export default class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      name: "hei"
+      startDate: "",
+      endDate: ""
     }
   }
 
-  runner = () => {
-    const list = []
-    for(let i =0; i<=12; i++){
-      list[i] = i
-    }
-    return list
-  }
+
 
   
   render(){
     return (
-      <div className="App">
-        <h1>Legg inn dine ferieønsker!</h1>
-        <div class="box"></div>
-        <button>Send inn ferieønsker!</button>
-        {this.state.name}
-        <ul>
-        {this.runner().map(o => (<li>{o}</li>))}
-        </ul>
+      <div className="vacationForm">
+      <Form>
+        <Row form>
+          <Col md={6}>
+            <FormGroup>
+              <Label for="startDate">Start date</Label>
+              <Input type="date" name="startDate" id="startDate" />
+            </FormGroup>
+          </Col>
+          <Col md={6}>
+            <FormGroup>
+            <Label for="endDate">End date</Label>
+              <Input type="date" name="endDate" id="endDate" />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row form>
+         <Label for="comment">Any comment?</Label>
+         <Input type="textarea" name="comment" id="comment" placeholder="Anything we need to know?"></Input>
+        </Row>
+      
+        <Button id="knapp">Sign in</Button>
+      </Form>
+ 
       </div>
     );
   }

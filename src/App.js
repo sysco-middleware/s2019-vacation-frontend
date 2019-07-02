@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import VacationForm from './components/vacationForm.js';
 import Header from './components/header.js';
+import bilde from './uploads/vaca.png';
 
 export default class App extends React.Component {
   constructor(props){
@@ -17,9 +18,9 @@ export default class App extends React.Component {
   render(){
     return (
       <div className="App">
-        <VacationForm/>
         <Header/>
-        {this.state.name}
+        <VacationForm/>
+        <img src={bilde}></img>
       </div>
     );
   }
