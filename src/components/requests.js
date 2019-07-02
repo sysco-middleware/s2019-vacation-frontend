@@ -13,7 +13,7 @@ export default class Requests extends React.Component {
     return (
       <div className="requests">
           <div id="table">
-
+        <h3> REQUESTS</h3>
           <Table bordered>
         <thead>
           <tr>

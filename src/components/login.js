@@ -1,89 +1,53 @@
 import React from 'react';
 import './general.css';
-import { Button} from 'reactstrap';
+import { Button, InputGroup, Input, InputGroupAddon, InputGroupText} from 'reactstrap';
+import bilde from '../uploads/vaca.png';
+//import axios from 'axios';
 
 export default class Login extends React.Component {
     constructor(props){
       super(props)
       this.state = {
-        approved: false
+        exists: false
       }
     }
   
+    goToUser = () => {
+      this.props.history.push("/user");
+    }
+
+    fetchUser = () => {
+      // axios.post('localhost:3000/api/login' {user})
+      //   .then(response => {
+      //     console.log(res);
+      //     console.log(response.data);
+      //   })
+        
+      var payload = 400;
+      if(payload !== 401)
+      {
+        this.goToUser();
+      }
+      else{
+        alert("Can't find user with the email!");
+      }
+    }
+
     render(){
       return (
         <div className="login">
-            <div class="contentLogin">
-            <label for="loginEmail" >LOGIN</label>
-                <input type="email" id="loginEmail" required={true} placeholder="Write your sysco email here!"></input>           
-            <Button id="signIn" value="approved" onChange= {(e) => this.setState({approved: !this.state.approved})}>Sign in</Button>
+            <div className="contentLogin">
+            <InputGroup id="inputGroup" size="lg">
+              <Input placeholder="username" />
+                <InputGroupAddon addonType="append">
+                    <InputGroupText>@sysco.no</InputGroupText>
+                  </InputGroupAddon>
+            </InputGroup>
+            <Button id="signIn" value="approved" onClick= {() => this.fetchUser()}>Sign in</Button>
             </div>
-        
+            <img src={bilde} alt="icon" id="icon"></img>
         </div>
       );
     }
   }
 
-// import React, { Component } from "react";
-// import { Label } from "reactstrap";
-// import { Button, FormGroup, FormControl} from "react-bootstrap";
-// import "./general.css";
-
-// export default class Login extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       email: "",
-//       password: ""
-//     };
-//   }
-
-//   validateForm() {
-//     return this.state.email.length > 0 && this.state.password.length > 0;
-//   }
-
-//   handleChange = event => {
-//     this.setState({
-//       [event.target.id]: event.target.value
-//     });
-//   }
-
-//   handleSubmit = event => {
-//     event.preventDefault();
-//   }
-
-//   render() {
-//     return (
-//       <div className="Login">
-//         <form onSubmit={this.handleSubmit}>
-//           <FormGroup controlId="email" bsSize="large">
-//             <Label>Email</Label>
-//             <FormControl
-//               autoFocus
-//               type="email"
-//               value={this.state.email}
-//               onChange={this.handleChange}
-//             />
-//           </FormGroup>
-//           <FormGroup controlId="password" bsSize="large">
-//             <Label>Password</Label>
-//             <FormControl
-//               value={this.state.password}
-//               onChange={this.handleChange}
-//               type="password"
-//             />
-//           </FormGroup>
-//           <Button
-//             block
-//             bsSize="large"
-//             disabled={!this.validateForm()}
-//             type="submit"
-//           >
-//             Login
-//           </Button>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
