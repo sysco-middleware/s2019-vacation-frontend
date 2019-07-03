@@ -5,7 +5,7 @@ import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 
-export default class App extends React.Component {
+export default class vacationForm extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -16,8 +16,8 @@ export default class App extends React.Component {
   
   render(){
     return (
-      <div className="vacationForm">
-      <Form>
+      <React.Fragment>
+      <Form className="vacationForm">
         <Row form>
           <Col md={6}>
             <FormGroup>
@@ -39,8 +39,7 @@ export default class App extends React.Component {
       
         <Button id="knapp">Make your wishes come true</Button>
       </Form>
-
-      </div>
+      </React.Fragment>
       
     );
   }

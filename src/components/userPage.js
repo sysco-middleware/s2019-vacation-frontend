@@ -2,7 +2,7 @@ import React from 'react';
 import './general.css';
 import Requests from './requests.js';
 import VacationForm from './vacationForm.js'; 
-import {Form, Row, Col} from 'reactstrap';
+import {Row, Col} from 'reactstrap';
 
 
 export default class userPage extends React.Component {
@@ -15,7 +15,7 @@ export default class userPage extends React.Component {
   render(){
     return (
       <div className="userPage">
-          <Form>
+          <div>
               <Row>
                 <Col md={8} >
                     <VacationForm/>
@@ -24,7 +24,7 @@ export default class userPage extends React.Component {
                     <Requests/>
                 </Col>
               </Row>
-          </Form>
+          </div>
       </div>
     );
   }
