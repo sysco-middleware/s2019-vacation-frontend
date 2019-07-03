@@ -7,12 +7,21 @@ import {Row, Col} from 'reactstrap';
 
 export default class userPage extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
     this.state = {
     }
   }
 
+    handleNotLoggedIn = () => {
+        this.props.history.push("/error");
+    };
+
   render(){
+      const {loggedIn, user} = this.props;
+      if(!loggedIn || user === null || user === undefined){
+          this.handleNotLoggedIn();
+      }
+
     return (
       <div className="userPage">
           <div>

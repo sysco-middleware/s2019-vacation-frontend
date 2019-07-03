@@ -1,57 +1,97 @@
 import React from 'react';
 import './general.css';
-import { Button, InputGroup, Input, InputGroupAddon, InputGroupText} from 'reactstrap';
-import bilde from '../uploads/vaca.png';
+import { Button, InputGroup, Input, InputGroupAddon, InputGroupText, UncontrolledAlert} from 'reactstrap';
+import image from '../uploads/vaca.png';
 import axios from 'axios';
 
 export default class Login extends React.Component {
     constructor(props){
-      super(props)
+      super(props);
       this.state = {
         exists: false,
-        name: ''
+        email: "",
+        errorMsg: null,
       }
     }
   
-    handleChange = event => {
-      this.setState({name: event.target.value});
-    }
+    onEmailChange = event => {
+      this.setState({email: event.target.value});
+    };
 
-    goToUser = () => {
+    goToUserPage = () => {
       this.props.history.push("/user");
-    }
+    };
+
+    onErrorMsgChange = (errorMsg) => {
+        this.setState({errorMsg})
+    };
+
 
     fetchUser = async() => {
+        this.onErrorMsgChange(null);
       const user = {
-        email: this.state.name + "@sysco.no"
-      }
+        email: this.checkMail(this.state.email)
+      };
       const response = await axios.post('https://sysco-feri.herokuapp.com/api/login', user)
+          .catch(error => {
+              this.setState({email: ""});
+              this.onErrorMsgChange("something went wrong! ");
+          });
         
-      console.log(response)
-      if(response.status === 200)
-      {
-        console.log(response.data.firstName)
-        this.goToUser();
+      console.log(response);
+      if(response !== null && response !== undefined) {
+          if (response.status === 200) {
+              this.props.setLoggedIn(response.data);
+              if (this.props.loggedIn) {
+                  this.goToUserPage();
+              }
+          } else {
+              // to empty the input field
+              this.setState({email: ""});
+              this.onErrorMsgChange("something went wrong!");
+          }
+      }else{
+          this.setState({email: ""});
+          this.onErrorMsgChange("something went wrong!");
       }
-      else{
-        alert("Can't find user with the email!");
-      }
-    }
+    };
+
+    checkMail = (mail) => {
+        if(!mail.includes("@sysco.no")){
+            return mail + "@sysco.no"
+        }else{
+            return mail
+        }
+    };
+
+    renderErrorMsg = () => {
+        if(this.state.errorMsg !== null && this.state.errorMsg.length > 0){
+           return (<UncontrolledAlert color="primary">
+                {this.state.errorMsg}
+            </UncontrolledAlert>);
+        }else{
+            return <div/>
+        }
+    };
 
     render(){
       return (
-        <div className="login">
-            <div className="contentLogin">
-            <InputGroup id="inputGroup" size="lg">
-              <Input placeholder="username" name="name" onChange={this.handleChange}/>
-                <InputGroupAddon addonType="append">
-                    <InputGroupText>@sysco.no</InputGroupText>
-                  </InputGroupAddon>
-            </InputGroup>
-            <Button id="signIn" value="approved" onClick= {() => this.fetchUser()}>Sign in</Button>
-            </div>
-            <img src={bilde} alt="icon" id="icon"></img>
-        </div>
+          <div>
+              {this.renderErrorMsg()}
+                <div className="login">
+                    <div className="contentLogin">
+                    <InputGroup id="inputGroup" size="lg">
+                      <Input placeholder="username" name="name" value={this.state.email} onChange={e => this.onEmailChange(e)}/>
+                        <InputGroupAddon addonType="append">
+                            <InputGroupText>@sysco.no</InputGroupText>
+                          </InputGroupAddon>
+                    </InputGroup>
+                    <Button id="signIn" value="approved" onClick= {() => this.fetchUser()}>Sign in</Button>
+                    </div>
+                    <img src={image} alt="icon" id="icon"/>
+                </div>
+          </div>
+
       );
     }
   }

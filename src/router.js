@@ -7,17 +7,30 @@ import Login from './components/login.js';
 import UserPage from './components/userPage.js';
 
 export default class Router extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             user: null,
-            errorMsg: null
+            loggedIn: false
         };
     }
 
+    setLoggedIn = (user) => {
+     if(user !== null && user !== undefined){
+         this.setState({
+             user: user,
+             loggedIn: true
+         })
+     }else{
+         this.setState({
+             user: null,
+             loggedIn: false
+         })
+     }
+    };
 
-    notFound() {
+
+    notFound = () => {
         return (
             <div>
                 <h2>NOT FOUND: 404</h2>
@@ -33,16 +46,23 @@ export default class Router extends React.Component {
 
         return (
             <BrowserRouter>
-                <Header/>
+                <Header
+                    user={this.state.user} loggedIn={this.state.loggedIn}
+                    setLoggedIn={this.setLoggedIn}/>
+
                 <div>
                     <Switch>
                         <Route exact path="/login"
                                render={props => <Login {...props}
+                                                        user={this.state.user} loggedIn={this.state.loggedIn}
+                                                       setLoggedIn={this.setLoggedIn}
                                                        />}/>
                         <Route exact path="/user"
                                render={props => <UserPage {...props}
+                                                          user={this.state.user} loggedIn={this.state.loggedIn}
+                                                          setLoggedIn={this.setLoggedIn}
                                                        />}/>
-                      
+                      <Route component={this.notFound} />
                     </Switch>
                 </div>
             </BrowserRouter>
