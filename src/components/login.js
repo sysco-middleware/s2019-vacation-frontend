@@ -19,7 +19,7 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             exists: false,
-            email: "",
+            email: '',
             errorMsg: null,
         }
     }
@@ -43,6 +43,7 @@ export default class Login extends React.Component {
 
     fetchUser = async () => {
         this.onErrorMsgChange(null);
+
         const user = {
             email: this.checkMail(this.state.email)
         };

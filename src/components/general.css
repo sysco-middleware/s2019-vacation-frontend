@@ -78,7 +78,7 @@ button {
 }
 
 #signUpDescription {
-    margin-left: 12px;
+    margin-left: 14px;
     margin-bottom: 3%;
     font-size: 17px;
 }
@@ -119,8 +119,6 @@ button {
     width: 100%;
     background:white;
 }
-
-
 
 #icon {
     margin: 5%;
