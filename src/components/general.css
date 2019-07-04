@@ -18,8 +18,8 @@ Label {
 }
 
 button {
-    width: 150px;
-    height: 70px;
+    width: 220px;
+    height: 60px;
 }
 
 #knapp {
@@ -31,7 +31,7 @@ button {
 .login {
     background:#498bcc;
     width: 80%;
-    height: 250px;
+    height: 270px;
     margin: 10%;
     border-radius: 10px;
 }
@@ -39,11 +39,10 @@ button {
 .contentLogin {
     padding-top: 60px;
     align-content: center;
-    
 }
 
 
-#signIn {
+#signInPageButtons {
     margin-top: -10px;
     margin-left: 15px;
     font-size: 30px;
