@@ -1,6 +1,18 @@
 import React from 'react';
 import './general.css';
-import {Button, Col, Form, FormGroup, Input, InputGroup, InputGroupAddon, InputGroupText, Label, Row} from "reactstrap";
+import {
+    Button,
+    Col,
+    Form,
+    FormGroup,
+    Input,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupText,
+    Label,
+    Row,
+    UncontrolledAlert
+} from "reactstrap";
 import axios from 'axios';
 
 export default class signUp extends React.Component {
@@ -53,8 +65,11 @@ export default class signUp extends React.Component {
     };
 
     checkNameFormat = (name) => {
+        return /^[a-zA-Z]*$/.test(name)
+    };
 
-
+    formatName = (name) => {
+        return name.length > 0 ? name.toLowerCase()[0].toUpperCase() : false
     };
 
     checkIfUserExists = async () => {
@@ -62,55 +77,73 @@ export default class signUp extends React.Component {
             email: this.checkMail(this.state.email)
         };
         const response = await axios.post('https://sysco-feri.herokuapp.com/api/login', user)
+            .catch(error => {
+                this.setState({firstName: '', middleName: '', lastName: '', email: ''});
+                this.onErrorMsgChange("Something went wrong! ");
+            });
         return response !== null && response !== undefined
     };
 
     signUpNewUser = async () => {
         this.onErrorMsgChange(null);
+        const {firstName, middleName, lastName, email} = this.state;
+        if(firstName.length > 0 && lastName.length > 0 && email.length > 0 ) {
 
-        const exists = this.checkIfUserExists();
-        if (exists === true) {
-            this.setState({firstName: '', middleName: '', lastName: '', email: ''});
-            this.onErrorMsgChange("This user already exists, please sign in on front page!");
-        }
-
-        const user = {
-            firstName: this.checkNameFormat(this.state.firstName) + " " + this.checkNameFormat(this.state.middleName),
-            lastName: this.checkNameFormat(this.state.lastName),
-            email: this.checkMail(this.state.email)
-        };
-
-        const response = await axios.post('https://sysco-feri.herokuapp.com/api/user', user)
-            .catch(error => {
+            const exists = this.checkIfUserExists();
+            if (exists === true) {
                 this.setState({firstName: '', middleName: '', lastName: '', email: ''});
-                this.onErrorMsgChange("Something went wrong! ");
-            });
+                this.onErrorMsgChange("This user already exists, please sign in on front page!");
+            }
+
+            const user = {
+                firstName: this.formatName(this.state.firstName) + " " + this.formatName(this.state.middleName),
+                lastName: this.formatName(this.state.lastName),
+                email: this.checkMail(this.state.email)
+            };
+
+            const response = await axios.post('https://sysco-feri.herokuapp.com/api/user', user)
+                .catch(error => {
+                    this.setState({firstName: '', middleName: '', lastName: '', email: ''});
+                    this.onErrorMsgChange("Something went wrong! ");
+                });
 
 
-        console.log(response);
-        if (response !== null && response !== undefined) {
-            if (response.status === 200) {
-                this.props.setLoggedIn(response.data);
-                if (this.props.loggedIn) {
-                    this.goToUserPage();
+            console.log(response);
+            if (response !== null && response !== undefined) {
+                if (response.status === 200) {
+                    this.props.setLoggedIn(response.data);
+                    if (this.props.loggedIn) {
+                        this.goToUserPage();
+                    }
+                } else {
+                    // to empty the input field
+                    this.setState({firstName: '', middleName: '', lastName: '', email: ''});
+                    this.onErrorMsgChange("Something went wrong!");
                 }
             } else {
-                // to empty the input field
                 this.setState({firstName: '', middleName: '', lastName: '', email: ''});
-                this.onErrorMsgChange("Something went wrong!");
+                this.onErrorMsgChange("Please try to sign up again.");
             }
-        } else {
-            this.setState({firstName: '', middleName: '', lastName: '', email: ''});
-            this.onErrorMsgChange("Please try to sign up again.");
+        }else{
+            this.onErrorMsgChange("Fields cannot be empty!")
         }
     };
 
 
-
+    renderErrorMsg = () => {
+        if (this.state.errorMsg !== null && this.state.errorMsg.length > 0) {
+            return (<UncontrolledAlert color="primary">
+                {this.state.errorMsg}
+            </UncontrolledAlert>);
+        } else {
+            return <div/>
+        }
+    };
 
     render() {
         return (
             <div className='signUp'>
+                {this.renderErrorMsg()}
                 <Button id="goBackButton" onClick={() => this.goToLogin()}>&larr;</Button>
                 <div className='signUpContent'>
                     <React.Fragment>
