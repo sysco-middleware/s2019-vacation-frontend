@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6cd0c312-f62e-4cd6-ad2d-738b432f6356" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/.bin/acorn" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/.bin/ansi-html" afterDir="false" />
@@ -31452,6 +31453,16 @@
       <change afterPath="$PROJECT_DIR$/node_modules/yargs/locales/zh_TW.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/yargs/package.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/yargs/yargs.js" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/.idea/Frontend-feri.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/userPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/userPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
+>>>>>>> dev
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31463,12 +31474,44 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="492">
               <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+=======
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="665">
+              <caret line="42" column="40" lean-forward="true" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/router.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1681">
+              <caret line="41" column="6" lean-forward="true" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+>>>>>>> dev
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -31481,6 +31524,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="82">
               <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+<<<<<<< HEAD
+=======
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/userPage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
+>>>>>>> dev
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -31513,7 +31568,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="Scope" />
+=======
+>>>>>>> dev
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -31536,6 +31594,10 @@
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
+=======
+      <pane id="Scope" />
+>>>>>>> dev
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -31573,16 +31635,31 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="4872000" />
+=======
+    <option name="totallyTimeSpent" value="4268000" />
+>>>>>>> dev
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="43" width="1920" height="2117" extended-state="4" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
+=======
+      <window_info id="npm" side_tool="true" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.32951444" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+>>>>>>> dev
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32951444" />
@@ -31590,10 +31667,13 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32951444" />
+=======
+>>>>>>> dev
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -31617,7 +31697,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/userPage.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="697">
+=======
+        <state relative-caret-position="132">
+>>>>>>> dev
           <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -31629,6 +31713,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
           <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+<<<<<<< HEAD
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -31639,22 +31724,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1034">
           <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
+=======
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+>>>>>>> dev
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/components/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="993">
           <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1681">
+          <caret line="41" column="6" lean-forward="true" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
+>>>>>>> dev
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="820">
@@ -31666,6 +31767,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="492">
           <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/components/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="42" column="40" lean-forward="true" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+>>>>>>> dev
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
