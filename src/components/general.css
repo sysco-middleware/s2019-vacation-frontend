@@ -44,6 +44,9 @@ button {
     margin-bottom: 5%;
 }
 
+#icon {
+    margin: 5%;
+}
 
 
 /* SIGN UP PAGE */
@@ -86,9 +89,19 @@ button {
 #signUpPageButton {
     width: 28%;
     height: 60%;
+    margin-left: 1px;
     font-size: 30px;
 }
 
+#goBackButton {
+    position: absolute;
+    margin-top: 1%;
+    left: 9%;
+    width: 60px;
+    height: 60px;
+    font-size: 50px;
+    padding: 0;
+}
 
 
 /* USER PAGE */
@@ -120,6 +133,3 @@ button {
     background:white;
 }
 
-#icon {
-    margin: 5%;
-}

@@ -40,6 +40,10 @@ export default class signUp extends React.Component {
         this.props.history.push("/user");
     };
 
+    goToLogin = () => {
+        this.props.history.push("/login");
+    };
+
     checkMail = (mail) => {
         if (!mail.includes("@sysco.no")) {
             return mail + "@sysco.no"
@@ -48,12 +52,31 @@ export default class signUp extends React.Component {
         }
     };
 
+    checkNameFormat = (name) => {
+
+
+    };
+
+    checkIfUserExists = async () => {
+        const user = {
+            email: this.checkMail(this.state.email)
+        };
+        const response = await axios.post('https://sysco-feri.herokuapp.com/api/login', user)
+        return response !== null && response !== undefined
+    };
+
     signUpNewUser = async () => {
         this.onErrorMsgChange(null);
 
+        const exists = this.checkIfUserExists();
+        if (exists === true) {
+            this.setState({firstName: '', middleName: '', lastName: '', email: ''});
+            this.onErrorMsgChange("This user already exists, please sign in on front page!");
+        }
+
         const user = {
-            firstName: this.state.firstName + " " + this.state.middleName,
-            lastName: this.state.lastName,
+            firstName: this.checkNameFormat(this.state.firstName) + " " + this.checkNameFormat(this.state.middleName),
+            lastName: this.checkNameFormat(this.state.lastName),
             email: this.checkMail(this.state.email)
         };
 
@@ -78,14 +101,17 @@ export default class signUp extends React.Component {
             }
         } else {
             this.setState({firstName: '', middleName: '', lastName: '', email: ''});
-            this.onErrorMsgChange("Please signing up again.");
+            this.onErrorMsgChange("Please try to sign up again.");
         }
     };
+
+
 
 
     render() {
         return (
             <div className='signUp'>
+                <Button id="goBackButton" onClick={() => this.goToLogin()}>&larr;</Button>
                 <div className='signUpContent'>
                     <React.Fragment>
                         <Form className='signUpFormGroups'>
