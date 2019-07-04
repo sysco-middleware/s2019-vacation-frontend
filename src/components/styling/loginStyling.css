@@ -1,0 +1,30 @@
+.login {
+    background:#498bcc;
+    width: 85%;
+    height: 270px;
+    margin-top: 5%;
+    margin-left: 8%;
+    border-radius: 10px;
+}
+
+.loginContent {
+    padding-top: 65px;
+    align-content: center;
+}
+
+#loginPageButtons {
+    margin-top: -8%;
+    width: 70%;
+    height: 60%;
+    font-size: 28px;
+}
+
+#loginInputGroup {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+}
+
+#icon {
+    margin: 5%;
+}

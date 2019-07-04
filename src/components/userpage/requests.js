@@ -1,5 +1,6 @@
 import React from 'react';
-import './general.css';
+import '../styling/general.css';
+import '../styling/userpageStyling.css';
 import { Table, Card, CardImg, CardText, CardBody, Row, Col,
   CardTitle, CardSubtitle, Button, Pagination, PaginationItem, PaginationLink, Spinner } from 'reactstrap';
 import axios from "axios";

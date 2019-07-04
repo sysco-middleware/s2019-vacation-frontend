@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import '../styling/userpageStyling.css';
+
 import Calender from 'react-calender';
 
 export default class Kalender extends React.Component {

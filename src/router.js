@@ -3,9 +3,9 @@ import React from "react";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Header from './components/header.js';
-import Login from './components/login.js';
-import UserPage from './components/userPage.js';
-import SignUp from './components/signUp.js';
+import Login from './components/authentication/login.js';
+import UserPage from './components/userpage/userPage.js';
+import SignUp from './components/authentication/signUp.js';
 
 export default class Router extends React.Component {
     constructor(props) {
@@ -53,7 +53,7 @@ export default class Router extends React.Component {
 
                 <div>
                     <Switch>
-                        <Route exact path="/login"
+                        <Route exact path="/"
                                render={props => <Login {...props}
                                                         user={this.state.user} loggedIn={this.state.loggedIn}
                                                        setLoggedIn={this.setLoggedIn}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './general.css';
+import './styling/general.css';
 import {
   Collapse,
   Navbar,
@@ -24,7 +24,7 @@ export default class Header extends React.Component {
   render(){
     return (
         <div>
-          <Navbar color="light" light expand="md">
+          <Navbar color="color" light expand="md" id='navigationBar' >
             <NavbarBrand href="/">
               <img src="https://haugesundil.no/wp-content/uploads/2017/04/Sysco_logo_RGB-1-e1467987962479.jpg" id="syscoLogo" alt="sysco_Logo"/>
             </NavbarBrand>

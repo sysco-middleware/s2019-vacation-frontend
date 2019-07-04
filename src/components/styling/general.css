@@ -1,0 +1,20 @@
+#syscoLogo {
+    width: 20%;
+    height: 10%;
+    margin: 20px;
+    float: left;
+}
+
+.navigationBar {
+    background-color: #61dafb;
+}
+
+Label {
+    font-size: 40px;
+    margin-right: 20px;
+}
+
+button {
+    width: 90%;
+    height: 60%;
+}

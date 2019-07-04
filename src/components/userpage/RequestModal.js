@@ -1,5 +1,5 @@
 import React from 'react';
-import { readableTime } from '../utils/unixTranslate';
+import { readableTime } from '../../utils/unixTranslate';
 import {     Modal,
     ModalHeader,
     ModalBody,

@@ -1,10 +1,10 @@
 import React from 'react';
-import './general.css';
+import '../styling/general.css';
+import '../styling/userpageStyling.css';
 import Requests from './requests.js';
-import VacationForm from './vacationForm.js'; 
+import VacationForm from './vacationForm.js';
 import {Row, Col, UncontrolledAlert} from 'reactstrap';
 import axios from "axios";
-import requests from "./requests";
 
 
 export default class userPage extends React.Component {

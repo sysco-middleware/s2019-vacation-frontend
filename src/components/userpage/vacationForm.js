@@ -1,5 +1,6 @@
 import React from 'react';
-import './general.css';
+import '../styling/general.css';
+import '../styling/userpageStyling.css';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import axios from "axios";
 

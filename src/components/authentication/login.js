@@ -1,5 +1,6 @@
 import React from 'react';
-import './general.css';
+import '../styling/general.css';
+import '../styling/loginStyling.css';
 import {
     Button,
     InputGroup,
@@ -11,7 +12,7 @@ import {
     Row,
     Col, FormGroup, Label
 } from 'reactstrap';
-import image from '../uploads/vaca.png';
+import image from '../../uploads/vaca.png';
 import axios from 'axios';
 
 export default class Login extends React.Component {

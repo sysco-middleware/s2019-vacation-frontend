@@ -1,5 +1,6 @@
 import React from 'react';
-import './general.css';
+import '../styling/general.css';
+import '../styling/signUpStyling.css';
 import {
     Button,
     Col,
@@ -145,7 +146,6 @@ export default class signUp extends React.Component {
         return (
             <div className='signUp'>
                 {this.renderErrorMsg()}
-                <Button id="goBackButton" onClick={() => this.goToLogin()}>&larr;</Button>
                 <div className='signUpContent'>
                     <React.Fragment>
                         <Form className='signUpFormGroups'>
