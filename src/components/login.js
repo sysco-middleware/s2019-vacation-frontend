@@ -93,8 +93,8 @@ export default class Login extends React.Component {
             <div>
                 {this.renderErrorMsg()}
                 <div className="login">
-                    <div className="contentLogin">
-                        <InputGroup id="inputGroup" size="lg">
+                    <div className="loginContent">
+                        <InputGroup id="loginInputGroup" size="lg">
                             <Input placeholder="username" name="name" value={this.state.email}
                                    onChange={e => this.onEmailChange(e)}/>
                             <InputGroupAddon addonType="append">
@@ -107,12 +107,14 @@ export default class Login extends React.Component {
                                     <Col sm={3}/>
                                     <Col sm={3}>
                                         <FormGroup>
-                                            <Button id="signInPageButtons" value="approved" onClick={() => this.fetchUser()}>Sign in</Button>
+                                            <Button id="loginPageButtons" value="approved"
+                                                    onClick={() => this.fetchUser()}>Sign in</Button>
                                         </FormGroup>
                                     </Col>
                                     <Col sm={3}>
                                         <FormGroup>
-                                            <Button id="signInPageButtons" value="approved" onClick={() => this.goToSignUpPage()}>Create user</Button>
+                                            <Button id="loginPageButtons" value="approved"
+                                                    onClick={() => this.goToSignUpPage()}>Create user</Button>
                                         </FormGroup>
                                     </Col>
                                     <Col sm={3}/>

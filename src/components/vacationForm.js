@@ -90,7 +90,7 @@ export default class vacationForm extends React.Component {
                        value={this.state.comment} onChange={e => this.onCommentChange(e)}/>
               </Row>
 
-              <Button onClick={() => this.makeRequest()} id="knapp">Make your wishes come true</Button>
+              <Button onClick={() => this.makeRequest()} id="vacationFormButton">Make your wishes come true</Button>
             </Form>
           </React.Fragment>
 
