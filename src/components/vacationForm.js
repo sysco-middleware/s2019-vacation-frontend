@@ -32,7 +32,8 @@ export default class vacationForm extends React.Component {
     console.log(response);
     if(response !== null && response !== undefined) {
       if (response.status === 200) {
-          this.props.onInfoMsgChange("Request is created")
+          this.props.onInfoMsgChange("Request is created");
+          this.props.fetchRequests();
       } else {
         // to empty the input field
         this.props.onErrorMsgChange("something went wrong!");
@@ -66,7 +67,6 @@ export default class vacationForm extends React.Component {
 
     if(loggedIn) {
       return (
-          <React.Fragment>
             <Form className="vacationForm">
               <Row form>
                 <Col md={6}>
@@ -92,7 +92,6 @@ export default class vacationForm extends React.Component {
 
               <Button onClick={() => this.makeRequest()} id="vacationFormButton">Make your wishes come true</Button>
             </Form>
-          </React.Fragment>
 
       );
     }else{

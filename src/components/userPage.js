@@ -3,12 +3,15 @@ import './general.css';
 import Requests from './requests.js';
 import VacationForm from './vacationForm.js'; 
 import {Row, Col, UncontrolledAlert} from 'reactstrap';
+import axios from "axios";
+import requests from "./requests";
 
 
 export default class userPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+        requests: [],
         errorMsg: null,
         infoMsg: null
     }
@@ -24,6 +27,31 @@ export default class userPage extends React.Component {
 
     onInfoMsgChange = (infoMsg) => {
         this.setState({infoMsg})
+    };
+
+    fetchRequests = async() => {
+        if(this.props.loggedIn) {
+            const {userId} = this.props.user;
+            this.onErrorMsgChange(null);
+            const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/${userId}/requests`)
+                .catch(error => {
+                    this.onErrorMsgChange("something went wrong! ");
+                });
+
+            console.log(response);
+            if (response !== null && response !== undefined) {
+                if (response.status === 200) {
+                    this.setState({requests: response.data})
+                } else {
+                    // to empty the input field
+                    this.onErrorMsgChange("something went wrong!");
+                }
+            } else {
+                this.onErrorMsgChange("something went wrong!");
+            }
+        }else{
+            this.props.history.push("/error");
+        }
     };
 
     renderErrorMsg = () => {
@@ -54,20 +82,19 @@ export default class userPage extends React.Component {
             <div>
                 {this.renderErrorMsg()}
                 {this.renderInfoMsg()}
-                <div className="userPage">
-                    <div>
                         <Row>
                             <Col md={8}>
                                 <VacationForm user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                              fetchRequests={this.fetchRequests}
                                               onInfoMsgChange={this.onInfoMsgChange}/>
                             </Col>
                             <Col md={4}>
                                 <Requests user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                          requests={this.state.requests}
+                                          fetchRequests={this.fetchRequests}
                                           onInfoMsgChange={this.onInfoMsgChange}/>
                             </Col>
                         </Row>
-                    </div>
-                </div>
             </div>
         );
     }else{
