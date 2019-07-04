@@ -14,6 +14,7 @@ import {
     UncontrolledAlert
 } from "reactstrap";
 import axios from 'axios';
+import _ from "lodash"
 
 export default class signUp extends React.Component {
     constructor(props) {
@@ -69,7 +70,7 @@ export default class signUp extends React.Component {
     };
 
     formatName = (name) => {
-        return name.length > 0 ? name.toLowerCase()[0].toUpperCase() : false
+        return _.upperFirst(_.lowerCase(name))
     };
 
     checkIfUserExists = async () => {
@@ -87,12 +88,12 @@ export default class signUp extends React.Component {
     signUpNewUser = async () => {
         this.onErrorMsgChange(null);
         const {firstName, middleName, lastName, email} = this.state;
-        if(firstName.length > 0 && lastName.length > 0 && email.length > 0 ) {
+        if(firstName.length > 0 && lastName.length > 0 && email.length > 0  ) {
 
             const exists = this.checkIfUserExists();
             if (exists === true) {
                 this.setState({firstName: '', middleName: '', lastName: '', email: ''});
-                this.onErrorMsgChange("This user already exists, please sign in on front page!");
+                this.onErrorMsgChange("Something went wrong!");
             }
 
             const user = {
