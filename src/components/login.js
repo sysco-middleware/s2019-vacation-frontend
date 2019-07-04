@@ -26,6 +26,10 @@ export default class Login extends React.Component {
         this.setState({errorMsg})
     };
 
+    goToSignUpPage = () => {
+        this.props.history.push("/signUp");
+    };
+
 
     fetchUser = async() => {
         this.onErrorMsgChange(null);
@@ -45,12 +49,12 @@ export default class Login extends React.Component {
               if (this.props.loggedIn) {
                   this.goToUserPage();
               }
-          } else {
+          }else {
               // to empty the input field
               this.setState({email: ""});
               this.onErrorMsgChange("something went wrong!");
           }
-      }else{
+      } else{
           this.setState({email: ""});
           this.onErrorMsgChange("something went wrong!");
       }

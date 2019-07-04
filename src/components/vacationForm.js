@@ -1,3 +1,4 @@
+import React from 'react';
 import './general.css';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 

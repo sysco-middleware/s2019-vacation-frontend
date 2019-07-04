@@ -5,6 +5,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Header from './components/header.js';
 import Login from './components/login.js';
 import UserPage from './components/userPage.js';
+import SignUp from './components/signUp.js';
 
 export default class Router extends React.Component {
     constructor(props) {
@@ -62,7 +63,12 @@ export default class Router extends React.Component {
                                                           user={this.state.user} loggedIn={this.state.loggedIn}
                                                           setLoggedIn={this.setLoggedIn}
                                                        />}/>
-                      <Route component={this.notFound} />
+                        <Route exact path="/signUp"
+                               render={props => <SignUp {...props}
+                                                          user={this.state.user} loggedIn={this.state.loggedIn}
+                                                          setLoggedIn={this.setLoggedIn}
+                               />}/>
+                        <Route component={this.notFound} />
                     </Switch>
                 </div>
             </BrowserRouter>
