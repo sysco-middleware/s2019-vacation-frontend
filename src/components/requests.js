@@ -4,13 +4,22 @@ import { Table, Card, CardImg, CardText, CardBody, Row, Col,
   CardTitle, CardSubtitle, Button, Pagination, PaginationItem, PaginationLink, Spinner } from 'reactstrap';
 import axios from "axios";
 import { withRouter } from 'react-router';
+import RequestModal from './RequestModal'
 
 export class Requests extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      modal: false
     }
   }
+
+
+  toggleMod = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  };
 
   componentDidMount() {
     this.props.fetchRequests()
@@ -40,11 +49,12 @@ export class Requests extends React.Component {
                 <tbody>
                 {requests.map((r, i) => {
                   return (
-                      <tr key={"request" + r.id + "" + i}>
+                      <tr style={{cursor: 'pointer'}} key={"request" + r.id + "" + i} onClick={this.toggleMod}>
                         <th scope="row">{r.requestId}</th>
                         <td>{r.fromDate[0] + "-" + r.fromDate[1] + "-" + r.fromDate[2]}</td>
                         <td>{r.toDate[0] + "-" + r.toDate[1] + "-" + r.toDate[2]}</td>
                         <td>{r.status}</td>
+                        <RequestModal request={r} toggleMod={this.toggleMod}  modal={this.state.modal}/>
                       </tr>
                   );
                 })}
