@@ -17,6 +17,8 @@ export default class vacationForm extends React.Component {
 
     makeRequest = async () => {
         this.props.onErrorMsgChange(null);
+        this.props.onInfoMsgChange(null);
+
         const payload = {
             fromDate: this.state.startDate,
             toDate: this.state.endDate,
@@ -25,27 +27,24 @@ export default class vacationForm extends React.Component {
         };
         const response = await axios.post('https://sysco-feri.herokuapp.com/api/request', payload)
             .catch(error => {
-                this.props.onErrorMsgChange("something went wrong! ");
+                this.props.onErrorMsgChange("Something went wrong! ");
+                this.setState({startDate: "", endDate: "", comment: ""})
             });
 
         console.log(response);
         if (response !== null && response !== undefined) {
             if (response.status === 200) {
-                this.props.onInfoMsgChange("Request is created");
+                this.props.onInfoMsgChange("Request was created");
                 this.props.fetchRequests();
             } else {
                 // to empty the input field
-                this.props.onErrorMsgChange("something went wrong!");
+                this.props.onErrorMsgChange("Something went wrong!");
             }
         } else {
-            this.props.onErrorMsgChange("something went wrong!");
+            this.props.onErrorMsgChange("Something went wrong!");
         }
 
-        this.setState({
-            startDate: "",
-            endDate: "",
-            comment: ""
-        })
+        this.setState({startDate: "", endDate: "", comment: ""})
     };
 
     onStartDateChange = event => {
@@ -66,34 +65,36 @@ export default class vacationForm extends React.Component {
 
         if (loggedIn) {
             return (
-                <Form className="vacationForm">
-                    <Row form>
-                        <Col md={6}>
-                            <FormGroup>
-                                <Label htmlFor="startDate">Start date</Label>
-                                <Input type="date" name="startDate" id="userPageDateInput" value={this.state.startDate}
-                                       onChange={e => this.onStartDateChange(e)}/>
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={6}>
-                            <FormGroup>
-                                <Label htmlFor="endDate">End date</Label>
-                                <Input type="date" name="endDate" id="userPageDateInput" value={this.state.endDate}
-                                       onChange={e => this.onEndDateChange(e)}/>
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row form>
-                        <Label htmlFor="comment">Any comment?</Label>
-                        <Input type="textarea" name="comment" id="userPageDateInput" placeholder="Anything we need to know?"
-                               value={this.state.comment} onChange={e => this.onCommentChange(e)}/>
-                    </Row>
-
-                    <Button onClick={() => this.makeRequest()} id="vacationFormButton">Make your wishes come
-                        true</Button>
-                </Form>
+                <div className='vacationColumn'>
+                    <Form className="vacationForm">
+                        <Row form>
+                            <Col md={12}>
+                                <FormGroup>
+                                    <Label htmlFor="startDate">Start date</Label>
+                                    <Input type="date" name="startDate" id="userPageDateInput"
+                                           value={this.state.startDate}
+                                           onChange={e => this.onStartDateChange(e)}/>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <FormGroup>
+                                    <Label htmlFor="endDate">End date</Label>
+                                    <Input type="date" name="endDate" id="userPageDateInput" value={this.state.endDate}
+                                           onChange={e => this.onEndDateChange(e)}/>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                        <Row form>
+                            <Label htmlFor="comment">Any comment?</Label>
+                            <Input type="textarea" name="comment" id="userPageDateInput"
+                                   placeholder="Anything we need to know?"
+                                   value={this.state.comment} onChange={e => this.onCommentChange(e)}/>
+                        </Row>
+                    </Form>
+                    <Button onClick={() => this.makeRequest()} id="vacationFormButton">Send your wishes!</Button>
+                </div>
 
             );
         } else {

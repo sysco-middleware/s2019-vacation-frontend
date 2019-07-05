@@ -9,7 +9,7 @@ import {     Modal,
 
 
 const RequestModal = (props) => {
-    const { request, toggleMod, modal} = props;
+    let { request, toggleMod, modal} = props;
     return (
         <Modal isOpen={modal} transparent={true} toggle={toggleMod} className={props.className}>
             <ModalHeader className='modalHeader' style={{backgroundColor: '#CBE5FE'}} toggle={toggleMod}>Details</ModalHeader>

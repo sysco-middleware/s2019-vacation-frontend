@@ -57,7 +57,7 @@ export default class userPage extends React.Component {
 
     renderErrorMsg = () => {
         if (this.state.errorMsg !== null && this.state.errorMsg.length > 0) {
-            return (<UncontrolledAlert color="primary">
+            return (<UncontrolledAlert color="warning">
                 {this.state.errorMsg}
             </UncontrolledAlert>);
         } else {
@@ -66,7 +66,7 @@ export default class userPage extends React.Component {
     };
 
     renderInfoMsg = () => {
-        if (this.state.errorMsg !== null && this.state.errorMsg.length > 0) {
+        if (this.state.infoMsg !== null && this.state.infoMsg.length > 0) {
             return (<UncontrolledAlert color="info">
                 {this.state.infoMsg}
             </UncontrolledAlert>);
@@ -80,27 +80,30 @@ export default class userPage extends React.Component {
 
         if (loggedIn || user !== null || user !== undefined) {
             return (
-                <div className='userPage'>
+                <div>
                     {this.renderErrorMsg()}
                     {this.renderInfoMsg()}
-                    <Row>
-                        <Col md={4}>
-                            <UserBox user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
-                                     onInfoMsgChange={this.onInfoMsgChange}/>
-                        </Col>
-                        <Col md={4}>
-                            <VacationForm user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                    <div className='userPage'>
+                        <Row>
+                            <Col md={4}>
+                                <UserBox user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                         onInfoMsgChange={this.onInfoMsgChange}/>
+                            </Col>
+                            <Col md={4}>
+                                <VacationForm user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                              fetchRequests={this.fetchRequests}
+                                              onInfoMsgChange={this.onInfoMsgChange}/>
+                            </Col>
+                            <Col md={4}>
+                                <Requests user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                          requests={this.state.requests}
                                           fetchRequests={this.fetchRequests}
                                           onInfoMsgChange={this.onInfoMsgChange}/>
-                        </Col>
-                        <Col md={4}>
-                            <Requests user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
-                                      requests={this.state.requests}
-                                      fetchRequests={this.fetchRequests}
-                                      onInfoMsgChange={this.onInfoMsgChange}/>
-                        </Col>
-                    </Row>
+                            </Col>
+                        </Row>
+                    </div>
                 </div>
+
             );
         } else {
             this.handleNotLoggedIn();
