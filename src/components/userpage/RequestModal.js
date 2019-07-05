@@ -1,15 +1,10 @@
 import React from 'react';
 import { readableTime } from '../../utils/unixTranslate';
-import {     Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Button,
-} from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button} from 'reactstrap';
 
 
 const RequestModal = (props) => {
-    let { request, toggleMod, modal} = props;
+    const { request, toggleMod, modal} = props;
     return (
         <Modal isOpen={modal} transparent={true} toggle={toggleMod} className={props.className}>
             <ModalHeader className='modalHeader' style={{backgroundColor: '#CBE5FE'}} toggle={toggleMod}>Details</ModalHeader>

@@ -13,7 +13,6 @@ export class Requests extends React.Component {
     }
   }
 
-
   toggleMod = () => {
     this.setState({
       modal: !this.state.modal
