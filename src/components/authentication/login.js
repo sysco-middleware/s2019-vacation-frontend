@@ -82,7 +82,7 @@ export default class Login extends React.Component {
 
     renderErrorMsg = () => {
         if (this.state.errorMsg !== null && this.state.errorMsg.length > 0) {
-            return (<UncontrolledAlert color="primary">
+            return (<UncontrolledAlert color="warning">
                 {this.state.errorMsg}
             </UncontrolledAlert>);
         } else {
@@ -123,12 +123,10 @@ export default class Login extends React.Component {
                                 </Row>
                             </Form>
                         </React.Fragment>
-
                     </div>
                     <img src={image} alt="icon" id="icon"/>
                 </div>
             </div>
-
         );
     }
 }

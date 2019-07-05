@@ -54,10 +54,6 @@ export default class signUp extends React.Component {
         this.props.history.push("/user");
     };
 
-    goToLogin = () => {
-        this.props.history.push("/login");
-    };
-
     checkMail = (mail) => {
         if (!mail.includes("@sysco.no")) {
             return mail + "@sysco.no"
@@ -88,8 +84,9 @@ export default class signUp extends React.Component {
 
     signUpNewUser = async () => {
         this.onErrorMsgChange(null);
+
         const {firstName, middleName, lastName, email} = this.state;
-        if(firstName.length > 0 && lastName.length > 0 && email.length > 0  ) {
+        if (firstName.length > 0 && lastName.length > 0 && email.length > 0) {
 
             const exists = this.checkIfUserExists();
             if (exists === true) {
@@ -126,7 +123,8 @@ export default class signUp extends React.Component {
                 this.setState({firstName: '', middleName: '', lastName: '', email: ''});
                 this.onErrorMsgChange("Please try to sign up again.");
             }
-        }else{
+        } else {
+            this.setState({firstName: '', middleName: '', lastName: '', email: ''});
             this.onErrorMsgChange("Fields cannot be empty!")
         }
     };
@@ -134,7 +132,7 @@ export default class signUp extends React.Component {
 
     renderErrorMsg = () => {
         if (this.state.errorMsg !== null && this.state.errorMsg.length > 0) {
-            return (<UncontrolledAlert color="primary">
+            return (<UncontrolledAlert color="warning">
                 {this.state.errorMsg}
             </UncontrolledAlert>);
         } else {
@@ -144,54 +142,61 @@ export default class signUp extends React.Component {
 
     render() {
         return (
-            <div className='signUp'>
+            <div>
                 {this.renderErrorMsg()}
-                <div className='signUpContent'>
-                    <React.Fragment>
-                        <Form className='signUpFormGroups'>
-                            <Row form>
-                                <Col md={6}>
-                                    <FormGroup>
-                                        <Input type="text" name="firstName" placeholder="firstName*" id='signUpInput'
-                                        value={this.state.firstName} onChange={e => this.onFirstNameChange(e)}/>
-                                    </FormGroup>
-                                </Col>
-                                <Col md={6}>
-                                    <FormGroup>
-                                        <Input type="text" name="middleName" placeholder="middleName" id='signUpInput'
-                                               value={this.state.middleName} onChange={e => this.onMiddleNameChange(e)}/>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <Row form>
-                                <Col md={6}>
-                                    <FormGroup>
-                                        <Input type="text" name="lastName" placeholder="lastName*" id='signUpInput'
-                                        value={this.state.lastName} onChange={e => this.onLastNameChange(e)}/>
-                                    </FormGroup>
-                                </Col>
-                                <Col/>
-                            </Row>
-                            <Row form>
-                                <InputGroup size="lg">
-                                    <Input name="name" placeholder="firstname.middlename.lastname*" id="signUpEmailInput"
-                                           value={this.state.email} onChange={e => this.onEmailChange(e)}/>
-                                    <InputGroupAddon addonType="append">
-                                        <InputGroupText>@sysco.no</InputGroupText>
-                                    </InputGroupAddon>
-                                </InputGroup>
-                            </Row>
-                            <Row form>
-                                <Label htmlFor="lastName" id="signUpDescription">*starred fields are mandatory</Label>
-                            </Row>
-                            <Button id="signUpPageButton"
-                                    onClick={() => this.signUpNewUser()}>Create User</Button>
-                        </Form>
-                    </React.Fragment>
+                <div className='signUp'>
+                    <div className='signUpContent'>
+                        <React.Fragment>
+                            <Form className='signUpFormGroups'>
+                                <Row form>
+                                    <Col md={6}>
+                                        <FormGroup>
+                                            <Input type="text" name="firstName" placeholder="firstName*"
+                                                   id='signUpInput'
+                                                   value={this.state.firstName}
+                                                   onChange={e => this.onFirstNameChange(e)}/>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormGroup>
+                                            <Input type="text" name="middleName" placeholder="middleName"
+                                                   id='signUpInput'
+                                                   value={this.state.middleName}
+                                                   onChange={e => this.onMiddleNameChange(e)}/>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+                                <Row form>
+                                    <Col md={6}>
+                                        <FormGroup>
+                                            <Input type="text" name="lastName" placeholder="lastName*" id='signUpInput'
+                                                   value={this.state.lastName}
+                                                   onChange={e => this.onLastNameChange(e)}/>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col/>
+                                </Row>
+                                <Row form>
+                                    <InputGroup size="lg">
+                                        <Input name="name" placeholder="firstname.middlename.lastname*"
+                                               id="signUpEmailInput"
+                                               value={this.state.email} onChange={e => this.onEmailChange(e)}/>
+                                        <InputGroupAddon addonType="append">
+                                            <InputGroupText>@sysco.no</InputGroupText>
+                                        </InputGroupAddon>
+                                    </InputGroup>
+                                </Row>
+                                <Row form>
+                                    <Label htmlFor="lastName" id="signUpDescription">*starred fields are
+                                        mandatory</Label>
+                                </Row>
+                                <Button id="signUpPageButton"
+                                        onClick={() => this.signUpNewUser()}>Create User</Button>
+                            </Form>
+                        </React.Fragment>
+                    </div>
                 </div>
-
             </div>
-
 
         );
     }
