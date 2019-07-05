@@ -3,6 +3,7 @@ import '../styling/general.css';
 import '../styling/userpageStyling.css';
 import Requests from './requests.js';
 import VacationForm from './vacationForm.js';
+import UserBox from './UserBox';
 import {Row, Col, UncontrolledAlert} from 'reactstrap';
 import axios from "axios";
 
@@ -95,6 +96,12 @@ export default class userPage extends React.Component {
                                           onInfoMsgChange={this.onInfoMsgChange}/>
                             </Col>
                         </Row>
+                <Row>
+                    <Col md={8}>
+                        <UserBox user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                      onInfoMsgChange={this.onInfoMsgChange}/>
+                    </Col>
+                </Row>
             </div>
         );
     }else{

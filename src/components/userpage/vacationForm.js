@@ -9,7 +9,7 @@ import axios from "axios";
 
 export default class vacationForm extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
     this.state = {
       startDate: "",
       endDate: "",

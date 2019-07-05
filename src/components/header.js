@@ -23,7 +23,7 @@ export default class Header extends React.Component {
 
   render(){
     return (
-        <div>
+        <div style={{marginBottom: '20px'}}>
           <Navbar color="color" light expand="md" >
             <NavbarBrand href="/">
               <img src="https://haugesundil.no/wp-content/uploads/2017/04/Sysco_logo_RGB-1-e1467987962479.jpg" id="syscoLogo" alt="sysco_Logo"/>
