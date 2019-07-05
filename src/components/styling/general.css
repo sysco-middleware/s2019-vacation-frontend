@@ -5,8 +5,20 @@
     float: left;
 }
 
-.navigationBar {
-    background-color: #61dafb;
+.navbar,
+.navbar-default {
+    background-color: #D6EAF8 !important;
+}
+
+.navbar,
+.container,
+.navbar-brand {
+    font-size: 19px;
+
+}
+
+#navbar-text {
+    font-size: 18px;
 }
 
 Label {
