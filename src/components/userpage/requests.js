@@ -1,9 +1,7 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import { Table, Card, CardImg, CardText, CardBody, Row, Col,
-  CardTitle, CardSubtitle, Button, Pagination, PaginationItem, PaginationLink, Spinner } from 'reactstrap';
-import axios from "axios";
+import { Table, Card, CardBody, CardTitle, Button, Spinner } from 'reactstrap';
 import { withRouter } from 'react-router';
 import RequestModal from './RequestModal'
 
@@ -35,9 +33,9 @@ export class Requests extends React.Component {
       requests.length > 0 &&
         loggedIn) {
       return (
-          <Card>
-              <CardTitle>REQUESTS</CardTitle>
-            <CardBody>
+          <Card className='requestHistory' style={{backgroundColor: '#498bcc', borderRadius: '10px', padding: '15px'}}>
+              <CardTitle className='requestCardTitle' >Request history</CardTitle>
+            <CardBody style={{backgroundColor: '#CBE5FE', borderRadius: '10px', fontSize: '17px'}}>
               <Table  size="sm"  responsive hover>
                 <thead>
                   <tr>

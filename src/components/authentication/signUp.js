@@ -92,6 +92,7 @@ export default class signUp extends React.Component {
             if (exists === true) {
                 this.setState({firstName: '', middleName: '', lastName: '', email: ''});
                 this.onErrorMsgChange("Something went wrong!");
+                return;
             }
 
             const user = {
@@ -105,7 +106,6 @@ export default class signUp extends React.Component {
                     this.setState({firstName: '', middleName: '', lastName: '', email: ''});
                     this.onErrorMsgChange("Something went wrong! ");
                 });
-
 
             console.log(response);
             if (response !== null && response !== undefined) {
@@ -125,7 +125,7 @@ export default class signUp extends React.Component {
             }
         } else {
             this.setState({firstName: '', middleName: '', lastName: '', email: ''});
-            this.onErrorMsgChange("Fields cannot be empty!")
+            this.onErrorMsgChange("Fields cannot be empty!");
         }
     };
 

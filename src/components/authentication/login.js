@@ -10,7 +10,7 @@ import {
     UncontrolledAlert,
     Form,
     Row,
-    Col, FormGroup, Label
+    Col, FormGroup
 } from 'reactstrap';
 import image from '../../uploads/vaca.png';
 import axios from 'axios';

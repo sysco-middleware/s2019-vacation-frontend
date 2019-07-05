@@ -21,12 +21,6 @@
     font-size: 18px;
 }
 
-
-Label {
-    font-size: 40px;
-    margin-right: 20px;
-}
-
 /* This style affects the global alert 'x' button */
 button {
     height: 50%;

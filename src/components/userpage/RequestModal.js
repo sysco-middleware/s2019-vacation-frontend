@@ -5,34 +5,27 @@ import {     Modal,
     ModalBody,
     ModalFooter,
     Button,
-    Card,
-    CardBody,
-    CardTitle,
-    UncontrolledCollapse,
 } from 'reactstrap';
 
 
 const RequestModal = (props) => {
     const { request, toggleMod, modal} = props;
     return (
-        <Modal isOpen={modal} toggle={toggleMod} className={props.className}>
-            <ModalHeader style={{backgroundColor: '#738fa2'}} toggle={toggleMod}>REQUEST</ModalHeader>
+        <Modal isOpen={modal} transparent={true} toggle={toggleMod} className={props.className}>
+            <ModalHeader className='modalHeader' style={{backgroundColor: '#CBE5FE'}} toggle={toggleMod}>Details</ModalHeader>
             <ModalBody>
-                <div style={{display: 'inline-block', width: '100%'}}>
-                    <p className="lead" style={{float:'left', margin: '10px 0'}}>{request.requestId}</p>
-                </div>
-                <hr className="my-2" />
-                <p><strong>FROM: </strong>{request.fromDate[0] + "-" + request.fromDate[1] + "-" + request.fromDate[2]}</p>
-                <p><strong>TO: </strong><a>{request.toDate[0] + "-" + request.toDate[1] + "-" + request.toDate[2]}</a></p>
-                <p><strong>STATUS: </strong>{request.status}</p>
-                <p><strong>COMMENT: </strong>{request.comment !== null ? request.comment : "No comment!"}</p>
-                <p><strong>CREATED: </strong>{readableTime(request.created, true)}</p>
+                <p><strong>Request number: </strong>{request.requestId}</p>
+                <p><strong>From: </strong>{request.fromDate[0] + "-" + request.fromDate[1] + "-" + request.fromDate[2]}</p>
+                <p><strong>To: </strong><a>{request.toDate[0] + "-" + request.toDate[1] + "-" + request.toDate[2]}</a></p>
+                <p><strong>Status: </strong>{request.status}</p>
+                <p><strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}</p>
+                <p><strong>Created: </strong>{readableTime(request.created, true)}</p>
             </ModalBody>
             <ModalFooter>
                 <Button color="secondary" onClick={toggleMod}>Close</Button>
             </ModalFooter>
         </Modal>
     );
-}
+};
 
 export default RequestModal;
