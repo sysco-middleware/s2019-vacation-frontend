@@ -24,12 +24,9 @@ const RequestModal = (props) => {
                              toggle={toggleMod}>Details</ModalHeader>
                 <ModalBody>
                     <p><strong>Request number: </strong>{request.requestId !== null ? request.requestId : "No ID!"}</p>
-                    <p>
-                        <strong>From: </strong>{request.fromDate !== undefined ? (request.fromDate[0] + "-" + request.fromDate[1] + "-" + request.fromDate[2]) : "No Date!"}
-                    </p>
-                    <p>
-                        <strong>To: </strong><a>{request.toDate !== undefined ? (request.toDate[0] + "-" + request.toDate[1] + "-" + request.toDate[2]) : "No Date!"}</a>
-                    </p>
+                    <p><strong>From: </strong>{request.fromDate !== undefined ? (request.fromDate[0] + "-" + request.fromDate[1] + "-" + request.fromDate[2]) : "No Date!"}</p>
+                    <p><strong>To: </strong>{request.toDate !== undefined ? (request.toDate[0] + "-" + request.toDate[1] + "-" + request.toDate[2]) : "No Date!"}</p>
+                    <p><strong>Reason: </strong>{request.requestReason !== undefined ? (<Badge color='info'>{request.requestReason}</Badge>) : "No Reason!"}</p>
                     <p><strong>Status: </strong>{request.status !== null ? <Badge color={getStatusColor(request.status)}>{request.status}</Badge> : "No Status"}</p>
                     <p><strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}</p>
                     <p><strong>Created: </strong>{request.created !== null ? readableTime(request.created, true) : "No Date!"}</p>

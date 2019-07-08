@@ -2,12 +2,12 @@
     margin: 2%;
 }
 
-.requestCardTitle {
+.cardTitle {
     font-size: 30px;
     padding: 11px;
 }
 
-.userBoxTitle {
+.cardTitle {
     padding-top: 30px;
     font-size: 30px;
     text-align: center;
@@ -24,13 +24,13 @@
     text-align: left;
 }
 
-.userBox {
+.cardBox {
     background: #498bcc !important;
     border-radius: 10px !important;
     text-align: left;
 }
 
-.userBoxBody {
+.cardBody {
     font-size: 19px;
     background: #CBE5FE !important;
     border-radius: 10px !important;

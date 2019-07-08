@@ -1,7 +1,8 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import {Button, Col, Form, FormGroup, Input, Label, Row, Spinner} from 'reactstrap';
+import {Button, Col, Form, FormGroup, Input, Label, Row, Spinner, CustomInput,
+    Card, CardBody, CardTitle } from 'reactstrap';
 import axios from "axios";
 
 
@@ -12,16 +13,36 @@ export default class vacationForm extends React.Component {
             startDate: "",
             endDate: "",
             comment: "",
-            showSpinner: false
+            requestReason: "",
+            reasons: []
         }
     }
 
-    setShowSpinner = (showSpinner) => {
-        this.setState({showSpinner})
+    componentDidMount() {
+        this.fetchReasons();
+    }
+
+    fetchReasons = async () => {
+        const response = await axios.get('https://sysco-feri.herokuapp.com/api/request/reasons')
+            .catch(error => {
+                this.props.onErrorMsgChange("Something went wrong! ");
+            });
+
+        console.log(response);
+        if (response !== null && response !== undefined) {
+            if (response.status === 200) {
+                this.setState({reasons: response.data})
+            } else {
+                // to empty the input field
+                this.props.onErrorMsgChange("Something went wrong!");
+            }
+        } else {
+            this.props.onErrorMsgChange("Something went wrong!");
+        }
     };
 
     makeRequest = async () => {
-        this.setShowSpinner(true);
+        this.props.setShowVacationFormSpinner(true);
         this.props.onErrorMsgChange(null);
         this.props.onInfoMsgChange(null);
 
@@ -29,12 +50,13 @@ export default class vacationForm extends React.Component {
             fromDate: this.state.startDate,
             toDate: this.state.endDate,
             comment: (this.state.comment !== null && this.state.comment.length > 0) ? this.state.comment : null,
-            userId: this.props.user.userId
+            userId: this.props.user.userId,
+            requestReason: this.state.requestReason
         };
         const response = await axios.post('https://sysco-feri.herokuapp.com/api/request', payload)
             .catch(error => {
                 this.props.onErrorMsgChange("Something went wrong! ");
-                this.setState({startDate: "", endDate: "", comment: ""})
+                this.setState({startDate: "", endDate: "", comment: "", requestReason: ""})
             });
 
         console.log(response);
@@ -50,8 +72,8 @@ export default class vacationForm extends React.Component {
             this.props.onErrorMsgChange("Something went wrong!");
         }
 
-        this.setState({startDate: "", endDate: "", comment: ""});
-        this.setShowSpinner(false);
+        this.setState({startDate: "", endDate: "", comment: "", requestReason: ""});
+        this.props.setShowVacationFormSpinner(false);
     };
 
     onStartDateChange = event => {
@@ -67,41 +89,48 @@ export default class vacationForm extends React.Component {
 
     };
 
+    onRequestReasonChange = event => {
+        this.setState({requestReason: event.target.value});
+    };
+
     render() {
-        const {loggedIn, user} = this.props;
+        const {loggedIn, user, setShowVacationFormSpinner, showVacationFormSpinner} = this.props;
 
         if (loggedIn) {
             return (
-                <div className='vacationColumn'>
+                <Card className='cardBox'>
+                    <CardTitle className='cardTitle'>Apply for leave</CardTitle>
+                    <CardBody className='cardBody'>
                     <Form className="vacationForm">
-                        <Row form>
-                            <Col md={12}>
-                                <FormGroup>
-                                    <Label htmlFor="startDate">Start date</Label>
-                                    <Input type="date" name="startDate" id="userPageDateInput"
-                                           value={this.state.startDate}
-                                           onChange={e => this.onStartDateChange(e)}/>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col md={12}>
-                                <FormGroup>
-                                    <Label htmlFor="endDate">End date</Label>
-                                    <Input type="date" name="endDate" id="userPageDateInput" value={this.state.endDate}
-                                           onChange={e => this.onEndDateChange(e)}/>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                        <Row form>
+                        <FormGroup>
+                            <Label htmlFor="startDate">Start date*</Label>
+                            <Input type="date" name="startDate" id="userPageDateInput"
+                                   value={this.state.startDate}
+                                   onChange={e => this.onStartDateChange(e)}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="endDate">End date*</Label>
+                            <Input type="date" name="endDate" id="userPageDateInput" value={this.state.endDate}
+                                   onChange={e => this.onEndDateChange(e)}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleCustomSelect">Reason*</Label>
+                            <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
+                                {this.state.reasons.map((r,i)=>{
+                                    return <option onClick={(e)=>this.onRequestReasonChange(e)} value={r}>{r}</option>
+                                })}
+                            </CustomInput>
+                        </FormGroup>
+                        <FormGroup>
                             <Label htmlFor="comment">Any comment?</Label>
                             <Input type="textarea" name="comment" id="userPageDateInput"
                                    placeholder="Anything we need to know?"
                                    value={this.state.comment} onChange={e => this.onCommentChange(e)}/>
-                        </Row>
+                        </FormGroup>
                     </Form>
-                    {this.state.showSpinner === false ? <Button onClick={() => this.makeRequest()} id="vacationFormButton">Send your wishes!</Button> : <Spinner style={{ width: '3rem', height: '3rem' }} />}
-                </div>
+                    {showVacationFormSpinner === false ? <Button onClick={() => this.makeRequest()} id="vacationFormButton">Apply</Button> : <Spinner style={{ width: '3rem', height: '3rem' }} />}
+                    </CardBody>
+                </Card>
 
             );
         } else {

@@ -14,9 +14,25 @@ export default class userPage extends React.Component {
         this.state = {
             requests: [],
             errorMsg: null,
-            infoMsg: null
+            infoMsg: null,
+            showRequestSpinner: false,
+            showVacationFormSpinner: false,
+            showUserBoxSpinner: false
         }
     }
+
+    setShowRequestSpinner = (showRequestSpinner) => {
+        this.setState({showRequestSpinner})
+    };
+
+    setShowVacationFormSpinner = (showVacationFormSpinner) => {
+        this.setState({showVacationFormSpinner})
+    };
+
+    setShowUserBoxSpinner = (showUserBoxSpinner) => {
+        this.setState({showUserBoxSpinner})
+    };
+
 
     handleNotLoggedIn = () => {
         this.props.history.push("/error");
@@ -31,6 +47,7 @@ export default class userPage extends React.Component {
     };
 
     fetchRequests = async () => {
+        this.setShowRequestSpinner(true);
         if (this.props.loggedIn) {
             const {userId} = this.props.user;
             this.onErrorMsgChange(null);
@@ -53,6 +70,7 @@ export default class userPage extends React.Component {
         } else {
             this.props.history.push("/error");
         }
+        this.setShowRequestSpinner(false)
     };
 
     renderErrorMsg = () => {
@@ -87,18 +105,24 @@ export default class userPage extends React.Component {
                         <Row>
                             <Col md={4}>
                                 <UserBox user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
-                                         onInfoMsgChange={this.onInfoMsgChange}/>
+                                         onInfoMsgChange={this.onInfoMsgChange}
+                                         setShowUserBoxSpinner={this.setShowUserBoxSpinner}
+                                         showUserBoxSpinner={this.state.showUserBoxSpinner}/>
                             </Col>
                             <Col md={4}>
                                 <VacationForm user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
                                               fetchRequests={this.fetchRequests}
-                                              onInfoMsgChange={this.onInfoMsgChange}/>
+                                              onInfoMsgChange={this.onInfoMsgChange}
+                                              setShowVacationFormSpinner={this.setShowVacationFormSpinner}
+                                              showVacationFormSpinner={this.state.showVacationFormSpinner}/>
                             </Col>
                             <Col md={4}>
                                 <Requests user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
                                           requests={this.state.requests}
                                           fetchRequests={this.fetchRequests}
-                                          onInfoMsgChange={this.onInfoMsgChange}/>
+                                          onInfoMsgChange={this.onInfoMsgChange}
+                                          setShowRequestSpinner={this.setShowRequestSpinner}
+                                          showRequestSpinner={this.state.showRequestSpinner}/>
                             </Col>
                         </Row>
                     </div>
