@@ -65,8 +65,8 @@ export class Requests extends React.Component {
                     return (
                         <tr style={{cursor: 'pointer'}} key={"request" + r.id + "" + i} onClick={()=>this.toggleMod(r)}>
                           <th scope="row">{r.requestId}</th>
-                          <td>{r.fromDate[0] + "-" + r.fromDate[1] + "-" + r.fromDate[2]}</td>
-                          <td>{r.toDate[0] + "-" + r.toDate[1] + "-" + r.toDate[2]}</td>
+                          <td>{r.fromDate[2] + "-" + r.fromDate[1] + "-" + r.fromDate[0]}</td>
+                          <td>{r.toDate[2] + "-" + r.toDate[1] + "-" + r.toDate[0]}</td>
                           <td><Badge color={this.getStatusColor(r.status)}>{r.status}</Badge></td>
                           {(this.state.request !== null && this.state.request !== undefined) ? <RequestModal request={this.state.request} toggleMod={this.toggleMod}  modal={this.state.modal}/> : null}
                         </tr>
@@ -85,12 +85,20 @@ export class Requests extends React.Component {
             </CardFooter>
           </Card>
       );
+    }else if(requests !== null &&
+        requests !== undefined &&
+        requests.length === 0 &&
+        loggedIn){
+      return (
+          <div>
+            <p>NO REQUESTS</p>
+          </div>
+      )
     }else{
       return (<div>
-        <p>NO REQUESTS</p>
         <Spinner style={{ width: '3rem', height: '3rem' }} />{' '}
         <br/>
-        <Button onClick={()=> this.props.fetchRequests()}>Try again</Button>
+        <Badge style={{cursor: 'pointer'}} color="secondary" onClick={()=> this.props.fetchRequests()}>Try again</Badge>
       </div>)
     }
   }

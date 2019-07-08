@@ -4,6 +4,7 @@ import '../styling/userpageStyling.css';
 import {Button, Col, Form, FormGroup, Input, Label, Row, Spinner, CustomInput,
     Card, CardBody, CardTitle } from 'reactstrap';
 import axios from "axios";
+import _ from "lodash"
 
 
 export default class vacationForm extends React.Component {
@@ -95,6 +96,8 @@ export default class vacationForm extends React.Component {
 
     render() {
         const {loggedIn, user, setShowVacationFormSpinner, showVacationFormSpinner} = this.props;
+        const {startDate,endDate, requestReason} = this.state;
+        const disabledButton = (_.isEmpty(startDate) || _.isEmpty(endDate) || _.isEmpty(requestReason));
 
         if (loggedIn) {
             return (
@@ -116,6 +119,7 @@ export default class vacationForm extends React.Component {
                         <FormGroup>
                             <Label for="exampleCustomSelect">Reason*</Label>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
+                                <option>SELECT</option>
                                 {this.state.reasons.map((r,i)=>{
                                     return <option onClick={(e)=>this.onRequestReasonChange(e)} value={r}>{r}</option>
                                 })}
@@ -128,7 +132,11 @@ export default class vacationForm extends React.Component {
                                    value={this.state.comment} onChange={e => this.onCommentChange(e)}/>
                         </FormGroup>
                     </Form>
-                    {showVacationFormSpinner === false ? <Button onClick={() => this.makeRequest()} id="vacationFormButton">Apply</Button> : <Spinner style={{ width: '3rem', height: '3rem' }} />}
+                    {showVacationFormSpinner === false ? (
+                        <Button disabled={disabledButton} onClick={() => this.makeRequest()} id="vacationFormButton">Apply</Button>
+                    ) : (
+                        <Spinner style={{ width: '3rem', height: '3rem' }} />
+                    )}
                     </CardBody>
                 </Card>
 
