@@ -12,6 +12,7 @@ import {
     InputGroupText,
     Label,
     Row,
+    Spinner,
     UncontrolledAlert
 } from "reactstrap";
 import axios from 'axios';
@@ -27,8 +28,13 @@ export default class signUp extends React.Component {
             lastName: '',
             email: '',
             errorMsg: null,
+            showSpinner: false,
         }
     }
+
+    setShowSpinner = (showSpinner) => {
+        this.setState({showSpinner})
+    };
 
     onEmailChange = event => {
         this.setState({email: event.target.value});
@@ -83,6 +89,7 @@ export default class signUp extends React.Component {
     };
 
     signUpNewUser = async () => {
+        this.setShowSpinner(true);
         this.onErrorMsgChange(null);
 
         const {firstName, middleName, lastName, email} = this.state;
@@ -127,6 +134,7 @@ export default class signUp extends React.Component {
             this.setState({firstName: '', middleName: '', lastName: '', email: ''});
             this.onErrorMsgChange("Fields cannot be empty!");
         }
+        this.setShowSpinner(false);
     };
 
 
@@ -190,8 +198,13 @@ export default class signUp extends React.Component {
                                     <Label htmlFor="lastName" id="signUpDescription">*starred fields are
                                         mandatory</Label>
                                 </Row>
-                                <Button id="signUpPageButton"
-                                        onClick={() => this.signUpNewUser()}>Create User</Button>
+                                { this.state.showSpinner === false ? (
+                                    <Button id="signUpPageButton"
+                                            onClick={() => this.signUpNewUser()}>Create User</Button>
+                                ) : (
+                                    <Spinner style={{ width: '3rem', height: '3rem' }} />
+                                )
+                                }
                             </Form>
                         </React.Fragment>
                     </div>

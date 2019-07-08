@@ -10,7 +10,7 @@ import {
     UncontrolledAlert,
     Form,
     Row,
-    Col, FormGroup
+    Col, FormGroup, Spinner
 } from 'reactstrap';
 import image from '../../uploads/vaca.png';
 import axios from 'axios';
@@ -22,8 +22,13 @@ export default class Login extends React.Component {
             exists: false,
             email: '',
             errorMsg: null,
+            showSpinner: false,
         }
     }
+
+    setShowSpinner = (showSpinner) => {
+        this.setState({showSpinner})
+    };
 
     onEmailChange = event => {
         this.setState({email: event.target.value});
@@ -43,6 +48,7 @@ export default class Login extends React.Component {
 
 
     fetchUser = async () => {
+        this.setShowSpinner(true);
         this.onErrorMsgChange(null);
 
         const user = {
@@ -70,6 +76,7 @@ export default class Login extends React.Component {
             this.setState({email: ""});
             this.onErrorMsgChange("Please type in your username again or click 'Sign up'");
         }
+        this.setShowSpinner(false);
     };
 
     checkMail = (mail) => {
@@ -103,26 +110,31 @@ export default class Login extends React.Component {
                                 <InputGroupText>@sysco.no</InputGroupText>
                             </InputGroupAddon>
                         </InputGroup>
-                        <React.Fragment>
-                            <Form className="buttons">
-                                <Row form>
-                                    <Col sm={3}/>
-                                    <Col sm={3}>
-                                        <FormGroup>
-                                            <Button id="loginPageButtons" value="approved"
-                                                    onClick={() => this.fetchUser()}>Sign in</Button>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <FormGroup>
-                                            <Button id="loginPageButtons" value="approved"
-                                                    onClick={() => this.goToSignUpPage()}>Create user</Button>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col sm={3}/>
-                                </Row>
-                            </Form>
-                        </React.Fragment>
+                        { this.state.showSpinner === false ? (
+                            <React.Fragment>
+                                <Form className="buttons">
+                                    <Row form>
+                                        <Col sm={3}/>
+                                        <Col sm={3}>
+                                            <FormGroup>
+                                                <Button id="loginPageButtons" value="approved"
+                                                        onClick={() => this.fetchUser()}>Sign in</Button>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col sm={3}>
+                                            <FormGroup>
+                                                <Button id="loginPageButtons" value="approved"
+                                                        onClick={() => this.goToSignUpPage()}>Create user</Button>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col sm={3}/>
+                                    </Row>
+                                </Form>
+                            </React.Fragment>
+                        ) : (
+                            <Spinner style={{ width: '3rem', height: '3rem' }} />
+                        )
+                        }
                     </div>
                     <img src={image} alt="icon" id="icon"/>
                 </div>
