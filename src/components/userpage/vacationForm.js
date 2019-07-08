@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import {Button, Col, Form, FormGroup, Input, Label, Row} from 'reactstrap';
+import {Button, Col, Form, FormGroup, Input, Label, Row, Spinner} from 'reactstrap';
 import axios from "axios";
 
 
@@ -11,11 +11,17 @@ export default class vacationForm extends React.Component {
         this.state = {
             startDate: "",
             endDate: "",
-            comment: ""
+            comment: "",
+            showSpinner: false
         }
     }
 
+    setShowSpinner = (showSpinner) => {
+        this.setState({showSpinner})
+    };
+
     makeRequest = async () => {
+        this.setShowSpinner(true);
         this.props.onErrorMsgChange(null);
         this.props.onInfoMsgChange(null);
 
@@ -44,7 +50,8 @@ export default class vacationForm extends React.Component {
             this.props.onErrorMsgChange("Something went wrong!");
         }
 
-        this.setState({startDate: "", endDate: "", comment: ""})
+        this.setState({startDate: "", endDate: "", comment: ""});
+        this.setShowSpinner(false);
     };
 
     onStartDateChange = event => {
@@ -93,7 +100,7 @@ export default class vacationForm extends React.Component {
                                    value={this.state.comment} onChange={e => this.onCommentChange(e)}/>
                         </Row>
                     </Form>
-                    <Button onClick={() => this.makeRequest()} id="vacationFormButton">Send your wishes!</Button>
+                    {this.state.showSpinner === false ? <Button onClick={() => this.makeRequest()} id="vacationFormButton">Send your wishes!</Button> : <Spinner style={{ width: '3rem', height: '3rem' }} />}
                 </div>
 
             );
