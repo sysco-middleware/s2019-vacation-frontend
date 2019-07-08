@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import { Table, Card, CardBody, CardTitle, Button, Spinner } from 'reactstrap';
+import { Table, Card, CardBody, CardTitle, Button, Spinner, Badge } from 'reactstrap';
 import { withRouter } from 'react-router';
 import RequestModal from './RequestModal'
 
@@ -22,6 +22,19 @@ export class Requests extends React.Component {
   componentDidMount() {
     this.props.fetchRequests()
   }
+
+  getStatusColor = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "warning";
+      case "APPROVED":
+        return "success";
+      case "DENIED":
+        return "danger";
+      default:
+        return "info"
+    }
+  };
 
   render(){
     const {loggedIn, user, requests} = this.props;
@@ -51,7 +64,7 @@ export class Requests extends React.Component {
                         <th scope="row">{r.requestId}</th>
                         <td>{r.fromDate[0] + "-" + r.fromDate[1] + "-" + r.fromDate[2]}</td>
                         <td>{r.toDate[0] + "-" + r.toDate[1] + "-" + r.toDate[2]}</td>
-                        <td>{r.status}</td>
+                        <td><Badge color={this.getStatusColor(r.status)}>{r.status}</Badge></td>
                         <RequestModal request={r} toggleMod={this.toggleMod}  modal={this.state.modal}/>
                       </tr>
                   );
