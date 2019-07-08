@@ -9,13 +9,15 @@ export class Requests extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      request: null
     }
-  }
+  };
 
-  toggleMod = () => {
+  toggleMod = (request) => {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      request: request
     });
   };
 
@@ -60,12 +62,12 @@ export class Requests extends React.Component {
                 <tbody>
                 {requests.map((r, i) => {
                   return (
-                      <tr style={{cursor: 'pointer'}} key={"request" + r.id + "" + i} onClick={this.toggleMod}>
+                      <tr style={{cursor: 'pointer'}} key={"request" + r.id + "" + i} onClick={()=>this.toggleMod(r)}>
                         <th scope="row">{r.requestId}</th>
                         <td>{r.fromDate[0] + "-" + r.fromDate[1] + "-" + r.fromDate[2]}</td>
                         <td>{r.toDate[0] + "-" + r.toDate[1] + "-" + r.toDate[2]}</td>
                         <td><Badge color={this.getStatusColor(r.status)}>{r.status}</Badge></td>
-                        <RequestModal request={r} toggleMod={this.toggleMod}  modal={this.state.modal}/>
+                        {(this.state.request !== null && this.state.request !== undefined) ? <RequestModal request={this.state.request} toggleMod={this.toggleMod}  modal={this.state.modal}/> : null}
                       </tr>
                   );
                 })}
