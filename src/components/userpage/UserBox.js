@@ -15,7 +15,6 @@ export default class UserBox extends React.Component {
     render(){
         const {loggedIn, user} = this.props;
 
-
         if(loggedIn && user !== null) {
             return (
                 <Card className='userBox' >
@@ -24,6 +23,14 @@ export default class UserBox extends React.Component {
                         <p><strong>Name: </strong>{user.firstName+" "+user.lastName}</p>
                         <p><strong>Email: </strong>{user.email}</p>
                         <p><strong>Profile created: </strong>{readableTime(user.created, true)}</p>
+                        <strong>Roles:</strong>
+                        <ul style={{
+                            listStyle: "none",
+                        }}>
+                        {user.roles !== undefined ? user.roles.map((role) => {
+                            return <li ><pre>{role}</pre></li>
+                        }) : "No Roles!"}
+                        </ul>
                     </CardBody>
                 </Card>
             );
