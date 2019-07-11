@@ -123,7 +123,7 @@ export default class Login extends React.Component {
                                         </Col>
                                         <Col sm={3}>
                                             <FormGroup>
-                                                <Button id="loginPageButtons" value="approved"
+                                                <Button disabled id="loginPageButtons" value="approved"
                                                         onClick={() => this.goToSignUpPage()}>Create user</Button>
                                             </FormGroup>
                                         </Col>

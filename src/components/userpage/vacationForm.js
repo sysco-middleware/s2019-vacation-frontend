@@ -14,7 +14,7 @@ export default class vacationForm extends React.Component {
             startDate: "",
             endDate: "",
             comment: "",
-            requestReason: "",
+            reason: {},
             reasons: []
         }
     }
@@ -29,7 +29,6 @@ export default class vacationForm extends React.Component {
                 this.props.onErrorMsgChange("Something went wrong! ");
             });
 
-        console.log(response);
         if (response !== null && response !== undefined) {
             if (response.status === 200) {
                 this.setState({reasons: response.data})
@@ -46,21 +45,20 @@ export default class vacationForm extends React.Component {
         this.props.setShowVacationFormSpinner(true);
         this.props.onErrorMsgChange(null);
         this.props.onInfoMsgChange(null);
-
         const payload = {
             fromDate: this.state.startDate,
             toDate: this.state.endDate,
             comment: (this.state.comment !== null && this.state.comment.length > 0) ? this.state.comment : null,
             userId: this.props.user.userId,
-            requestReason: this.state.requestReason
+            requestReason: this.state.reason.requestReason,
+            requestReasonId: this.state.reason.requestReasonId
         };
         const response = await axios.post('https://sysco-feri.herokuapp.com/api/request', payload)
             .catch(error => {
                 this.props.onErrorMsgChange("Something went wrong! ");
-                this.setState({startDate: "", endDate: "", comment: "", requestReason: ""})
+                this.setState({startDate: "", endDate: "", comment: "", reason: {}})
             });
 
-        console.log(response);
         if (response !== null && response !== undefined) {
             if (response.status === 200) {
                 this.props.onInfoMsgChange("Request was created");
@@ -73,7 +71,7 @@ export default class vacationForm extends React.Component {
             this.props.onErrorMsgChange("Something went wrong!");
         }
 
-        this.setState({startDate: "", endDate: "", comment: "", requestReason: ""});
+        this.setState({startDate: "", endDate: "", comment: "", reason: {}});
         this.props.setShowVacationFormSpinner(false);
     };
 
@@ -90,14 +88,14 @@ export default class vacationForm extends React.Component {
 
     };
 
-    onRequestReasonChange = event => {
-        this.setState({requestReason: event.target.value});
+    onReasonChange = event => {
+        this.setState({reason: this.state.reasons[event.target.value]});
     };
 
     render() {
         const {loggedIn, user, setShowVacationFormSpinner, showVacationFormSpinner} = this.props;
-        const {startDate,endDate, requestReason} = this.state;
-        const disabledButton = (_.isEmpty(startDate) || _.isEmpty(endDate) || _.isEmpty(requestReason));
+        const {startDate,endDate, reason} = this.state;
+        const disabledButton = (_.isEmpty(startDate) || _.isEmpty(endDate) || _.isEmpty(reason));
 
         if (loggedIn) {
             return (
@@ -121,7 +119,8 @@ export default class vacationForm extends React.Component {
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
                                 <option>SELECT</option>
                                 {this.state.reasons.map((r,i)=>{
-                                    return <option onClick={(e)=>this.onRequestReasonChange(e)} value={r}>{r}</option>
+                                    console.log(r)
+                                    return <option onClick={(e)=>this.onReasonChange(e)} value={i}>{r.requestReason}</option>
                                 })}
                             </CustomInput>
                         </FormGroup>

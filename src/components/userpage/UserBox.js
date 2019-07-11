@@ -24,6 +24,10 @@ export default class UserBox extends React.Component {
                             <p><strong>Name: </strong>{user.firstName + " " + user.lastName}</p>
                             <p><strong>Email: </strong>{user.email}</p>
                             <p><strong>Profile created: </strong>{readableTime(user.created, true)}</p>
+                            <p><strong>Title: </strong>{user.title}</p>
+                            <p><strong>GUID: </strong>{user.severaUserGUID}</p>
+                            <p><strong>SuperiorGUID: </strong>{user.severaSuperiorGUID}</p>
+                            <p><strong>Phone: </strong>{user.phone}</p>
                             <strong>Roles:</strong>
                             <ul style={{
                                 listStyle: "none",
