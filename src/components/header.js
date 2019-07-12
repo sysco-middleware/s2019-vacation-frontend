@@ -1,5 +1,6 @@
 import React from 'react';
 import './styling/general.css';
+import {Link} from 'react-router-dom'
 import {
   Collapse,
   Navbar,
@@ -7,7 +8,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
     Row,
     Col
   } from 'reactstrap';
@@ -34,15 +34,28 @@ export default class Header extends React.Component {
                 </NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
+                  {
+                    (user !== null &&
+                        loggedIn === true &&
+                        user.roles !== undefined &&
+                        user.roles.includes("ADMIN")) ? (
+                        <Nav style={{marginBottom: '-10px'}} className="ml-auto" navbar>
+                          <Link style={{fontSize: '20px'}} to={'/admin'}>Admin</Link>
+                        </Nav>
+                    ) : (
+                        <div/>
+                    )
+                  }
                     {loggedIn === true ?
                         (
                             <Nav style={{marginBottom: '-10px'}} className="ml-auto" navbar>
-                              <NavLink style={{fontSize: '20px'}} onClick={()=>setLoggedIn(false)} href='/'>Logout</NavLink>
+                              <Link style={{fontSize: '20px'}} to={'/user'}>User</Link>
+                              <Link style={{fontSize: '20px'}} onClick={()=>setLoggedIn(false)}  to={'/'}>Logout</Link>
                             </Nav>
                         ) :
                         (
                             <Nav style={{marginBottom: '-10px'}} className="ml-auto" navbar>
-                              <NavLink style={{fontSize: '20px'}} href='/'>Login</NavLink>
+                              <Link style={{fontSize: '20px'}} to={'/'}>Login</Link>
                             </Nav>
                         )
                     }

@@ -6,6 +6,7 @@ import Header from './components/header.js';
 import Login from './components/authentication/login.js';
 import UserPage from './components/userpage/userPage.js';
 import SignUp from './components/authentication/signUp.js';
+import AdminPage from './components/admin/AdminPage.js';
 
 export default class Router extends React.Component {
     constructor(props) {
@@ -63,6 +64,11 @@ export default class Router extends React.Component {
                                                           user={this.state.user} loggedIn={this.state.loggedIn}
                                                           setLoggedIn={this.setLoggedIn}
                                                        />}/>
+                        <Route exact path="/admin"
+                               render={props => <AdminPage {...props}
+                                                          user={this.state.user} loggedIn={this.state.loggedIn}
+                                                          setLoggedIn={this.setLoggedIn}
+                               />}/>
                         <Route exact path="/signUp"
                                render={props => <SignUp {...props}
                                                           user={this.state.user} loggedIn={this.state.loggedIn}

@@ -119,7 +119,6 @@ export default class vacationForm extends React.Component {
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
                                 <option>SELECT</option>
                                 {this.state.reasons.map((r,i)=>{
-                                    console.log(r)
                                     return <option onClick={(e)=>this.onReasonChange(e)} value={i}>{r.requestReason}</option>
                                 })}
                             </CustomInput>

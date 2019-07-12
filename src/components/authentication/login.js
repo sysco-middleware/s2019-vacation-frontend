@@ -20,7 +20,7 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             exists: false,
-            email: '',
+            email: 'cato.aune@sysco.no',
             errorMsg: null,
             showSpinner: false,
         }
