@@ -6,6 +6,7 @@ import VacationForm from './vacationForm.js';
 import UserBox from './UserBox';
 import UserSuperiorBox from './UserSuperiorBox';
 import Calender from './Calender';
+import CalendarBig from './CalendarBig'
 import {TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, UncontrolledAlert} from 'reactstrap';
 import axios from "axios";
 
@@ -43,7 +44,7 @@ export default class userPage extends React.Component {
                 activeTab: tab
             });
         }
-    }
+    };
 
     setShowRequestSpinner = (showRequestSpinner) => {
         this.setState({showRequestSpinner})
@@ -200,6 +201,13 @@ export default class userPage extends React.Component {
                                     Calendar
                                 </NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink
+                                    onClick={() => { this.toggle('3'); }}
+                                >
+                                    BigCalendar
+                                </NavLink>
+                            </NavItem>
                         </Nav>
                         <TabContent activeTab={this.state.activeTab}>
                             <TabPane tabId="1">
@@ -244,6 +252,15 @@ export default class userPage extends React.Component {
                                         <Calender user={user} loggedIn={loggedIn} requests={this.state.allRequests}
                                                   setShowAllRequestSpinner={this.setShowAllRequestSpinner}
                                                   showAllRequestSpinner={this.state.showAllRequestSpinner}/>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            <TabPane tabId="3">
+                                <Row>
+                                    <Col md={12}>
+                                        <CalendarBig user={user} loggedIn={loggedIn} requests={this.state.allRequests}
+                                                     setShowAllRequestSpinner={this.setShowAllRequestSpinner}
+                                                     showAllRequestSpinner={this.state.showAllRequestSpinner}/>
                                     </Col>
                                 </Row>
                             </TabPane>
