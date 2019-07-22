@@ -38,6 +38,7 @@ export default class UserBox extends React.Component {
                                     </li>
                                 }) : "No Roles!"}
                             </ul>
+                            <p><strong>Estimated days left: </strong>{(25 - user.totalDays) >= 0 ? (25 - user.totalDays) : "No days left - ask your boss for more"}</p>
                         </CardBody>
                     ) : (
                         <CardBody className='cardBody'>
