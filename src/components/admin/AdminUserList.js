@@ -46,6 +46,7 @@ export default class AdminUserList extends React.Component {
                                         <th>GUID</th>
                                         <th>SuperiorGUID</th>
                                         <th>created</th>
+                                        <th>Leave Days</th>
                                     </tr>
                                     </thead>
                                     {showAllUsersSpinner === false ? (
@@ -61,6 +62,7 @@ export default class AdminUserList extends React.Component {
                                                 <td>{user.severaUserGUID !== undefined ? user.severaUserGUID : "No GUID"}</td>
                                                 <td>{user.severaSuperiorGUID !== undefined ? user.severaSuperiorGUID : "No superiorGUID!"}</td>
                                                 <td>{readableTime(user.created, true)}</td>
+                                                <td>{user.totalDays}/25</td>
                                             </tr>
                                         );
                                     })}
