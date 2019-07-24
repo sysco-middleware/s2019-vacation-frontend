@@ -7,6 +7,8 @@ import Login from './components/authentication/login.js';
 import UserPage from './components/userpage/userPage.js';
 import SignUp from './components/authentication/signUp.js';
 import AdminPage from './components/admin/AdminPage.js';
+import AnswerPage from "./components/answerpage/answerpage.js";
+
 
 export default class Router extends React.Component {
     constructor(props) {
@@ -71,6 +73,11 @@ export default class Router extends React.Component {
                                />}/>
                         <Route exact path="/signUp"
                                render={props => <SignUp {...props}
+                                                          user={this.state.user} loggedIn={this.state.loggedIn}
+                                                          setLoggedIn={this.setLoggedIn}
+                               />}/>
+                        <Route exact path="/answer"
+                               render={props => <AnswerPage {...props}
                                                           user={this.state.user} loggedIn={this.state.loggedIn}
                                                           setLoggedIn={this.setLoggedIn}
                                />}/>
