@@ -4,10 +4,11 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import Moment from 'moment'
 import { extendMoment } from 'moment-range';
 import {
-    Spinner, Row, Col, InputGroup, InputGroupAddon, Button, Input, FormGroup, Label, CustomInput, Form
+    Spinner, Row, Col, InputGroup, Button, Input
 } from "reactstrap";
 import _ from "lodash";
 import axios from "axios";
+import SearchBar from './searchBar2.js';
 
 const moment = extendMoment(Moment);
 
@@ -126,7 +127,7 @@ export default class CalendarBig extends React.Component {
 
 
     render(){
-        const {requests, setShowAllRequestSpinner, showAllRequestSpinner, user, loggedIn} = this.props;
+        const {showAllRequestSpinner, user, loggedIn} = this.props;
 
         if(loggedIn && user !== null && showAllRequestSpinner === false) {
             const localizer = momentLocalizer(moment);
@@ -135,20 +136,9 @@ export default class CalendarBig extends React.Component {
             return (
                 <div>
                     <Row style={{marginBottom: "15px"}}>
-                        <Col md={{ size: 2, order:1, offset: 6 }}>
-                            <FormGroup>
-                                <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
-                                    <option onClick={()=>this.clearSearch()} >SELECT</option>
-                                    {this.state.reasons.map((r,i)=>{
-                                        return <option onClick={(e)=>this.onReasonChange(e)} value={i}>{r.requestReason}</option>
-                                    })}
-                                </CustomInput>
-                            </FormGroup>
-                        </Col>
                         <Col md={{ size: 4, order:2, offset: 8 }}>
                             <InputGroup>
-                                <Input value={this.state.term} onChange={(e)=>this.onTermChange(e)} placeholder="Search"/>
-                                <Button onClick={this.search} color="secondary">Search</Button>
+                                <SearchBar/>
                             </InputGroup>
                         </Col>
                     </Row>
