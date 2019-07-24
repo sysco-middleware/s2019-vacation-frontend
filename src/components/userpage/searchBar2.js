@@ -36,22 +36,42 @@ export default class SearchBar2 extends React.Component {
             console.log(response);
             if (response !== null && response !== undefined) {
                 if (response.status === 200) {
-                  const list = []
-                  const tags = response.data
+                  const list = [];
+                  const tags = response.data;
                   _.forEach(tags, (t, i) => {
                     list.push({label: t, value: i})
-                  })
+                  });
                     await this.setState({tags: list})
                 } else {
                     console.log("error")
                 }
               }
-    }
+    };
+
+
+    fetchSearch = async (tag) => {
+        const { createEvents } = this.props;
+        const response = await axios.get(`https://sysco-feri.herokuapp.com/api/request/tag/${tag}`)
+            .catch(error => {
+
+            });
+
+        console.log(response);
+        if (response !== null && response !== undefined) {
+            if (response.status === 200) {
+                createEvents(response.data)
+            } else {
+                console.log("error")
+            }
+        }
+    };
+
+
 
     render(){
       return (
         <div className="SearchBar2">            
-            <Select options={this.state.tags} onChange= { (opt, meta) => console.log(opt, meta)}></Select>
+            <Select options={this.state.tags} onChange= {(opt, meta) => this.fetchSearch(opt.label)}/>
         </div>
       );
     }

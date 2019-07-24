@@ -138,7 +138,7 @@ export default class CalendarBig extends React.Component {
                     <Row style={{marginBottom: "15px"}}>
                         <Col md={{ size: 4, order:2, offset: 8 }}>
                             <InputGroup>
-                                <SearchBar/>
+                                <SearchBar createEvents={this.createEvents}/>
                             </InputGroup>
                         </Col>
                     </Row>
