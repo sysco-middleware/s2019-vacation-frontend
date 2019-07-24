@@ -70,8 +70,10 @@ export default class SearchBar2 extends React.Component {
 
     render(){
       return (
-        <div className="SearchBar2">            
-            <Select options={this.state.tags} onChange= {(opt, meta) => this.fetchSearch(opt.label)}/>
+        <div className="SearchBar2">
+            <Select styles={{
+                menu: provided => ({ ...provided, zIndex: 9999 })
+            }}  options={this.state.tags} onChange= {(opt, meta) => this.fetchSearch(opt.label)}/>
         </div>
       );
     }
