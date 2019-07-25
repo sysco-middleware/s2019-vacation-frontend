@@ -10,6 +10,7 @@ import AdminPage from './components/admin/AdminPage.js';
 import axios from "axios";
 import {setCookie} from "./components/authentication/cookie";
 import  _ from "lodash";
+import AnswerPage from "./components/answerpage/answerpage.js";
 
 export default class Router extends React.Component {
     constructor(props) {
@@ -93,6 +94,11 @@ export default class Router extends React.Component {
                                />}/>
                         <Route exact path="/signUp"
                                render={props => <SignUp {...props}
+                                                          user={this.state.user} loggedIn={this.state.loggedIn}
+                                                          setLoggedIn={this.setLoggedIn}
+                               />}/>
+                        <Route exact path="/answer/:requestId"
+                               render={props => <AnswerPage {...props}
                                                           user={this.state.user} loggedIn={this.state.loggedIn}
                                                           setLoggedIn={this.setLoggedIn}
                                />}/>
