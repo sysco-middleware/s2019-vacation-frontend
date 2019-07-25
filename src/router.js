@@ -7,6 +7,9 @@ import Login from './components/authentication/login.js';
 import UserPage from './components/userpage/userPage.js';
 import SignUp from './components/authentication/signUp.js';
 import AdminPage from './components/admin/AdminPage.js';
+import axios from "axios";
+import {setCookie} from "./components/authentication/cookie";
+import  _ from "lodash";
 
 export default class Router extends React.Component {
     constructor(props) {
@@ -18,6 +21,9 @@ export default class Router extends React.Component {
     }
 
     setLoggedIn = (user) => {
+        if(!_.isObject(user)){
+          user = this.fetchUser(user)
+        }
      if(user !== null && user !== undefined){
          this.setState({
              user: user,
@@ -30,6 +36,22 @@ export default class Router extends React.Component {
          })
      }
     };
+
+    fetchUser = async (email) => {
+        const response = await axios.post('https://sysco-feri.herokuapp.com/api/login', {email})
+            .catch(error => {
+            });
+
+        console.log(response);
+        if (response !== null && response !== undefined) {
+            if (response.status === 200) {
+                return response.data
+            }
+            return null;
+        }
+
+    };
+
 
 
     notFound = () => {

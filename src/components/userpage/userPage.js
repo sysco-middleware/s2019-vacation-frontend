@@ -7,8 +7,9 @@ import UserBox from './UserBox';
 import UserSuperiorBox from './UserSuperiorBox';
 import Calender from './Calender';
 import CalendarBig from './CalendarBig'
-import {TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, UncontrolledAlert} from 'reactstrap';
+import {TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, UncontrolledAlert} from 'reactstrap';
 import axios from "axios";
+import {checkCookie} from "../authentication/cookie";
 
 
 export default class userPage extends React.Component {
@@ -30,6 +31,7 @@ export default class userPage extends React.Component {
     }
 
     componentDidMount() {
+        // this.props.setLoggedIn(checkCookie('email'));
         if(this.props.user !== null && this.props.loggedIn){
             if(this.props.user.severaSuperiorGUID !== null && this.props.user.severaSuperiorGUID !== undefined) {
                 this.fetchSuperior();
@@ -81,7 +83,10 @@ export default class userPage extends React.Component {
 
     fetchRequests = async () => {
         this.setShowRequestSpinner(true);
-        if (this.props.loggedIn) {
+
+        //if (this.props.loggedIn) {
+        if (checkCookie('loggedIn') === 'true') {
+
             const {userId} = this.props.user;
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/${userId}/requests`)
@@ -108,7 +113,10 @@ export default class userPage extends React.Component {
 
     fetchAllRequests = async () => {
         this.setShowAllRequestSpinner(true);
-        if (this.props.loggedIn) {
+
+        //if (this.props.loggedIn) {
+        if (checkCookie('loggedIn') === 'true') {
+
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/request`)
                 .catch(error => {
@@ -133,7 +141,10 @@ export default class userPage extends React.Component {
 
     fetchSuperior = async () => {
         this.setShowSuperiorBoxSpinner(true);
-        if (this.props.loggedIn) {
+
+        if (checkCookie('loggedIn') === 'true') {
+        //if (this.props.loggedIn) {
+
             const {severaSuperiorGUID} = this.props.user;
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/severa/${severaSuperiorGUID}`)
@@ -181,7 +192,9 @@ export default class userPage extends React.Component {
     render() {
         const {loggedIn, user} = this.props;
 
-        if (loggedIn && user !== null && user !== undefined) {
+        //if (loggedIn && user !== null && user !== undefined) {
+        if (checkCookie('loggedIn') === 'true' && user !== null && user !== undefined) {
+
             return (
                 <div>
                     {this.renderErrorMsg()}

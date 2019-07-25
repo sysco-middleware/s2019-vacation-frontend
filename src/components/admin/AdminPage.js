@@ -7,7 +7,7 @@ import axios from "axios";
 import Calender from "../userpage/Calender";
 import {withRouter} from "react-router-dom";
 import AdminUserList from "./AdminUserList";
-
+import {checkCookie} from "../authentication/cookie";
 
 export class AdminPage extends React.Component {
     constructor(props) {
@@ -90,7 +90,10 @@ export class AdminPage extends React.Component {
 
     fetchAllUsers = async () => {
         this.setShowAllUsersSpinner(true);
-        if (this.props.loggedIn) {
+
+        if (checkCookie('loggedIn') === 'true') {
+        //if (this.props.loggedIn) {
+
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user`)
                 .catch(error => {
@@ -116,7 +119,10 @@ export class AdminPage extends React.Component {
 
     fetchAllUsersSevera = async () => {
         this.setShowAllUsersSeveraSpinner(true);
-        if (this.props.loggedIn) {
+
+        if (checkCookie('loggedIn') === 'true') {
+        //if (this.props.loggedIn) {
+
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/severa`)
                 .catch(error => {
@@ -164,7 +170,8 @@ export class AdminPage extends React.Component {
     render() {
         const {loggedIn, user} = this.props;
 
-        if (loggedIn &&
+        if ( checkCookie('loggedIn') === 'true' &&
+            //loggedIn &&
             user !== null &&
             user !== undefined &&
             user.roles !== undefined &&

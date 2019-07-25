@@ -13,12 +13,15 @@
 .navbar,
 .container,
 .navbar-brand {
-    font-size: 19px;
+    font-size: 18px;
+    justify-content: space-around;
 
 }
-
-#navbar-text {
-    font-size: 18px;
+@media (min-width: 992px){
+    .navbar li {
+        margin-left : 1em;
+        margin-right : 1em;
+    }
 }
 
 /* This style affects the global alert 'x' button */

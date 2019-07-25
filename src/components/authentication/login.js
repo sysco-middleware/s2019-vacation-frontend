@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/loginStyling.css';
+import {setCookie, checkCookie, deleteCookie} from './cookie.js';
 import {
     Button,
     InputGroup,
@@ -46,6 +47,13 @@ export default class Login extends React.Component {
         this.props.history.push("/signUp");
     };
 
+    fetchUser2 = async () => {
+        this.setShowSpinner(true);
+        this.onErrorMsgChange(null);
+
+        setCookie(this.checkMail(this.state.email));
+    }
+
 
     fetchUser = async () => {
         this.setShowSpinner(true);
@@ -65,6 +73,7 @@ export default class Login extends React.Component {
             if (response.status === 200) {
                 this.props.setLoggedIn(response.data);
                 if (this.props.loggedIn) {
+                    setCookie(this.state.email);
                     this.goToUserPage();
                 }
             } else {
@@ -136,7 +145,7 @@ export default class Login extends React.Component {
                         )
                         }
                     </div>
-                    <img src={image} alt="icon" id="icon"/>
+                    <img src={image} alt="icon" id="icon" />
                 </div>
             </div>
         );
