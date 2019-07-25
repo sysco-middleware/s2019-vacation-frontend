@@ -76,7 +76,7 @@ export default class Router extends React.Component {
                                                           user={this.state.user} loggedIn={this.state.loggedIn}
                                                           setLoggedIn={this.setLoggedIn}
                                />}/>
-                        <Route exact path="/answer"
+                        <Route exact path="/answer/:requestId"
                                render={props => <AnswerPage {...props}
                                                           user={this.state.user} loggedIn={this.state.loggedIn}
                                                           setLoggedIn={this.setLoggedIn}

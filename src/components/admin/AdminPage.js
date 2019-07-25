@@ -188,6 +188,7 @@ export class AdminPage extends React.Component {
                             <Col md={12}>
                                 <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Local Users"}
+                                               isLocalUsers={true}
                                                   users={this.state.allUsers}
                                                   onInfoMsgChange={this.onInfoMsgChange}
                                                   fetchAllUsers={this.fetchAllUsers}
@@ -199,6 +200,7 @@ export class AdminPage extends React.Component {
                             <Col md={12}>
                                 <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Severa Users"}
+                                               isLocalUsers={false}
                                                users={this.state.allUsersSevera}
                                                onInfoMsgChange={this.onInfoMsgChange}
                                                fetchAllUsers={this.fetchAllUsers}

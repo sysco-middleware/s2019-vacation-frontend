@@ -7,10 +7,10 @@ import _ from 'lodash'
 import {readableTime} from "../../utils/unixTranslate";
 import {randomString} from "../../utils/RandomString";
 import {Card, CardBody, CardTitle, Badge, Table, UncontrolledCollapse, Spinner,} from 'reactstrap';
+import { Link, withRouter } from "react-router-dom";
 
 
-
-export default class AdminRequestsList extends React.Component {
+export  class AdminRequestsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +31,7 @@ export default class AdminRequestsList extends React.Component {
             .catch(error => {
                 this.props.onErrorMsgChange("Something went wrong! ");
             });
-        this.props.fetchAllRequests()
+        await this.props.fetchAllRequests()
     };
 
     getStatusColor = (status) => {
@@ -73,6 +73,7 @@ export default class AdminRequestsList extends React.Component {
                                         <th>Reason</th>
                                         <th>Status</th>
                                         <th>created</th>
+                                        <th>answered</th>
                                     </tr>
                                     </thead>
                                     {showAllRequestSpinner === false ? (
@@ -87,11 +88,13 @@ export default class AdminRequestsList extends React.Component {
                                                 <td>{request.requestReason}</td>
                                                 <td><Badge color={this.getStatusColor(request.status)}>{request.status}</Badge></td>
                                                 <td>{readableTime(request.created, true)}</td>
+                                                <td>{request.answered !== null ? readableTime(request.answered, true) : "Not answered"}</td>
                                                 <td>< Badge style={{cursor: "pointer"}} onClick={()=>this.toggleMod(request)} color="info">Open</Badge></td>
                                                 {request.status.toUpperCase() === "PENDING" ? (
                                                     <div>
                                                         <td><Badge style={{cursor: "pointer"}} onClick={()=>this.changeRequestStatus("approve", request.requestId)} color="success">Approve</Badge></td>
                                                         <td>< Badge style={{cursor: "pointer"}} onClick={()=>this.changeRequestStatus("deny", request.requestId)} color="danger">Deny</Badge></td>
+                                                        <td>< Badge style={{cursor: "pointer"}} onClick={()=>this.props.history.push('/answer/'+request.requestId)} color="info">Answer</Badge></td>
                                                     </div>
                                                     ) : (<div/>)
                                                 }
@@ -118,3 +121,5 @@ export default class AdminRequestsList extends React.Component {
         }
     }
 }
+
+export default withRouter(AdminRequestsList);

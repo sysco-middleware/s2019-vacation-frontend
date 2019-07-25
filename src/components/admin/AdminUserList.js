@@ -5,6 +5,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import {readableTime} from "../../utils/unixTranslate";
 import {randomString} from "../../utils/RandomString";
+import AdminUserListItem from "./AdminUserListItem"
 import {Card, CardBody, CardTitle, Badge, Table, UncontrolledCollapse, Spinner,} from 'reactstrap';
 
 
@@ -17,10 +18,8 @@ export default class AdminUserList extends React.Component {
     }
 
 
-
-
     render() {
-        const {loggedIn, user, users, showAllUsersSpinner, title} = this.props;
+        const {loggedIn, user, users, showAllUsersSpinner, title, isLocalUsers} = this.props;
         const randString = randomString()[0];
 
         if (loggedIn && user !== null && user !== undefined && user.roles.includes("ADMIN") && users !== null) {
@@ -52,19 +51,7 @@ export default class AdminUserList extends React.Component {
                                     {showAllUsersSpinner === false ? (
                                     <tbody>
                                     {_.map(users, (user, i) => {
-                                        return (
-                                            <tr  key={i + 'klcwnoasdsa'}>
-                                                <td>{user.userId !== undefined ? user.userId : "No Id!"}</td>
-                                                <td>{user.firstName !== undefined && user.lastName !== undefined ? user.firstName+" "+user.lastName : "No Name!"}</td>
-                                                <td>{user.title !== undefined ? user.title : "No Title!"}</td>
-                                                <td>{user.email !== undefined ? user.email : "No Email!"}</td>
-                                                <td>{user.phone !== undefined ? user.phone : "No Phone!"}</td>
-                                                <td>{user.severaUserGUID !== undefined ? user.severaUserGUID : "No GUID"}</td>
-                                                <td>{user.severaSuperiorGUID !== undefined ? user.severaSuperiorGUID : "No superiorGUID!"}</td>
-                                                <td>{readableTime(user.created, true)}</td>
-                                                <td>{user.totalDays}/25</td>
-                                            </tr>
-                                        );
+                                        return <AdminUserListItem isLocalUsers={isLocalUsers} fetchAllUsers={this.props.fetchAllUsers} user={user} index={i}/>
                                     })}
                                     </tbody>
                                         ):(

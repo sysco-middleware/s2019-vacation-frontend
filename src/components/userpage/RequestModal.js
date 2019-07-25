@@ -30,6 +30,8 @@ const RequestModal = (props) => {
                     <p><strong>ReasonId: </strong>{request.requestReasonId !== undefined ? (<Badge color='info'>{request.requestReasonId}</Badge>) : "No ReasonId!"}</p>
                     <p><strong>Status: </strong>{request.status !== null ? <Badge color={getStatusColor(request.status)}>{request.status}</Badge> : "No Status"}</p>
                     <p><strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}</p>
+                    <p><strong>Answer from superior: </strong>{request.comment !== null ? request.answerComment	 : "No comment!"}</p>
+                    <p><strong>Answered: </strong>{request.answered !== null ? readableTime(request.answered, true) : "Not answered"}</p>
                     <p><strong>Created: </strong>{request.created !== null ? readableTime(request.created, true) : "No Date!"}</p>
                 </ModalBody>
                 <ModalFooter>
