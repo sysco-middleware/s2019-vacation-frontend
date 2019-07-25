@@ -2,12 +2,14 @@ import React from 'react';
 import './styling/general.css';
 import {Link} from 'react-router-dom'
 import {Col, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Row} from 'reactstrap';
+import {deleteCookie} from "./authentication/cookie";
 
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
+
 
     render() {
         const {loggedIn, user, setLoggedIn} = this.props;
@@ -24,13 +26,14 @@ export default class Header extends React.Component {
             alignItems: 'right'
         };
 
+
         return (
             <Row style={{
                 marginBottom: '10px',
             }}>
                 <Col sm="12" md="12" lg="12">
                     <Navbar color="color" light expand="md">
-                        <NavbarBrand href="/">
+                        <NavbarBrand href="/" onClick={() => deleteCookie()}>
                             <img
                                 src="https://haugesundil.no/wp-content/uploads/2017/04/Sysco_logo_RGB-1-e1467987962479.jpg"
                                 id="syscoLogo" alt="sysco_Logo"/>
@@ -46,7 +49,10 @@ export default class Header extends React.Component {
                                         <Link to={'/admin'}>Admin</Link>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink style={loggedInMenuStyle} onClick={() => setLoggedIn(false)}
+                                        <NavLink style={loggedInMenuStyle} onClick={() => {
+                                            setLoggedIn(false)
+                                            deleteCookie()
+                                        }}
                                                  href={'/'}>Logout</NavLink>
                                     </NavItem>
                                 </Nav>
