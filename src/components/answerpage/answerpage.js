@@ -93,26 +93,14 @@ export class AnswerPage extends React.Component {
                         <CardBody>
                             <CardTitle>New Request</CardTitle>
                             <CardText>
-                                <p><strong>Request
-                                    number: </strong>{request.requestId !== null ? request.requestId : "No ID!"}</p>
-                                <p>
-                                    <strong>From: </strong>{request.fromDate !== undefined ? (request.fromDate[2] + "-" + request.fromDate[1] + "-" + request.fromDate[0]) : "No Date!"}
-                                </p>
-                                <p>
-                                    <strong>To: </strong>{request.toDate !== undefined ? (request.toDate[2] + "-" + request.toDate[1] + "-" + request.toDate[0]) : "No Date!"}
-                                </p>
-                                <p><strong>Reason: </strong>{request.requestReason !== undefined ? (
-                                    <Badge color='info'>{request.requestReason}</Badge>) : "No Reason!"}</p>
-                                <p><strong>ReasonId: </strong>{request.requestReasonId !== undefined ? (
-                                    <Badge color='info'>{request.requestReasonId}</Badge>) : "No ReasonId!"}</p>
-                                <p><strong>Status: </strong>{request.status !== null ? <Badge
-                                    color={getStatusColor(request.status)}>{request.status}</Badge> : "No Status"}</p>
-                                <p>
-                                    <strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}
-                                </p>
-                                <p>
-                                    <strong>Created: </strong>{request.created !== null ? readableTime(request.created, true) : "No Date!"}
-                                </p>
+                                <p><strong>Request number: </strong>{request.requestId !== null ? request.requestId : "No ID!"}</p>
+                                <p><strong>From: </strong>{request.fromDate !== undefined ? (request.fromDate[2] + "-" + request.fromDate[1] + "-" + request.fromDate[0]) : "No Date!"}</p>
+                                <p><strong>To: </strong>{request.toDate !== undefined ? (request.toDate[2] + "-" + request.toDate[1] + "-" + request.toDate[0]) : "No Date!"}</p>
+                                <p><strong>Reason: </strong>{request.requestReason !== undefined ? (<Badge color='info'>{request.requestReason}</Badge>) : "No Reason!"}</p>
+                                <p><strong>ReasonId: </strong>{request.requestReasonId !== undefined ? (<Badge color='info'>{request.requestReasonId}</Badge>) : "No ReasonId!"}</p>
+                                <p><strong>Status: </strong>{request.status !== null ? <Badge color={getStatusColor(request.status)}>{request.status}</Badge> : "No Status"}</p>
+                                <p><strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}</p>
+                                <p><strong>Created: </strong>{request.created !== null ? readableTime(request.created, true) : "No Date!"}</p>
                             </CardText>
                         </CardBody>
                     </Card>
