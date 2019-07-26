@@ -6,11 +6,11 @@ import axios from 'axios'
 import _ from 'lodash'
 import {readableTime} from "../../utils/unixTranslate";
 import {randomString} from "../../utils/RandomString";
-import {Card, CardBody, CardTitle, Badge, Table, UncontrolledCollapse, Spinner,} from 'reactstrap';
-import { Link, withRouter } from "react-router-dom";
+import {Badge, Card, CardBody, CardTitle, Spinner, Table, UncontrolledCollapse,} from 'reactstrap';
+import {withRouter} from "react-router-dom";
 
 
-export  class AdminRequestsList extends React.Component {
+export class AdminRequestsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,14 +54,15 @@ export  class AdminRequestsList extends React.Component {
         if (loggedIn && user !== null && user !== undefined && user.roles.includes("ADMIN")) {
             return (
                 <div>
-                    <Card className="cardBox" >
+                    <Card className="cardBox">
                         <CardBody style={{
                             cursor: 'pointer',
                         }}
-                        id={randString}>
-                            <CardTitle>Requests<Badge style={{ marginLeft: '5px' }} color="secondary">{_.size(requests)}</Badge></CardTitle>
+                                  id={randString}>
+                            <CardTitle>Requests<Badge style={{marginLeft: '5px'}}
+                                                      color="secondary">{_.size(requests)}</Badge></CardTitle>
                         </CardBody>
-                        <CardBody className="cardBody" style={{ marginTop: '-20px' }} >
+                        <CardBody className="cardBody" style={{marginTop: '-20px'}}>
                             <UncontrolledCollapse toggler={'#' + randString}>
                                 <Table size="sm" hover responsive>
                                     <thead>
@@ -77,36 +78,49 @@ export  class AdminRequestsList extends React.Component {
                                     </tr>
                                     </thead>
                                     {showAllRequestSpinner === false ? (
-                                    <tbody>
-                                    {_.map(requests, (request, i) => {
-                                        return (
-                                            <tr  key={i + 'klcwnoasdsa'}>
-                                                <td>{request.requestId}</td>
-                                                <td>{request.user.firstName+" "+request.user.lastName}</td>
-                                                <td>{request.fromDate[2] + "-" + request.fromDate[1] + "-" + request.fromDate[0]}</td>
-                                                <td>{request.toDate[2] + "-" + request.toDate[1] + "-" + request.toDate[0]}</td>
-                                                <td>{request.requestReason}</td>
-                                                <td><Badge color={this.getStatusColor(request.status)}>{request.status}</Badge></td>
-                                                <td>{readableTime(request.created, true)}</td>
-                                                <td>{request.answered !== null ? readableTime(request.answered, true) : "Not answered"}</td>
-                                                <td>< Badge style={{cursor: "pointer"}} onClick={()=>this.toggleMod(request)} color="info">Open</Badge></td>
-                                                {request.status.toUpperCase() === "PENDING" ? (
-                                                    <div>
-                                                        <td><Badge style={{cursor: "pointer"}} onClick={()=>this.changeRequestStatus("approve", request.requestId)} color="success">Approve</Badge></td>
-                                                        <td>< Badge style={{cursor: "pointer"}} onClick={()=>this.changeRequestStatus("deny", request.requestId)} color="danger">Deny</Badge></td>
-                                                        <td>< Badge style={{cursor: "pointer"}} onClick={()=>this.props.history.push('/answer/'+request.requestId)} color="info">Answer</Badge></td>
-                                                    </div>
+                                        <tbody>
+                                        {_.map(requests, (request, i) => {
+                                            return (
+                                                <tr key={i + 'klcwnoasdsa'}>
+                                                    <td>{request.requestId}</td>
+                                                    <td>{request.user.firstName + " " + request.user.lastName}</td>
+                                                    <td>{request.fromDate[2] + "-" + request.fromDate[1] + "-" + request.fromDate[0]}</td>
+                                                    <td>{request.toDate[2] + "-" + request.toDate[1] + "-" + request.toDate[0]}</td>
+                                                    <td>{request.requestReason}</td>
+                                                    <td><Badge
+                                                        color={this.getStatusColor(request.status)}>{request.status}</Badge>
+                                                    </td>
+                                                    <td>{readableTime(request.created, true)}</td>
+                                                    <td>{request.answered !== null ? readableTime(request.answered, true) : "Not answered"}</td>
+                                                    <td>< Badge style={{cursor: "pointer"}}
+                                                                onClick={() => this.toggleMod(request)}
+                                                                color="info">Open</Badge></td>
+                                                    {request.status.toUpperCase() === "PENDING" ? (
+                                                        <div>
+                                                            <td><Badge style={{cursor: "pointer"}}
+                                                                       onClick={() => this.changeRequestStatus("approve", request.requestId)}
+                                                                       color="success">Approve</Badge></td>
+                                                            <td>< Badge style={{cursor: "pointer"}}
+                                                                        onClick={() => this.changeRequestStatus("deny", request.requestId)}
+                                                                        color="danger">Deny</Badge></td>
+                                                            <td>< Badge style={{cursor: "pointer"}}
+                                                                        onClick={() => this.props.history.push('/answer/' + request.requestId)}
+                                                                        color="info">Answer</Badge></td>
+                                                        </div>
                                                     ) : (<div/>)
-                                                }
-                                                {(this.state.request !== null && this.state.request !== undefined) ? <RequestModal request={this.state.request} toggleMod={this.toggleMod}  modal={this.state.modal}/> : null}
-                                            </tr>
-                                        );
-                                    })}
-                                    </tbody>
-                                    ):(
-                                    <tbody>
-                                    <Spinner style={{ width: '3rem', height: '3rem' }} />{' '}
-                                    </tbody>
+                                                    }
+                                                    {(this.state.request !== null && this.state.request !== undefined) ?
+                                                        <RequestModal request={this.state.request}
+                                                                      toggleMod={this.toggleMod}
+                                                                      modal={this.state.modal}/> : null}
+                                                </tr>
+                                            );
+                                        })}
+                                        </tbody>
+                                    ) : (
+                                        <tbody>
+                                        <Spinner style={{width: '3rem', height: '3rem'}}/>{' '}
+                                        </tbody>
                                     )}
                                 </Table>
                             </UncontrolledCollapse>

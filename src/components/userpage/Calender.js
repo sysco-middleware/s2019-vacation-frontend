@@ -1,32 +1,26 @@
-import React, {Component} from 'react';
+import React from 'react';
 import "../styling/calendar.css"
 import Calendar from 'react-calendar';
 import Moment from 'moment'
-import { extendMoment } from 'moment-range';
-import {
-    Spinner, Row, Col,
-    ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Badge
-} from "reactstrap";
-import RequestModal from "./RequestModal";
+import {extendMoment} from 'moment-range';
+import {Badge, Col, ListGroup, ListGroupItem, ListGroupItemText, Row, Spinner} from "reactstrap";
 import _ from "lodash";
 
 const moment = extendMoment(Moment);
 
 export default class Calender extends React.Component {
-    constructor(props){
-      super(props);
-      this.state = {
-          date: new Date(),
-          requests: [],
-          request: null,
-      }
+    constructor(props) {
+        super(props);
+        this.state = {
+            date: new Date(),
+            requests: [],
+            request: null,
+        }
     }
 
-
-
     onDateChange = async (date, isDay) => {
-        await this.setState({ date });
-        if(isDay){
+        await this.setState({date});
+        if (isDay) {
             this.onClickDay(date)
         }
     };
@@ -35,8 +29,8 @@ export default class Calender extends React.Component {
         this.props.setShowAllRequestSpinner(true);
         const {requests} = this.props;
         const list = [];
-        requests.map((r,i)=>{
-            if(r.status.toUpperCase() === 'APPROVED') {
+        requests.map((r, i) => {
+            if (r.status.toUpperCase() === 'APPROVED') {
                 r.requestDates.map((d, i) => {
                     if (moment(d, "YYYY-MM-DD").isSame(date, 'day')) {
                         if (!list.includes(r)) {
@@ -62,25 +56,23 @@ export default class Calender extends React.Component {
                 });
             })
         }
-
         return null
     };
 
 
-    render(){
+    render() {
         const {requests, setShowAllRequestSpinner, showAllRequestSpinner, user, loggedIn} = this.props;
 
-        if(loggedIn && user !== null && showAllRequestSpinner === false) {
+        if (loggedIn && user !== null && showAllRequestSpinner === false) {
             const date = moment(this.state.date).format("DD-MM-YYYY");
-
             return (
                 <div>
                     <Row>
                         <Col md={4}>
                             <Calendar
-                                onChange={(date)=>this.onDateChange(date, false)}
+                                onChange={(date) => this.onDateChange(date, false)}
                                 value={this.state.date}
-                                onClickDay={(date)=>this.onDateChange(date, true)}
+                                onClickDay={(date) => this.onDateChange(date, true)}
                                 showWeekNumbers={true}
                                 tileClassName={this.setTileClassName}
                             />
@@ -89,32 +81,33 @@ export default class Calender extends React.Component {
                             <h3 style={{
                                 textDecoration: "underline"
                             }}>
-                                {date} {_.size(this.state.requests) > 0 ? <Badge style={{ marginLeft: '5px' }} color="secondary">{_.size(this.state.requests)}</Badge> : null }</h3>
+                                {date} {_.size(this.state.requests) > 0 ? <Badge style={{marginLeft: '5px'}}
+                                                                                 color="secondary">{_.size(this.state.requests)}</Badge> : null}</h3>
                             {this.state.requests.length > 0 ? (
-                            <ListGroup>
-                                {
-                                    this.state.requests.map((r,i)=>{
-                                        return(
-                                            <ListGroupItem color='info'>
-                                                <ListGroupItemText>
-                                                    <strong>{r.user.firstName+" "+r.user.lastName}</strong>
-                                                    {" is going on a "+r.requestReason+" from "+r.fromDate[2] + "-" + r.fromDate[1] + "-" + r.toDate[0]+" to "+r.toDate[2] + "-" + r.toDate[1] + "-" + r.toDate[0]}
-                                                </ListGroupItemText>
-                                            </ListGroupItem>
-                                        )
-                                    })
-                                }
-                            </ListGroup>
-                                ) : (
-                                    <p>No Request Registered</p>
+                                <ListGroup>
+                                    {
+                                        this.state.requests.map((r, i) => {
+                                            return (
+                                                <ListGroupItem color='info'>
+                                                    <ListGroupItemText>
+                                                        <strong>{r.user.firstName + " " + r.user.lastName}</strong>
+                                                        {" is going on a " + r.requestReason + " from " + r.fromDate[2] + "-" + r.fromDate[1] + "-" + r.toDate[0] + " to " + r.toDate[2] + "-" + r.toDate[1] + "-" + r.toDate[0]}
+                                                    </ListGroupItemText>
+                                                </ListGroupItem>
+                                            )
+                                        })
+                                    }
+                                </ListGroup>
+                            ) : (
+                                <p>No Request Registered</p>
                             )}
                         </Col>
                     </Row>
                 </div>
             );
-        }else{
-            return <Spinner style={{ width: '3rem', height: '3rem' }} />
+        } else {
+            return <Spinner style={{width: '3rem', height: '3rem'}}/>
         }
     }
-  }
+}
 

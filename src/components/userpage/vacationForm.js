@@ -1,8 +1,7 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import {Button, Col, Form, FormGroup, Input, Label, Row, Spinner, CustomInput,
-    Card, CardBody, CardTitle } from 'reactstrap';
+import {Button, Card, CardBody, CardTitle, CustomInput, Form, FormGroup, Input, Label, Spinner} from 'reactstrap';
 import axios from "axios";
 import _ from "lodash"
 
@@ -93,15 +92,14 @@ export default class vacationForm extends React.Component {
     };
 
     render() {
-        const {loggedIn, user, setShowVacationFormSpinner, showVacationFormSpinner} = this.props;
-        const {startDate,endDate, reason} = this.state;
+        const {showVacationFormSpinner} = this.props;
+        const {startDate, endDate, reason} = this.state;
         const disabledButton = (_.isEmpty(startDate) || _.isEmpty(endDate) || _.isEmpty(reason));
 
-        if (loggedIn) {
-            return (
-                <Card className='cardBox'>
-                    <CardTitle className='cardTitle'>Apply for leave</CardTitle>
-                    <CardBody className='cardBody'>
+        return (
+            <Card className='cardBox'>
+                <CardTitle className='cardTitle'>Apply for leave</CardTitle>
+                <CardBody className='cardBody'>
                     <Form className="vacationForm">
                         <FormGroup>
                             <Label htmlFor="startDate">Start date*</Label>
@@ -118,8 +116,10 @@ export default class vacationForm extends React.Component {
                             <Label for="exampleCustomSelect">Reason*</Label>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
                                 <option>SELECT</option>
-                                {this.state.reasons.map((r,i)=>{
-                                    return <option onClick={(e)=>this.onReasonChange(e)} value={i}>{r.requestReason}</option>
+                                {this.state.reasons.map((r, i) => {
+                                    return <option onClick={(e) => this.onReasonChange(e)}
+                                                   key={r.requestId}
+                                                   value={i}>{r.requestReason}</option>
                                 })}
                             </CustomInput>
                         </FormGroup>
@@ -131,16 +131,14 @@ export default class vacationForm extends React.Component {
                         </FormGroup>
                     </Form>
                     {showVacationFormSpinner === false ? (
-                        <Button disabled={disabledButton} onClick={() => this.makeRequest()} id="vacationFormButton">Apply</Button>
+                        <Button disabled={disabledButton} onClick={() => this.makeRequest()}
+                                id="vacationFormButton">Apply</Button>
                     ) : (
-                        <Spinner style={{ width: '3rem', height: '3rem' }} />
+                        <Spinner style={{width: '3rem', height: '3rem'}}/>
                     )}
-                    </CardBody>
-                </Card>
+                </CardBody>
+            </Card>
 
-            );
-        } else {
-            return <div/>
-        }
+        );
     }
 }

@@ -1,5 +1,3 @@
-
-
 export const setCookie = (email) => {
 
     /*
@@ -10,8 +8,8 @@ export const setCookie = (email) => {
     document.cookie="expires=" + now.toUTCString() + ";"
     */
 
-    document.cookie="email=" + email + ";";
-    document.cookie="loggedIn=true;";
+    document.cookie = "email=" + email + ";";
+    document.cookie = "loggedIn=true;";
     //document.write(document.cookie);
 };
 
@@ -21,7 +19,7 @@ export const checkCookie = (cookieName) => {
     const decodedCookie = decodeURIComponent(document.cookie);
     const splitString = decodedCookie.split(';');
 
-    for (let i = 0; i <splitString.length; i++) {
+    for (let i = 0; i < splitString.length; i++) {
         let c = splitString[i];
         while (c.charAt(0) === ' ') {
             c = c.substring(1);
@@ -34,6 +32,6 @@ export const checkCookie = (cookieName) => {
 };
 
 export const deleteCookie = () => {
-    document.cookie="email=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    document.cookie="loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+    document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
 };

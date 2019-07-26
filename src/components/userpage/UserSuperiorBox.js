@@ -1,23 +1,19 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import { Card, CardBody, CardTitle, Spinner } from 'reactstrap';
-
-import {readableTime} from "../../utils/unixTranslate";
+import {Card, CardBody, CardTitle, Spinner} from 'reactstrap';
 
 export default class UserBox extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
 
-    render(){
-        const {loggedIn, user, setShowSuperiorBoxSpinner, showSuperiorBoxSpinner} = this.props;
-
-        if(loggedIn && user !== null) {
+    render() {
+        const {user, showSuperiorBoxSpinner} = this.props;
+        if (user) {
             return (
-                <Card className='cardBox' >
+                <Card className='cardBox'>
                     <CardTitle className='cardTitle'>Superior</CardTitle>
                     {showSuperiorBoxSpinner === false ? (
                         <CardBody className='cardBody'>
@@ -30,14 +26,14 @@ export default class UserBox extends React.Component {
                         </CardBody>
                     ) : (
                         <CardBody className='cardBody'>
-                            <Spinner style={{ width: '3rem', height: '3rem' }} />
+                            <Spinner style={{width: '3rem', height: '3rem'}}/>
                         </CardBody>
                     )
                     }
                 </Card>
             );
-        }else{
-            return <div/>
+        } else {
+            return null
         }
     }
 }

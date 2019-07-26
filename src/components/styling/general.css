@@ -17,10 +17,11 @@
     justify-content: space-around;
 
 }
-@media (min-width: 992px){
+
+@media (min-width: 992px) {
     .navbar li {
-        margin-left : 1em;
-        margin-right : 1em;
+        margin-left: 1em;
+        margin-right: 1em;
     }
 }
 

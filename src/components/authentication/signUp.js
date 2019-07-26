@@ -198,11 +198,11 @@ export default class signUp extends React.Component {
                                     <Label htmlFor="lastName" id="signUpDescription">*starred fields are
                                         mandatory</Label>
                                 </Row>
-                                { this.state.showSpinner === false ? (
+                                {this.state.showSpinner === false ? (
                                     <Button id="signUpPageButton"
                                             onClick={() => this.signUpNewUser()}>Create User</Button>
                                 ) : (
-                                    <Spinner style={{ width: '3rem', height: '3rem' }} />
+                                    <Spinner style={{width: '3rem', height: '3rem'}}/>
                                 )
                                 }
                             </Form>

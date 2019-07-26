@@ -1,20 +1,16 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import axios from 'axios'
 import _ from 'lodash'
-import {readableTime} from "../../utils/unixTranslate";
 import {randomString} from "../../utils/RandomString";
 import AdminUserListItem from "./AdminUserListItem"
-import {Card, CardBody, CardTitle, Badge, Table, UncontrolledCollapse, Spinner,} from 'reactstrap';
-
+import {Badge, Card, CardBody, CardTitle, Spinner, Table, UncontrolledCollapse,} from 'reactstrap';
 
 
 export default class AdminUserList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
 
 
@@ -25,14 +21,15 @@ export default class AdminUserList extends React.Component {
         if (loggedIn && user !== null && user !== undefined && user.roles.includes("ADMIN") && users !== null) {
             return (
                 <div>
-                    <Card className="cardBox" >
+                    <Card className="cardBox">
                         <CardBody style={{
                             cursor: 'pointer',
                         }}
                                   id={randString}>
-                            <CardTitle>{title}<Badge style={{ marginLeft: '5px' }} color="secondary">{_.size(users)}</Badge></CardTitle>
+                            <CardTitle>{title}<Badge style={{marginLeft: '5px'}}
+                                                     color="secondary">{_.size(users)}</Badge></CardTitle>
                         </CardBody>
-                        <CardBody className="cardBody" style={{ marginTop: '-20px' }} >
+                        <CardBody className="cardBody" style={{marginTop: '-20px'}}>
                             <UncontrolledCollapse toggler={'#' + randString}>
                                 <Table size="sm" hover responsive>
                                     <thead>
@@ -49,15 +46,17 @@ export default class AdminUserList extends React.Component {
                                     </tr>
                                     </thead>
                                     {showAllUsersSpinner === false ? (
-                                    <tbody>
-                                    {_.map(users, (user, i) => {
-                                        return <AdminUserListItem isLocalUsers={isLocalUsers} fetchAllUsers={this.props.fetchAllUsers} user={user} index={i}/>
-                                    })}
-                                    </tbody>
-                                        ):(
-                                            <tbody>
-                                                <Spinner style={{ width: '3rem', height: '3rem' }} />{' '}
-                                            </tbody>
+                                        <tbody>
+                                        {_.map(users, (user, i) => {
+                                            return <AdminUserListItem isLocalUsers={isLocalUsers}
+                                                                      fetchAllUsers={this.props.fetchAllUsers}
+                                                                      user={user} index={i}/>
+                                        })}
+                                        </tbody>
+                                    ) : (
+                                        <tbody>
+                                        <Spinner style={{width: '3rem', height: '3rem'}}/>{' '}
+                                        </tbody>
                                     )}
                                 </Table>
                             </UncontrolledCollapse>

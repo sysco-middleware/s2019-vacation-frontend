@@ -4,7 +4,6 @@ import '../styling/userpageStyling.css';
 import AdminRequestList from './AdminRequestsList'
 import {Col, Row, UncontrolledAlert} from 'reactstrap';
 import axios from "axios";
-import Calender from "../userpage/Calender";
 import {withRouter} from "react-router-dom";
 import AdminUserList from "./AdminUserList";
 import {checkCookie} from "../authentication/cookie";
@@ -24,12 +23,12 @@ export class AdminPage extends React.Component {
         }
     }
 
-   async componentDidMount() {
+    async componentDidMount() {
         const {user, loggedIn} = this.props;
-        if(user !== null &&
+        if (user !== null &&
             loggedIn &&
             user.roles !== undefined &&
-            user.roles.includes("ADMIN")){
+            user.roles.includes("ADMIN")) {
             await this.fetchAllRequests();
             await this.fetchAllUsers();
             await this.fetchAllUsersSevera();
@@ -47,7 +46,6 @@ export class AdminPage extends React.Component {
     setShowAllUsersSeveraSpinner = (showAllUsersSeveraSpinner) => {
         this.setState({showAllUsersSeveraSpinner})
     };
-
 
 
     handleNotLoggedIn = () => {
@@ -92,7 +90,7 @@ export class AdminPage extends React.Component {
         this.setShowAllUsersSpinner(true);
 
         if (checkCookie('loggedIn') === 'true') {
-        //if (this.props.loggedIn) {
+            //if (this.props.loggedIn) {
 
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user`)
@@ -121,7 +119,7 @@ export class AdminPage extends React.Component {
         this.setShowAllUsersSeveraSpinner(true);
 
         if (checkCookie('loggedIn') === 'true') {
-        //if (this.props.loggedIn) {
+            //if (this.props.loggedIn) {
 
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/severa`)
@@ -170,7 +168,7 @@ export class AdminPage extends React.Component {
     render() {
         const {loggedIn, user} = this.props;
 
-        if ( checkCookie('loggedIn') === 'true' &&
+        if (checkCookie('loggedIn') === 'true' &&
             //loggedIn &&
             user !== null &&
             user !== undefined &&
@@ -183,8 +181,9 @@ export class AdminPage extends React.Component {
                     <div>
                         <Row>
                             <Col md={12}>
-                                <AdminRequestList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
-                                                 onInfoMsgChange={this.onInfoMsgChange}
+                                <AdminRequestList user={user} loggedIn={loggedIn}
+                                                  onErrorMsgChange={this.onErrorMsgChange}
+                                                  onInfoMsgChange={this.onInfoMsgChange}
                                                   requests={this.state.allRequests}
                                                   fetchAllRequests={this.fetchAllRequests}
                                                   setShowAllRequestSpinner={this.setShowAllRequestSpinner}
@@ -196,11 +195,11 @@ export class AdminPage extends React.Component {
                                 <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Local Users"}
                                                isLocalUsers={true}
-                                                  users={this.state.allUsers}
-                                                  onInfoMsgChange={this.onInfoMsgChange}
-                                                  fetchAllUsers={this.fetchAllUsers}
-                                                  setShowAllUsersSpinner={this.setShowAllUsersSpinner}
-                                                  showAllUsersSpinner={this.state.showAllUsersSpinner}/>
+                                               users={this.state.allUsers}
+                                               onInfoMsgChange={this.onInfoMsgChange}
+                                               fetchAllUsers={this.fetchAllUsers}
+                                               setShowAllUsersSpinner={this.setShowAllUsersSpinner}
+                                               showAllUsersSpinner={this.state.showAllUsersSpinner}/>
                             </Col>
                         </Row>
                         <Row>

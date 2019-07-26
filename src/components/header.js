@@ -13,6 +13,7 @@ export default class Header extends React.Component {
 
     render() {
         const {loggedIn, user, setLoggedIn} = this.props;
+        let isAdmin = null;
 
         const loggedInMenuStyle = {
             fontSize: '20px',
@@ -26,6 +27,15 @@ export default class Header extends React.Component {
             alignItems: 'right'
         };
 
+        if (user !== null &&
+            loggedIn === true &&
+            user.roles !== undefined &&
+            user.roles.includes("ADMIN")) {
+            isAdmin =
+                <NavItem style={loggedInMenuStyle}>
+                    <Link to={'/admin'}>Admin</Link>
+                </NavItem>
+        }
 
         return (
             <Row style={{
@@ -45,9 +55,7 @@ export default class Header extends React.Component {
                                     <NavItem style={loggedInMenuStyle}>
                                         <Link to={'/user'}>User</Link>
                                     </NavItem>
-                                    <NavItem style={loggedInMenuStyle}>
-                                        <Link to={'/admin'}>Admin</Link>
-                                    </NavItem>
+                                    {isAdmin}
                                     <NavItem>
                                         <NavLink style={loggedInMenuStyle} onClick={() => {
                                             setLoggedIn(false)

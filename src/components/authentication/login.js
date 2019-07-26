@@ -1,17 +1,19 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/loginStyling.css';
-import {setCookie, checkCookie, deleteCookie} from './cookie.js';
+import {setCookie} from './cookie.js';
 import {
     Button,
-    InputGroup,
+    Col,
+    Form,
+    FormGroup,
     Input,
+    InputGroup,
     InputGroupAddon,
     InputGroupText,
-    UncontrolledAlert,
-    Form,
     Row,
-    Col, FormGroup, Spinner
+    Spinner,
+    UncontrolledAlert
 } from 'reactstrap';
 import image from '../../uploads/vaca.png';
 import axios from 'axios';
@@ -21,7 +23,9 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             exists: false,
-            email: 'cato.aune@sysco.no',
+            email: this.props.user && this.props.user.email,
+            //cato.aune@sysco.no
+            //lisa.benedikte.greenquist@sysco.no
             errorMsg: null,
             showSpinner: false,
         }
@@ -52,7 +56,7 @@ export default class Login extends React.Component {
         this.onErrorMsgChange(null);
 
         setCookie(this.checkMail(this.state.email));
-    }
+    };
 
 
     fetchUser = async () => {
@@ -71,9 +75,9 @@ export default class Login extends React.Component {
         console.log(response);
         if (response !== null && response !== undefined) {
             if (response.status === 200) {
-                this.props.setLoggedIn(response.data);
+                await this.props.setLoggedIn(response.data);
                 if (this.props.loggedIn) {
-                    setCookie(this.state.email);
+                    setCookie(this.checkMail(this.state.email));
                     this.goToUserPage();
                 }
             } else {

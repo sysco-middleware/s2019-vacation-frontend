@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import { Card, CardBody, CardTitle, Spinner } from 'reactstrap';
+import {Card, CardBody, CardTitle, Spinner} from 'reactstrap';
 
 import {readableTime} from "../../utils/unixTranslate";
 
@@ -13,9 +13,9 @@ export default class UserBox extends React.Component {
     }
 
     render(){
-        const {loggedIn, user, setShowUserBoxSpinner, showUserBoxSpinner} = this.props;
+        const {user, showUserBoxSpinner} = this.props;
 
-        if(loggedIn && user !== null) {
+        if(user) {
             return (
                 <Card className='cardBox' >
                     <CardTitle className='cardTitle'>User profile</CardTitle>
@@ -48,8 +48,8 @@ export default class UserBox extends React.Component {
                     }
                 </Card>
             );
-        }else{
-            return <div/>
+        } else {
+            return null
         }
     }
 }

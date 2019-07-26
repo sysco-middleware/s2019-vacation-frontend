@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar'
+import React from 'react';
+import {Calendar, momentLocalizer} from 'react-big-calendar'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Moment from 'moment'
-import { extendMoment } from 'moment-range';
-import {
-    Spinner, Row, Col, InputGroup, Button, Input
-} from "reactstrap";
+import {extendMoment} from 'moment-range';
+import {Col, InputGroup, Row, Spinner} from "reactstrap";
 import _ from "lodash";
 import axios from "axios";
 import SearchBar from './searchBar2.js';
@@ -13,7 +11,7 @@ import SearchBar from './searchBar2.js';
 const moment = extendMoment(Moment);
 
 export default class CalendarBig extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             events: [],
@@ -23,20 +21,20 @@ export default class CalendarBig extends React.Component {
         }
     }
 
-    onTermChange = (e) =>{
+    onTermChange = (e) => {
         this.setState({term: e.target.value})
     };
 
     async componentWillReceiveProps(nextProps, nextContext) {
         const {requests} = nextProps;
-        if(requests !== null && requests !== undefined) {
+        if (requests !== null && requests !== undefined) {
             await this.createEvents(requests);
         }
     }
 
     async componentDidMount() {
         const {requests, user, loggedIn} = this.props;
-        if(user !== null && loggedIn && requests !== null && requests !== undefined) {
+        if (user !== null && loggedIn && requests !== null && requests !== undefined) {
             await this.fetchReasons();
         }
     }
@@ -44,13 +42,13 @@ export default class CalendarBig extends React.Component {
 
     createEvents = async (requests) => {
         const list = [];
-        requests.map((r,i)=>{
-            if(r.status.toUpperCase() === "APPROVED"){
-                const name = r.user.firstName+" "+r.user.lastName;
+        requests.map((r, i) => {
+            if (r.status.toUpperCase() === "APPROVED") {
+                const name = r.user.firstName + " " + r.user.lastName;
                 const from = moment(r.fromDate, "YYYY-MM-DD");
                 const to = moment(r.toDate, "YYYY-MM-DD");
                 const event = {
-                    title: name+": "+r.requestReason,
+                    title: name + ": " + r.requestReason,
                     start: from,
                     end: to,
                     allDay: true
@@ -63,22 +61,22 @@ export default class CalendarBig extends React.Component {
 
 
     search = async () => {
-      const {requests} = this.props;
-      let term = this.state.term;
-      const list = [];
+        const {requests} = this.props;
+        let term = this.state.term;
+        const list = [];
 
-      if(requests !== null && requests !== undefined && !_.isEmpty(term)){
-          requests.map((r,i)=>{
-              if(r.user.firstName.includes(term) ||
-                  r.user.lastName.includes(term) ||
-                 r.requestReason.includes(term)){
-                  list.push(r)
-              }
-          });
-          await this.createEvents(list)
-      }else{
-          await this.createEvents(requests)
-      }
+        if (requests !== null && requests !== undefined && !_.isEmpty(term)) {
+            requests.map((r, i) => {
+                if (r.user.firstName.includes(term) ||
+                    r.user.lastName.includes(term) ||
+                    r.requestReason.includes(term)) {
+                    list.push(r)
+                }
+            });
+            await this.createEvents(list)
+        } else {
+            await this.createEvents(requests)
+        }
     };
 
     clearSearch = async () => {
@@ -90,20 +88,19 @@ export default class CalendarBig extends React.Component {
     };
 
 
-
     generateRandomColor = () => {
         return 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
     };
 
 
     onReasonChange = async event => {
-        if(event.target.value !== null && event.target.value !== undefined) {
+        if (event.target.value !== null && event.target.value !== undefined) {
             await this.setState({
                 reason: this.state.reasons[event.target.value],
                 term: this.state.reasons[event.target.value].requestReason
             });
             await this.search(this.state.reason.requestReason);
-        }else{
+        } else {
             await this.setState({term: ""});
         }
     };
@@ -126,17 +123,17 @@ export default class CalendarBig extends React.Component {
     };
 
 
-    render(){
+    render() {
         const {showAllRequestSpinner, user, loggedIn} = this.props;
 
-        if(loggedIn && user !== null && showAllRequestSpinner === false) {
+        if (loggedIn && user !== null && showAllRequestSpinner === false) {
             const localizer = momentLocalizer(moment);
 
 
             return (
                 <div>
                     <Row style={{marginBottom: "15px"}}>
-                        <Col md={{ size: 4, order:2, offset: 8 }}>
+                        <Col md={{size: 4, order: 2, offset: 8}}>
                             <InputGroup>
                                 <SearchBar createEvents={this.createEvents}/>
                             </InputGroup>
@@ -149,14 +146,14 @@ export default class CalendarBig extends React.Component {
                                 defaultDate={new Date()}
                                 defaultView="month"
                                 events={this.state.events}
-                                style={{ height: "100vh" }}
+                                style={{height: "100vh"}}
                             />
                         </Col>
                     </Row>
                 </div>
             );
-        }else{
-            return <Spinner style={{ width: '3rem', height: '3rem' }} />
+        } else {
+            return <Spinner style={{width: '3rem', height: '3rem'}}/>
         }
     }
 }
