@@ -33,7 +33,7 @@ export default class UserBox extends React.Component {
                                 listStyle: "none",
                             }}>
                                 {user.roles !== undefined ? user.roles.map((role) => {
-                                    return <li>
+                                    return <li >
                                         <pre>{role}</pre>
                                     </li>
                                 }) : "No Roles!"}

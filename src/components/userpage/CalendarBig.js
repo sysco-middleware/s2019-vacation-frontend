@@ -42,7 +42,7 @@ export default class CalendarBig extends React.Component {
 
     createEvents = async (requests) => {
         const list = [];
-        requests.map((r, i) => {
+        requests.map((r) => {
             if (r.status.toUpperCase() === "APPROVED") {
                 const name = r.user.firstName + " " + r.user.lastName;
                 const from = moment(r.fromDate, "YYYY-MM-DD");
@@ -66,7 +66,7 @@ export default class CalendarBig extends React.Component {
         const list = [];
 
         if (requests !== null && requests !== undefined && !_.isEmpty(term)) {
-            requests.map((r, i) => {
+            requests.map((r) => {
                 if (r.user.firstName.includes(term) ||
                     r.user.lastName.includes(term) ||
                     r.requestReason.includes(term)) {

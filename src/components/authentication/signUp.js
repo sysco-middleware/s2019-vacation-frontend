@@ -92,7 +92,7 @@ export default class signUp extends React.Component {
         this.setShowSpinner(true);
         this.onErrorMsgChange(null);
 
-        const {firstName, middleName, lastName, email} = this.state;
+        const {firstName, lastName, email} = this.state;
         if (firstName.length > 0 && lastName.length > 0 && email.length > 0) {
 
             const exists = this.checkIfUserExists();

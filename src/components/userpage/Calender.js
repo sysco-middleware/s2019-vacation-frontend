@@ -29,9 +29,9 @@ export default class Calender extends React.Component {
         this.props.setShowAllRequestSpinner(true);
         const {requests} = this.props;
         const list = [];
-        requests.map((r, i) => {
+        requests.map((r) => {
             if (r.status.toUpperCase() === 'APPROVED') {
-                r.requestDates.map((d, i) => {
+                r.requestDates.map((d) => {
                     if (moment(d, "YYYY-MM-DD").isSame(date, 'day')) {
                         if (!list.includes(r)) {
                             list.push(r)
@@ -48,20 +48,21 @@ export default class Calender extends React.Component {
     setTileClassName = ({date, view}) => {
         const {requests} = this.props;
         if (view === 'month') {
-            requests.map((r, i) => {
-                r.requestDates.map((d, i) => {
+            requests.map((r) => {
+                r.requestDates.map((d) => {
                     if (moment(d, "YYYY-MM-DD").isSame(date, 'day')) {
                         return 'mark'
+                    } else {
+                        return null
                     }
                 });
             })
         }
-        return null
     };
 
 
     render() {
-        const {requests, setShowAllRequestSpinner, showAllRequestSpinner, user, loggedIn} = this.props;
+        const {showAllRequestSpinner, user, loggedIn} = this.props;
 
         if (loggedIn && user !== null && showAllRequestSpinner === false) {
             const date = moment(this.state.date).format("DD-MM-YYYY");

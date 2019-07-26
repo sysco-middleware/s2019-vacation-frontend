@@ -27,7 +27,7 @@ export class AdminRequestsList extends React.Component {
     };
 
     changeRequestStatus = async (status, requestId) => {
-        const response = await axios.get(`https://sysco-feri.herokuapp.com/api/request/${requestId}/${status}`)
+        await axios.get(`https://sysco-feri.herokuapp.com/api/request/${requestId}/${status}`)
             .catch(error => {
                 this.props.onErrorMsgChange("Something went wrong! ");
             });
@@ -119,7 +119,7 @@ export class AdminRequestsList extends React.Component {
                                         </tbody>
                                     ) : (
                                         <tbody>
-                                        <Spinner style={{width: '3rem', height: '3rem'}}/>{' '}
+                                        <Spinner style={{width: '3rem', height: '3rem'}}/>
                                         </tbody>
                                     )}
                                 </Table>

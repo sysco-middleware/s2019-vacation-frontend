@@ -39,7 +39,6 @@ export class AnswerPage extends React.Component {
 
     fetchRequest = async () => {
         this.setShowLoadingSpinner(true);
-        const {createEvents} = this.props;
         const requestId = await this.props.match.params.requestId;
         const response = await axios.get(`https://sysco-feri.herokuapp.com/api/request/${requestId}`)
             .catch(error => {
@@ -72,7 +71,7 @@ export class AnswerPage extends React.Component {
             status: status.toUpperCase(),
             comment: this.state.comment
         };
-        const response = await axios.post(`https://sysco-feri.herokuapp.com/api/request/${requestId}`, body)
+        await axios.post(`https://sysco-feri.herokuapp.com/api/request/${requestId}`, body)
             .catch(error => {
                 alert("Something went wrong!");
             });

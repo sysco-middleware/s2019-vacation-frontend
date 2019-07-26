@@ -24,8 +24,6 @@ export default class Login extends React.Component {
         this.state = {
             exists: false,
             email: this.props.user && this.props.user.email,
-            //cato.aune@sysco.no
-            //lisa.benedikte.greenquist@sysco.no
             errorMsg: null,
             showSpinner: false,
         }
@@ -117,7 +115,7 @@ export default class Login extends React.Component {
                 <div className="login">
                     <div className="loginContent">
                         <InputGroup id="loginInputGroup" size="lg">
-                            <Input placeholder="username" name="name" value={this.state.email}
+                            <Input placeholder="username" name="name" value={this.state.email || ''}
                                    onChange={e => this.onEmailChange(e)}/>
                             <InputGroupAddon addonType="append">
                                 <InputGroupText>@sysco.no</InputGroupText>
