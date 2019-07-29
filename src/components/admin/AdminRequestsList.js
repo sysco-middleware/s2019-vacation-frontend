@@ -1,7 +1,6 @@
 import React from 'react';
-import '../styling/general.css';
-import '../styling/userpageStyling.css';
 import RequestModal from '../userpage/RequestModal';
+import '../styling/adminPageStyling.css';
 import axios from 'axios'
 import _ from 'lodash'
 import {readableTime} from "../../utils/unixTranslate";
@@ -48,21 +47,21 @@ export class AdminRequestsList extends React.Component {
     };
 
     render() {
-        const {loggedIn, user, requests, showAllRequestSpinner} = this.props;
+        const {loggedIn, user, title, requests, showAllRequestSpinner} = this.props;
         const randString = randomString()[0];
 
         if (loggedIn && user !== null && user !== undefined && user.roles.includes("ADMIN")) {
             return (
                 <div>
-                    <Card className="cardBox">
+                    <Card className="adminPageCardBox">
                         <CardBody style={{
                             cursor: 'pointer',
                         }}
                                   id={randString}>
-                            <CardTitle>Requests<Badge style={{marginLeft: '5px'}}
+                            <CardTitle>{title}<Badge style={{marginLeft: '5px'}}
                                                       color="secondary">{_.size(requests)}</Badge></CardTitle>
                         </CardBody>
-                        <CardBody className="cardBody" style={{marginTop: '-20px'}}>
+                        <CardBody className="adminPageCardBody" style={{marginTop: '-20px'}}>
                             <UncontrolledCollapse toggler={'#' + randString}>
                                 <Table size="sm" hover responsive>
                                     <thead>

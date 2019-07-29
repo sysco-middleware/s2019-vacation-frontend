@@ -2,15 +2,24 @@
     margin: 2%;
 }
 
-.cardTitle {
-    font-size: 30px;
-    padding: 11px;
+.cardBox {
+    background: #498bcc !important;
+    border-radius: 10px !important;
+    text-align: left;
 }
 
 .cardTitle {
-    padding-top: 30px;
     font-size: 30px;
+    padding-top: 30px;
     text-align: center;
+}
+
+.cardBody {
+    font-size: 19px;
+    background: #CBE5FE !important;
+    border-radius: 10px !important;
+    padding: 30px;
+    margin: 3%;
 }
 
 .vacationColumn {
@@ -22,21 +31,6 @@
 
 .vacationForm {
     text-align: left;
-}
-
-.cardBox {
-    background: #498bcc !important;
-    border-radius: 10px !important;
-    text-align: left;
-    margin: 10px;
-}
-
-.cardBody {
-    font-size: 19px;
-    background: #CBE5FE !important;
-    border-radius: 10px !important;
-    padding: 30px;
-    margin: 3%;
 }
 
 #userPageDateInput {

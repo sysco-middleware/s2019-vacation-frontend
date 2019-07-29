@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styling/answerpage.css';
 import {withRouter} from "react-router-dom";
-import {Badge, Button, ButtonGroup, Card, CardBody, CardText, CardTitle, Col, Input, Row, Spinner} from 'reactstrap';
+import {Badge, Button, ButtonGroup, Card, CardBody, CardTitle, Col, Input, Row, Spinner} from 'reactstrap';
 import axios from "axios";
 import {readableTime} from "../../utils/unixTranslate";
 
@@ -87,23 +87,31 @@ export class AnswerPage extends React.Component {
         const {request} = this.state;
         if (request !== null && request !== undefined) {
             return (
-                <div style={{marginLeft: "9%"}}>
-                    <Card>
-                        <CardBody>
-                            <CardTitle>New Request</CardTitle>
-                            <CardText>
-                                <p><strong>Request number: </strong>{request.requestId !== null ? request.requestId : "No ID!"}</p>
-                                <p><strong>From: </strong>{request.fromDate !== undefined ? (request.fromDate[2] + "-" + request.fromDate[1] + "-" + request.fromDate[0]) : "No Date!"}</p>
-                                <p><strong>To: </strong>{request.toDate !== undefined ? (request.toDate[2] + "-" + request.toDate[1] + "-" + request.toDate[0]) : "No Date!"}</p>
-                                <p><strong>Reason: </strong>{request.requestReason !== undefined ? (<Badge color='info'>{request.requestReason}</Badge>) : "No Reason!"}</p>
-                                <p><strong>ReasonId: </strong>{request.requestReasonId !== undefined ? (<Badge color='info'>{request.requestReasonId}</Badge>) : "No ReasonId!"}</p>
-                                <p><strong>Status: </strong>{request.status !== null ? <Badge color={getStatusColor(request.status)}>{request.status}</Badge> : "No Status"}</p>
-                                <p><strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}</p>
-                                <p><strong>Created: </strong>{request.created !== null ? readableTime(request.created, true) : "No Date!"}</p>
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </div>
+                <Card id="answerPageCardBox">
+                    <CardTitle id='answerPageCardTitle'>Request Info</CardTitle>
+                    <CardBody id='answerPageRequestInfoCardBody'>
+                        <p><strong>Request
+                            number: </strong>{request.requestId !== null ? request.requestId : "No ID!"}</p>
+                        <p>
+                            <strong>From: </strong>{request.fromDate !== undefined ? (request.fromDate[2] + "-" + request.fromDate[1] + "-" + request.fromDate[0]) : "No Date!"}
+                        </p>
+                        <p>
+                            <strong>To: </strong>{request.toDate !== undefined ? (request.toDate[2] + "-" + request.toDate[1] + "-" + request.toDate[0]) : "No Date!"}
+                        </p>
+                        <p><strong>Reason: </strong>{request.requestReason !== undefined ? (
+                            <Badge color='info'>{request.requestReason}</Badge>) : "No Reason!"}</p>
+                        <p><strong>ReasonId: </strong>{request.requestReasonId !== undefined ? (
+                            <Badge color='info'>{request.requestReasonId}</Badge>) : "No ReasonId!"}</p>
+                        <p><strong>Status: </strong>{request.status !== null ? <Badge
+                            color={getStatusColor(request.status)}>{request.status}</Badge> : "No Status"}</p>
+                        <p>
+                            <strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}
+                        </p>
+                        <p>
+                            <strong>Created: </strong>{request.created !== null ? readableTime(request.created, true) : "No Date!"}
+                        </p>
+                    </CardBody>
+                </Card>
             );
         }
         return null;
@@ -111,25 +119,30 @@ export class AnswerPage extends React.Component {
 
     renderRequest = () => {
         return (
-            <div>
+            <div id="answerPage">
                 <Row>
                     {this.renderRequestInfo()}
-                </Row>
-                <Row>
-                    <Input type="textarea" value={this.state.comment} onChange={(e) => this.onCommentChange(e)}
-                           placeholder="Any comment?" id="comment"/>
-                </Row>
-                <Row>
-                    <ButtonGroup id="btn">
-                        <Col>
-                            <Button onClick={() => this.changeRequestStatus("approved", this.state.request.requestId)}
-                                    id="approvebtn">Approve</Button>
-                        </Col>
-                        <Col>
-                            <Button onClick={() => this.changeRequestStatus("denied", this.state.request.requestId)}
-                                    id="denybtn">Deny</Button>
-                        </Col>
-                    </ButtonGroup>
+
+                    <Card id="answerPageCardBox">
+                        <CardTitle id='answerPageCardTitle'>Comment</CardTitle>
+                        <CardBody id='answerPageCommentCardBody'>
+                            <Input type="textarea" value={this.state.comment}
+                                   onChange={(e) => this.onCommentChange(e)}
+                                   placeholder="Any comment?" id="comment"/>
+                            <ButtonGroup id="btn">
+                                <Col>
+                                    <Button
+                                        onClick={() => this.changeRequestStatus("approved", this.state.request.requestId)}
+                                        id="approvebtn">Approve</Button>
+                                </Col>
+                                <Col>
+                                    <Button
+                                        onClick={() => this.changeRequestStatus("denied", this.state.request.requestId)}
+                                        id="denybtn">Deny</Button>
+                                </Col>
+                            </ButtonGroup>
+                        </CardBody>
+                    </Card>
                 </Row>
             </div>
         );

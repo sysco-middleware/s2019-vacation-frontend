@@ -1,0 +1,16 @@
+.adminPage {
+    margin: 1%;
+}
+
+.adminPageCardBox {
+    background: #498bcc !important;
+    border-radius: 10px !important;
+    text-align: left;
+}
+
+.adminPageCardBody {
+    font-size: 17px;
+    background: #CBE5FE !important;
+    border-radius: 10px !important;
+    margin: 3%;
+}

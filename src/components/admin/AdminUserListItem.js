@@ -1,6 +1,5 @@
 import React from 'react';
-import '../styling/general.css';
-import '../styling/userpageStyling.css';
+import '../styling/adminPageStyling.css';
 import axios from 'axios'
 import {readableTime} from "../../utils/unixTranslate";
 import {Badge, Input} from 'reactstrap';

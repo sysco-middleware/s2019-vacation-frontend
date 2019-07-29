@@ -1,6 +1,5 @@
 import React from 'react';
-import '../styling/general.css';
-import '../styling/userpageStyling.css';
+import '../styling/adminPageStyling.css';
 import _ from 'lodash'
 import {randomString} from "../../utils/RandomString";
 import AdminUserListItem from "./AdminUserListItem"
@@ -21,7 +20,7 @@ export default class AdminUserList extends React.Component {
         if (loggedIn && user !== null && user !== undefined && user.roles.includes("ADMIN") && users !== null) {
             return (
                 <div>
-                    <Card className="cardBox">
+                    <Card className="adminPageCardBox">
                         <CardBody style={{
                             cursor: 'pointer',
                         }}
@@ -29,7 +28,7 @@ export default class AdminUserList extends React.Component {
                             <CardTitle>{title}<Badge style={{marginLeft: '5px'}}
                                                      color="secondary">{_.size(users)}</Badge></CardTitle>
                         </CardBody>
-                        <CardBody className="cardBody" style={{marginTop: '-20px'}}>
+                        <CardBody className="adminPageCardBody" style={{marginTop: '-20px'}}>
                             <UncontrolledCollapse toggler={'#' + randString}>
                                 <Table size="sm" hover responsive>
                                     <thead>

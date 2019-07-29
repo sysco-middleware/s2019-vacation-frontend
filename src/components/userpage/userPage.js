@@ -169,94 +169,96 @@ export default class userPage extends React.Component {
     render() {
         const {loggedIn, user} = this.props;
 
+        const localMenuStyle = {
+            fontSize: '23px',
+        };
+
         return (
-            <div>
+            <div className='userPage'>
                 {this.renderErrorMsg()}
                 {this.renderInfoMsg()}
-                <div className='userPage'>
-                    <Nav style={{marginBottom: "15px"}} tabs>
-                        <NavItem>
-                            <NavLink
-                                onClick={() => {
-                                    this.toggle('1');
-                                }}>
-                                Request
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink
-                                onClick={() => {
-                                    this.toggle('2');
-                                }}>
-                                Calendar
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink
-                                onClick={() => {
-                                    this.toggle('3');
-                                }}>
-                                BigCalendar
-                            </NavLink>
-                        </NavItem>
-                    </Nav>
-                    <TabContent activeTab={this.state.activeTab}>
-                        <TabPane tabId="1">
-                            <Row>
-                                <Col md={4}>
-                                    <UserBox user={user} onErrorMsgChange={this.onErrorMsgChange}
-                                             onInfoMsgChange={this.onInfoMsgChange}
-                                             setShowUserBoxSpinner={this.setShowUserBoxSpinner}
-                                             showUserBoxSpinner={this.state.showUserBoxSpinner}/>
-                                </Col>
-                                <Col md={4}>
-                                    <VacationForm user={user}
-                                                  onErrorMsgChange={this.onErrorMsgChange}
-                                                  fetchRequests={this.fetchRequests}
-                                                  onInfoMsgChange={this.onInfoMsgChange}
-                                                  setShowVacationFormSpinner={this.setShowVacationFormSpinner}
-                                                  showVacationFormSpinner={this.state.showVacationFormSpinner}/>
-                                </Col>
-                                <Col md={4}>
-                                    <Requests onErrorMsgChange={this.onErrorMsgChange}
-                                              requests={this.state.requests}
+                <Nav style={{marginBottom: "15px"}} tabs>
+                    <NavItem style={localMenuStyle}>
+                        <NavLink
+                            onClick={() => {
+                                this.toggle('1');
+                            }}>
+                            Request
+                        </NavLink>
+                    </NavItem>
+                    <NavItem style={localMenuStyle}>
+                        <NavLink
+                            onClick={() => {
+                                this.toggle('2');
+                            }}>
+                            Calendar
+                        </NavLink>
+                    </NavItem>
+                    <NavItem style={localMenuStyle}>
+                        <NavLink
+                            onClick={() => {
+                                this.toggle('3');
+                            }}>
+                            BigCalendar
+                        </NavLink>
+                    </NavItem>
+                </Nav>
+                <TabContent activeTab={this.state.activeTab}>
+                    <TabPane tabId="1">
+                        <Row>
+                            <Col md={4}>
+                                <UserBox user={user} onErrorMsgChange={this.onErrorMsgChange}
+                                         onInfoMsgChange={this.onInfoMsgChange}
+                                         setShowUserBoxSpinner={this.setShowUserBoxSpinner}
+                                         showUserBoxSpinner={this.state.showUserBoxSpinner}/>
+                            </Col>
+                            <Col md={4}>
+                                <VacationForm user={user}
+                                              onErrorMsgChange={this.onErrorMsgChange}
                                               fetchRequests={this.fetchRequests}
                                               onInfoMsgChange={this.onInfoMsgChange}
-                                              setShowRequestSpinner={this.setShowRequestSpinner}
-                                              showRequestSpinner={this.state.showRequestSpinner}/>
+                                              setShowVacationFormSpinner={this.setShowVacationFormSpinner}
+                                              showVacationFormSpinner={this.state.showVacationFormSpinner}/>
+                            </Col>
+                            <Col md={4}>
+                                <Requests onErrorMsgChange={this.onErrorMsgChange}
+                                          requests={this.state.requests}
+                                          fetchRequests={this.fetchRequests}
+                                          onInfoMsgChange={this.onInfoMsgChange}
+                                          setShowRequestSpinner={this.setShowRequestSpinner}
+                                          showRequestSpinner={this.state.showRequestSpinner}/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            {user.severaSuperiorGUID !== null && user.severaSuperiorGUID !== undefined ? (
+                                <Col md={4}>
+                                    <UserSuperiorBox user={this.state.superior}
+                                                     onErrorMsgChange={this.onErrorMsgChange}
+                                                     onInfoMsgChange={this.onInfoMsgChange}
+                                                     showSuperiorBoxSpinner={this.state.showSuperiorBoxSpinner}/>
                                 </Col>
-                            </Row>
-                            <Row>
-                                {user.severaSuperiorGUID !== null && user.severaSuperiorGUID !== undefined ? (
-                                    <Col md={4}>
-                                        <UserSuperiorBox user={this.state.superior}
-                                                         onErrorMsgChange={this.onErrorMsgChange}
-                                                         onInfoMsgChange={this.onInfoMsgChange}
-                                                         showSuperiorBoxSpinner={this.state.showSuperiorBoxSpinner}/>
-                                    </Col>
-                                ) : null }
-                            </Row>
-                        </TabPane>
-                        <TabPane tabId="2">
-                            <Row>
-                                <Col md={12}>
-                                    <Calender user={user} loggedIn={loggedIn} requests={this.state.allRequests}
-                                              setShowAllRequestSpinner={this.setShowAllRequestSpinner}
-                                              showAllRequestSpinner={this.state.showAllRequestSpinner}/>
-                                </Col>
-                            </Row>
-                        </TabPane>
-                        <TabPane tabId="3">
-                            <Row>
-                                <Col md={12}>
-                                    <CalendarBig user={user} loggedIn={loggedIn} requests={this.state.allRequests}
-                                                 setShowAllRequestSpinner={this.setShowAllRequestSpinner}
-                                                 showAllRequestSpinner={this.state.showAllRequestSpinner}/>
-                                </Col>
-                            </Row>
-                        </TabPane>
-                    </TabContent>
-                </div>
+                            ) : null}
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId="2">
+                        <Row>
+                            <Col md={12}>
+                                <Calender user={user} loggedIn={loggedIn} requests={this.state.allRequests}
+                                          setShowAllRequestSpinner={this.setShowAllRequestSpinner}
+                                          showAllRequestSpinner={this.state.showAllRequestSpinner}/>
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId="3">
+                        <Row>
+                            <Col md={12}>
+                                <CalendarBig user={user} loggedIn={loggedIn} requests={this.state.allRequests}
+                                             setShowAllRequestSpinner={this.setShowAllRequestSpinner}
+                                             showAllRequestSpinner={this.state.showAllRequestSpinner}/>
+                            </Col>
+                        </Row>
+                    </TabPane>
+                </TabContent>
             </div>
         );
     }

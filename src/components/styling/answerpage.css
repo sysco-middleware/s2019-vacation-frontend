@@ -1,9 +1,40 @@
+#answerPage {
+    margin: 2%;
+}
+
+#answerPageCardBox {
+    background: #498bcc !important;
+    border-radius: 10px !important;
+    margin: 10px;
+    width: 35%;
+}
+
+#answerPageCardTitle {
+    font-size: 30px;
+    padding-top: 30px;
+    text-align: center;
+}
+
+#answerPageRequestInfoCardBody {
+    font-size: 19px;
+    background: #CBE5FE !important;
+    border-radius: 10px !important;
+    margin: 3%;
+    text-align: left;
+}
+
+#answerPageCommentCardBody {
+    font-size: 19px;
+    background: #CBE5FE !important;
+    border-radius: 10px !important;
+    margin: 3%;
+    text-align: center;
+}
+
 #btn {
     height: 120px;
     width: 250px;
     margin: 30px;
-    margin-left: 130px;
-
 }
 
 #approvebtn:hover {
@@ -18,7 +49,11 @@
 
 #comment {
     height: 200px;
-    width: 400px;
-    margin-left: 70px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#answerRequestInfo {
+    margin-left: 20px;
     margin-top: 20px;
 }

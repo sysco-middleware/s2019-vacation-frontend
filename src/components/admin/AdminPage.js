@@ -1,6 +1,5 @@
 import React from 'react';
-import '../styling/general.css';
-import '../styling/userpageStyling.css';
+import '../styling/adminPageStyling.css';
 import AdminRequestList from './AdminRequestsList'
 import {Col, Row, UncontrolledAlert} from 'reactstrap';
 import axios from "axios";
@@ -175,13 +174,14 @@ export class AdminPage extends React.Component {
             user.roles !== undefined &&
             user.roles.includes("ADMIN")) {
             return (
-                <div>
+                <div className="adminPage">
                     {this.renderErrorMsg()}
                     {this.renderInfoMsg()}
                     <div>
-                        <Row>
+                        <Row className="adminPage">
                             <Col md={12}>
                                 <AdminRequestList user={user} loggedIn={loggedIn}
+                                                  title={"Requests"}
                                                   onErrorMsgChange={this.onErrorMsgChange}
                                                   onInfoMsgChange={this.onInfoMsgChange}
                                                   requests={this.state.allRequests}
@@ -190,7 +190,7 @@ export class AdminPage extends React.Component {
                                                   showAllRequestSpinner={this.state.showAllRequestSpinner}/>
                             </Col>
                         </Row>
-                        <Row>
+                        <Row className="adminPage">
                             <Col md={12}>
                                 <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Local Users"}
@@ -202,7 +202,7 @@ export class AdminPage extends React.Component {
                                                showAllUsersSpinner={this.state.showAllUsersSpinner}/>
                             </Col>
                         </Row>
-                        <Row>
+                        <Row className="adminPage">
                             <Col md={12}>
                                 <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Severa Users"}
