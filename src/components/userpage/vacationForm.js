@@ -96,6 +96,7 @@ export default class vacationForm extends React.Component {
         const {startDate, endDate, reason} = this.state;
         const disabledButton = (_.isEmpty(startDate) || _.isEmpty(endDate) || _.isEmpty(reason));
 
+
         return (
             <Card className='cardBox'>
                 <CardTitle className='cardTitle'>Apply for leave</CardTitle>
@@ -115,12 +116,13 @@ export default class vacationForm extends React.Component {
                         <FormGroup>
                             <Label for="exampleCustomSelect">Reason*</Label>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
-                                <option>SELECT</option>
+                                <select >SELECT</select>
                                 {this.state.reasons.map((r, i) => {
                                     return <option onClick={(e) => this.onReasonChange(e)}
                                                    value={i}>{r.requestReason}</option>
                                 })}
                             </CustomInput>
+
                         </FormGroup>
                         <FormGroup>
                             <Label htmlFor="comment">Any comment?</Label>
