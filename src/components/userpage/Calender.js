@@ -21,7 +21,7 @@ export default class Calender extends React.Component {
     onDateChange = async (date, isDay) => {
         await this.setState({date});
         if (isDay) {
-            this.onClickDay(date)
+            await this.onClickDay(date)
         }
     };
 
@@ -45,19 +45,22 @@ export default class Calender extends React.Component {
         this.props.setShowAllRequestSpinner(false);
     };
 
-    setTileClassName = ({date, view}) => {
+
+    setTileContent = ({date, view}) => {
         const {requests} = this.props;
+        let setMark = false;
         if (view === 'month') {
             requests.map((r) => {
-                r.requestDates.map((d) => {
-                    if (moment(d, "YYYY-MM-DD").isSame(date, 'day')) {
-                        return 'mark'
-                    } else {
-                        return null
-                    }
-                });
+                if (r.status.toUpperCase() === 'APPROVED') {
+                    r.requestDates.map((d) => {
+                        if (moment(d, "YYYY-MM-DD").isSame(date, 'day')) {
+                            setMark = true;
+                        }
+                    });
+                }
             })
         }
+        return setMark ? <div className="mark"/> : null
     };
 
 
@@ -75,7 +78,7 @@ export default class Calender extends React.Component {
                                 value={this.state.date}
                                 onClickDay={(date) => this.onDateChange(date, true)}
                                 showWeekNumbers={true}
-                                tileClassName={this.setTileClassName}
+                                tileContent={this.setTileContent}
                             />
                         </Col>
                         <Col md={8}>
