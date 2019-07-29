@@ -171,6 +171,7 @@ export default class userPage extends React.Component {
 
         const localMenuStyle = {
             fontSize: '23px',
+            cursor: 'pointer',
         };
 
         return (
