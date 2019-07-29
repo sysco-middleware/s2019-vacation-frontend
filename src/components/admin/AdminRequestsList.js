@@ -111,6 +111,7 @@ export class AdminRequestsList extends React.Component {
                                                     {(this.state.request !== null && this.state.request !== undefined) ?
                                                         <RequestModal request={this.state.request}
                                                                       toggleMod={this.toggleMod}
+                                                                      displaySensitive={true}
                                                                       modal={this.state.modal}/> : null}
                                                 </tr>
                                             );
