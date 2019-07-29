@@ -16,7 +16,7 @@ import _ from 'lodash';
 
 export default class SearchBar2 extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             tags: [],
         }

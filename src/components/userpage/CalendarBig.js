@@ -18,17 +18,16 @@ export default class CalendarBig extends React.Component {
             term: "",
             reasons: [],
             reason: {},
+            userColor: [] // is a map
         }
     }
 
-    onTermChange = (e) => {
-        this.setState({term: e.target.value})
-    };
 
     async componentWillReceiveProps(nextProps, nextContext) {
         const {requests} = nextProps;
         if (requests !== null && requests !== undefined) {
             await this.createEvents(requests);
+            await this.attachColorToUser(requests)
         }
     }
 
@@ -38,6 +37,41 @@ export default class CalendarBig extends React.Component {
             await this.fetchReasons();
         }
     }
+
+    attachColorToUser = async (requests) => {
+        const userColor = [];
+        requests.map((r,i)=> {
+            if(r.status.toUpperCase()  === "APPROVED") {
+                const user = r.user;
+                const name = user.firstName + " " + user.lastName;
+                const color = this.generateRandomColor();
+                if (!this.checkIfUserColorIsSet(userColor, name)) {
+                    userColor.push({name: name, color: color})
+                }
+            }
+        });
+        await this.setState({userColor})
+    };
+
+    checkIfUserColorIsSet = (list, name) => {
+        let found = false;
+        list.map(i => {
+            if(i.name === name) found = true;
+        });
+        return found;
+    };
+
+    getUserColor = (name) => {
+        let obj = null;
+        this.state.userColor.map(c => {
+            if(c.name === name) obj = c.color;
+        });
+        return obj;
+    };
+
+    generateRandomColor = () => {
+        return 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+    };
 
 
     createEvents = async (requests) => {
@@ -57,6 +91,18 @@ export default class CalendarBig extends React.Component {
             }
         });
         await this.setState({events: list})
+    };
+
+    eventStyleHandler = (event, start, end, isSelected) => {
+        const title = event.title;
+        const name = _.split(title, ":")[0];
+        const color = this.getUserColor(name) !== null ? this.getUserColor(name) : "blue";
+        console.log("COLOR: ", name, this.getUserColor(name), color);
+        return {
+            style: {
+                backgroundColor: color
+            }
+        };
     };
 
 
@@ -79,31 +125,6 @@ export default class CalendarBig extends React.Component {
         }
     };
 
-    clearSearch = async () => {
-        await this.setState({
-            term: "",
-            reason: {}
-        });
-        await this.search();
-    };
-
-
-    generateRandomColor = () => {
-        return 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
-    };
-
-
-    onReasonChange = async event => {
-        if (event.target.value !== null && event.target.value !== undefined) {
-            await this.setState({
-                reason: this.state.reasons[event.target.value],
-                term: this.state.reasons[event.target.value].requestReason
-            });
-            await this.search(this.state.reason.requestReason);
-        } else {
-            await this.setState({term: ""});
-        }
-    };
 
     fetchReasons = async () => {
         const response = await axios.get('https://sysco-feri.herokuapp.com/api/request/reasons')
@@ -147,6 +168,7 @@ export default class CalendarBig extends React.Component {
                                 defaultView="month"
                                 events={this.state.events}
                                 style={{height: "100vh"}}
+                                eventPropGetter={this.eventStyleHandler}
                             />
                         </Col>
                     </Row>
