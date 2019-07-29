@@ -1,6 +1,7 @@
 import React from 'react';
 import "../styling/calendar.css"
 import Calendar from 'react-calendar';
+import RequestModal from "./RequestModal";
 import Moment from 'moment'
 import {extendMoment} from 'moment-range';
 import {Badge, Col, ListGroup, ListGroupItem, ListGroupItemText, Row, Spinner} from "reactstrap";
@@ -15,8 +16,16 @@ export default class Calender extends React.Component {
             date: new Date(),
             requests: [],
             request: null,
+            modal: false
         }
     }
+
+    toggleMod = (request) => {
+        this.setState({
+            modal: !this.state.modal,
+            request: request
+        });
+    };
 
     onDateChange = async (date, isDay) => {
         await this.setState({date});
@@ -92,11 +101,12 @@ export default class Calender extends React.Component {
                                     {
                                         this.state.requests.map((r, i) => {
                                             return (
-                                                <ListGroupItem color='info'>
+                                                <ListGroupItem style={{cursor: "pointer"}} onClick={()=>this.toggleMod(r)} color='info'>
                                                     <ListGroupItemText>
                                                         <strong>{r.user.firstName + " " + r.user.lastName}</strong>
                                                         {" is going on a " + r.requestReason + " from " + r.fromDate[2] + "-" + r.fromDate[1] + "-" + r.toDate[0] + " to " + r.toDate[2] + "-" + r.toDate[1] + "-" + r.toDate[0]}
                                                     </ListGroupItemText>
+                                                    {(this.state.request !== null && this.state.request !== undefined) ? <RequestModal request={this.state.request} displaySensitive={false} toggleMod={this.toggleMod}  modal={this.state.modal}/> : null}
                                                 </ListGroupItem>
                                             )
                                         })

@@ -16,10 +16,10 @@ const getStatusColor = (status) => {
 };
 
 const RequestModal = (props) => {
-    const { request, toggleMod, modal} = props;
+    const { request, toggleMod, modal, displaySensitive} = props;
     if(request !== null) {
         return (
-            <Modal isOpen={modal} transparent={true} toggle={toggleMod} className={props.className}>
+            <Modal style={{zIndex: 9999}} isOpen={modal} transparent={true} toggle={toggleMod} className={props.className}>
                 <ModalHeader className='modalHeader' style={{backgroundColor: '#CBE5FE'}}
                              toggle={toggleMod}>Details</ModalHeader>
                 <ModalBody>
@@ -29,8 +29,12 @@ const RequestModal = (props) => {
                     <p><strong>Reason: </strong>{request.requestReason !== undefined ? (<Badge color='info'>{request.requestReason}</Badge>) : "No Reason!"}</p>
                     <p><strong>ReasonId: </strong>{request.requestReasonId !== undefined ? (<Badge color='info'>{request.requestReasonId}</Badge>) : "No ReasonId!"}</p>
                     <p><strong>Status: </strong>{request.status !== null ? <Badge color={getStatusColor(request.status)}>{request.status}</Badge> : "No Status"}</p>
-                    <p><strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}</p>
-                    <p><strong>Answer from superior: </strong>{request.comment !== null ? request.answerComment	 : "No comment!"}</p>
+                    {displaySensitive ? (
+                        <div>
+                            <p><strong>Comment: </strong>{request.comment !== null ? request.comment : "No comment!"}</p>
+                            <p><strong>Answer from superior: </strong>{request.comment !== null ? request.answerComment	 : "No comment!"}</p>
+                        </div>
+                        ) : null}
                     <p><strong>Answered: </strong>{request.answered !== null ? readableTime(request.answered, true) : "Not answered"}</p>
                     <p><strong>Created: </strong>{request.created !== null ? readableTime(request.created, true) : "No Date!"}</p>
                 </ModalBody>

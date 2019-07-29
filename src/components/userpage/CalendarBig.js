@@ -7,6 +7,7 @@ import {Col, InputGroup, Row, Spinner} from "reactstrap";
 import _ from "lodash";
 import axios from "axios";
 import SearchBar from './searchBar2.js';
+import RequestModal from "./RequestModal";
 
 const moment = extendMoment(Moment);
 
@@ -18,9 +19,29 @@ export default class CalendarBig extends React.Component {
             term: "",
             reasons: [],
             reason: {},
-            userColor: [] // is a map
+            userColor: [],
+            request: null
         }
     }
+
+    toggleMod = (event) => {
+        const {requests} = this.props;
+        let foundRequest = null;
+        if (requests !== null && requests !== undefined) {
+            requests.map(r => {
+                const eventTitle = event.title;
+                const eventName = _.split(eventTitle, ":")[0];
+                const name = r.user.firstName + " " + r.user.lastName;
+                if(moment(r.fromDate, "YYYY-MM-DD").isSame(event.start)&& moment(r.toDate, "YYYY-MM-DD").isSame(event.end) && eventName === name){
+                    foundRequest = r;
+                }
+            });
+            this.setState({
+                modal: !this.state.modal,
+                request: foundRequest
+            });
+        }
+    };
 
 
     async componentWillReceiveProps(nextProps, nextContext) {
@@ -168,8 +189,10 @@ export default class CalendarBig extends React.Component {
                                 events={this.state.events}
                                 style={{height: "100vh"}}
                                 eventPropGetter={this.eventStyleHandler}
+                                onSelectEvent={(event)=>this.toggleMod(event)}
                             />
                         </Col>
+                        {(this.state.request !== null && this.state.request !== undefined) ? <RequestModal request={this.state.request} displaySensitive={false} toggleMod={this.toggleMod}  modal={this.state.modal}/> : null}
                     </Row>
                 </div>
             );
