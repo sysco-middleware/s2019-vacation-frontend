@@ -32,8 +32,6 @@ export default class CalendarBig extends React.Component {
                 const eventTitle = event.title;
                 const eventName = _.split(eventTitle, ":")[0];
                 const name = r.user.firstName + " " + r.user.lastName;
-                const from = moment(r.fromDate, "YYYY-MM-DD");
-                const to = moment(r.toDate, "YYYY-MM-DD");
                 if(moment(r.fromDate, "YYYY-MM-DD").isSame(event.start)&& moment(r.toDate, "YYYY-MM-DD").isSame(event.end) && eventName === name){
                     foundRequest = r;
                 }
