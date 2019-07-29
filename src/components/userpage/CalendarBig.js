@@ -97,7 +97,6 @@ export default class CalendarBig extends React.Component {
         const title = event.title;
         const name = _.split(title, ":")[0];
         const color = this.getUserColor(name) !== null ? this.getUserColor(name) : "blue";
-        console.log("COLOR: ", name, this.getUserColor(name), color);
         return {
             style: {
                 backgroundColor: color
