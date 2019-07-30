@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import {Button, Card, CardBody, CardTitle, CustomInput, Form, FormGroup, Input, Label, Spinner} from 'reactstrap';
+import {Button, Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Spinner} from 'reactstrap';
 import axios from "axios";
 import _ from "lodash"
 
@@ -14,8 +14,8 @@ export default class vacationForm extends React.Component {
             endDate: "",
             comment: "",
             reason: {},
-            reasons: []
-        }
+            reasons: [],
+        };
     }
 
     componentDidMount() {
@@ -91,6 +91,7 @@ export default class vacationForm extends React.Component {
         this.setState({reason: this.state.reasons[event.target.value]});
     };
 
+
     render() {
         const {showVacationFormSpinner} = this.props;
         const {startDate, endDate, reason} = this.state;
@@ -113,16 +114,15 @@ export default class vacationForm extends React.Component {
                             <Input type="date" name="endDate" id="userPageDateInput" value={this.state.endDate}
                                    onChange={e => this.onEndDateChange(e)}/>
                         </FormGroup>
-                        <FormGroup>
-                            <Label for="exampleCustomSelect">Reason*</Label>
-                            <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
-                                <select >SELECT</select>
+                        <FormGroup >
+                            <Label htmlFor="reason">Reason*</Label>
+                            <select className='vacationFormReasonDropDownMenu'
+                                    onChange={(e) => this.onReasonChange(e)}>
+                                <option>SELECT</option>
                                 {this.state.reasons.map((r, i) => {
-                                    return <option onClick={(e) => this.onReasonChange(e)}
-                                                   value={i}>{r.requestReason}</option>
+                                    return <option value={i}>{r.requestReason}</option>
                                 })}
-                            </CustomInput>
-
+                            </select>
                         </FormGroup>
                         <FormGroup>
                             <Label htmlFor="comment">Any comment?</Label>
@@ -139,7 +139,25 @@ export default class vacationForm extends React.Component {
                     )}
                 </CardBody>
             </Card>
-
         );
     }
 }
+/*
+                            <label htmlFor="select2" >Reason*</label>
+                            <select value={this.state.reason} onChange={this.onReasonChange().bind(this)} className="form-control">
+                                {this.state.reasons.map(option => {
+                                    return <option value={option} key={option} >{option}</option>
+                                })}
+                            </select>
+
+
+                            <Label for="exampleCustomSelect">Reason*</Label>
+                            <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
+                                <select >SELECT</select>
+                                {this.state.reasons.map((r, i) => {
+                                    return <option onClick={(e) => this.onReasonChange(e)}
+                                                   value={i}>{r.requestReason}</option>
+                                })}
+                            </CustomInput>
+
+ */
