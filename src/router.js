@@ -71,8 +71,6 @@ export default class Router extends React.Component {
     }
 
     render() {
-
-
         return (
             <BrowserRouter>
                 <Header

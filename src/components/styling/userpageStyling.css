@@ -6,6 +6,7 @@
     background: #498bcc !important;
     border-radius: 10px !important;
     text-align: left;
+    margin-bottom: 10px;
 }
 
 .cardTitle {
@@ -43,5 +44,18 @@
     margin-bottom: 10px;
     width: 250px;
     height: 70px;
+}
+
+.vacationFormReasonDropDownMenu {
+    display: inline-block;
+    height:39px;
+    width: 100%;
+    padding: 2px 10px 2px 2px;
+    outline: none;
+    color: #74646e;
+    border: 1px solid #C8BFC4;
+    border-radius: 4px;
+    box-shadow: inset 1px 1px 2px #ddd8dc;
+    background: #fff;
 }
 
