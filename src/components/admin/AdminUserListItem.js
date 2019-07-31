@@ -3,7 +3,7 @@ import '../styling/adminPageStyling.css';
 import axios from 'axios'
 import {readableTime} from "../../utils/unixTranslate";
 import {Badge, Input} from 'reactstrap';
-
+import { FaBeer } from 'react-icons/fa';
 
 export default class AdminUserList extends React.Component {
     constructor(props) {
@@ -50,12 +50,15 @@ export default class AdminUserList extends React.Component {
                     <td>{user.phone !== undefined ? user.phone : "No Phone!"}</td>
                     <td>{user.severaUserGUID !== undefined ? user.severaUserGUID : "No GUID"}</td>
                     <td>{user.severaSuperiorGUID !== undefined ? user.severaSuperiorGUID : "No superiorGUID!"}</td>
+                    <td>{isLocalUsers?(user.enabled !== undefined ? (user.enabled ? "TRUE" : <FaBeer />) : "No Data"):"-"}</td>
                     <td>{isLocalUsers ? readableTime(user.created, true) : "-"}</td>
                     <td>
-                        {isLocalUsers ? (<Input placeholder={user.totalDays + "/" + user.vacationDays}
+                        {isLocalUsers ? (
+                            <Input placeholder={user.totalDays + "/" + user.vacationDays}
                                                 value={this.state.vacationDays}
                                                 onChange={(e) => this.onVacationDaysChange(e)} min={user.totalDays}
-                                                max={1000} type="number" step="1"/>) : "-"}
+                                                max={1000} type="number" step="1"/>
+                                                ) : "-"}
                         {isLocalUsers && this.state.vacationDays !== null ? (
                             <div>
                                 <Badge onClick={() => this.changeVacationDays()}

@@ -40,6 +40,7 @@ export default class AdminUserList extends React.Component {
                                         <th>Phone</th>
                                         <th>GUID</th>
                                         <th>SuperiorGUID</th>
+                                        <th>Enabled</th>
                                         <th>created</th>
                                         <th>Leave Days</th>
                                     </tr>

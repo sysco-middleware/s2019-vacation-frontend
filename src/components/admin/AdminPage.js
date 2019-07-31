@@ -6,6 +6,7 @@ import axios from "axios";
 import {withRouter} from "react-router-dom";
 import AdminUserList from "./AdminUserList";
 import {checkCookie} from "../authentication/cookie";
+import _ from "lodash"
 
 export class AdminPage extends React.Component {
     constructor(props) {
@@ -13,6 +14,8 @@ export class AdminPage extends React.Component {
         this.state = {
             allRequests: [],
             allUsers: [],
+            allUsersEnabled: [],
+            allUsersDisabled: [],
             allUsersSevera: [],
             errorMsg: null,
             infoMsg: null,
@@ -100,7 +103,9 @@ export class AdminPage extends React.Component {
             console.log(response);
             if (response !== null && response !== undefined) {
                 if (response.status === 200) {
-                    this.setState({allUsers: response.data})
+                    await this.setState({allUsers: response.data});
+                    await this.setEnabledUsers(response.data);
+                    await this.setDisabledUsers(response.data);
                 } else {
                     // to empty the input field
                     this.onErrorMsgChange("something went wrong!");
@@ -164,6 +169,14 @@ export class AdminPage extends React.Component {
         }
     };
 
+    setEnabledUsers = async (allUsers) => {
+        await this.setState({allUsersEnabled: _.filter(allUsers, u => u.enabled)})
+    };
+
+    setDisabledUsers = async (allUsers) => {
+        await this.setState({allUsersDisabled: _.filter(allUsers, u => !u.enabled)})
+    };
+
     render() {
         const {loggedIn, user} = this.props;
 
@@ -194,8 +207,21 @@ export class AdminPage extends React.Component {
                             <Col md={12}>
                                 <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Local Users"}
+                                               isDisabledUsers={false}
                                                isLocalUsers={true}
-                                               users={this.state.allUsers}
+                                               users={this.state.allUsersEnabled}
+                                               onInfoMsgChange={this.onInfoMsgChange}
+                                               fetchAllUsers={this.fetchAllUsers}
+                                               setShowAllUsersSpinner={this.setShowAllUsersSpinner}
+                                               showAllUsersSpinner={this.state.showAllUsersSpinner}/>
+                            </Col>
+                        </Row>
+                        <Row className="adminPage">
+                            <Col md={12}>
+                                <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                               title={"Disabled Users"}
+                                               isLocalUsers={true}
+                                               users={this.state.allUsersDisabled}
                                                onInfoMsgChange={this.onInfoMsgChange}
                                                fetchAllUsers={this.fetchAllUsers}
                                                setShowAllUsersSpinner={this.setShowAllUsersSpinner}
