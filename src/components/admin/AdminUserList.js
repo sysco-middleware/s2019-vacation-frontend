@@ -14,10 +14,10 @@ export default class AdminUserList extends React.Component {
 
 
     render() {
-        const {loggedIn, user, users, showAllUsersSpinner, title, isLocalUsers} = this.props;
+        const {user, users, showAllUsersSpinner, title, isLocalUsers} = this.props;
         const randString = randomString()[0];
 
-        if (loggedIn && user !== null && user !== undefined && user.roles.includes("ADMIN") && users !== null) {
+        if (user !== null && user !== undefined && user.roles.includes("ADMIN") && users !== null) {
             return (
                 <div>
                     <Card className="adminPageCardBox">

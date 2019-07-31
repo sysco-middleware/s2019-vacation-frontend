@@ -47,10 +47,10 @@ export class AdminRequestsList extends React.Component {
     };
 
     render() {
-        const {loggedIn, user, title, requests, showAllRequestSpinner} = this.props;
+        const {user, title, requests, showAllRequestSpinner} = this.props;
         const randString = randomString()[0];
 
-        if (loggedIn && user !== null && user !== undefined && user.roles.includes("ADMIN")) {
+        if (user !== null && user !== undefined && user.roles.includes("ADMIN")) {
             return (
                 <div>
                     <Card className="adminPageCardBox">

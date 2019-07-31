@@ -1,7 +1,6 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/loginStyling.css';
-import {setCookie} from '../../utils/cookieHandler.js';
 import {
     Button,
     Col,
@@ -15,6 +14,7 @@ import {
     Spinner,
     UncontrolledAlert
 } from 'reactstrap';
+import {setCookie} from "../../utils/cookieHandler"
 import image from '../../uploads/vaca.png';
 import axios from 'axios';
 
@@ -47,13 +47,6 @@ export default class Login extends React.Component {
 
     goToSignUpPage = () => {
         this.props.history.push("/signUp");
-    };
-
-    fetchUser2 = async () => {
-        this.setShowSpinner(true);
-        this.onErrorMsgChange(null);
-
-        setCookie(this.checkMail(this.state.email));
     };
 
 

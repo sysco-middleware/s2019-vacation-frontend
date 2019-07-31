@@ -6,7 +6,6 @@ import axios from "axios";
 import {withRouter} from "react-router-dom";
 import AdminUserList from "./AdminUserList";
 import _ from "lodash"
-import {checkCookie} from "../../utils/cookieHandler";
 
 export class AdminPage extends React.Component {
     constructor(props) {
@@ -91,8 +90,7 @@ export class AdminPage extends React.Component {
     fetchAllUsers = async () => {
         this.setShowAllUsersSpinner(true);
 
-        if (checkCookie('loggedIn') === 'true') {
-            //if (this.props.loggedIn) {
+            if (this.props.loggedIn) {
 
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user`)
@@ -122,8 +120,7 @@ export class AdminPage extends React.Component {
     fetchAllUsersSevera = async () => {
         this.setShowAllUsersSeveraSpinner(true);
 
-        if (checkCookie('loggedIn') === 'true') {
-            //if (this.props.loggedIn) {
+            if (this.props.loggedIn) {
 
             this.onErrorMsgChange(null);
             const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/severa`)
@@ -178,11 +175,9 @@ export class AdminPage extends React.Component {
     };
 
     render() {
-        const {loggedIn, user} = this.props;
+        const {user} = this.props;
 
-        if (checkCookie('loggedIn') === 'true' &&
-            //loggedIn &&
-            user !== null &&
+        if (user !== null &&
             user !== undefined &&
             user.roles !== undefined &&
             user.roles.includes("ADMIN")) {
@@ -193,7 +188,7 @@ export class AdminPage extends React.Component {
                     <div>
                         <Row className="adminPage">
                             <Col md={12}>
-                                <AdminRequestList user={user} loggedIn={loggedIn}
+                                <AdminRequestList user={user}
                                                   title={"Requests"}
                                                   onErrorMsgChange={this.onErrorMsgChange}
                                                   onInfoMsgChange={this.onInfoMsgChange}
@@ -205,7 +200,7 @@ export class AdminPage extends React.Component {
                         </Row>
                         <Row className="adminPage">
                             <Col md={12}>
-                                <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                <AdminUserList user={user}  onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Local Users"}
                                                isDisabledUsers={false}
                                                isLocalUsers={true}
@@ -218,7 +213,7 @@ export class AdminPage extends React.Component {
                         </Row>
                         <Row className="adminPage">
                             <Col md={12}>
-                                <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                <AdminUserList user={user}  onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Disabled Users"}
                                                isLocalUsers={true}
                                                users={this.state.allUsersDisabled}
@@ -230,7 +225,7 @@ export class AdminPage extends React.Component {
                         </Row>
                         <Row className="adminPage">
                             <Col md={12}>
-                                <AdminUserList user={user} loggedIn={loggedIn} onErrorMsgChange={this.onErrorMsgChange}
+                                <AdminUserList user={user} onErrorMsgChange={this.onErrorMsgChange}
                                                title={"Severa Users"}
                                                isLocalUsers={false}
                                                users={this.state.allUsersSevera}
