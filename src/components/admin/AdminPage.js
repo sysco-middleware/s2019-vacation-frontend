@@ -5,7 +5,7 @@ import {Col, Row, UncontrolledAlert} from 'reactstrap';
 import axios from "axios";
 import {withRouter} from "react-router-dom";
 import AdminUserList from "./AdminUserList";
-import {checkCookie} from "../authentication/cookie";
+import {checkCookie} from "../../utils/cookieHandler";
 
 export class AdminPage extends React.Component {
     constructor(props) {

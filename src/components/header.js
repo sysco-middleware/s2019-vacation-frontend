@@ -2,7 +2,7 @@ import React from 'react';
 import './styling/general.css';
 import {Link} from 'react-router-dom'
 import {Col, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Row} from 'reactstrap';
-import {deleteCookie} from "./authentication/cookie";
+import {deleteCookie} from "../utils/cookieHandler";
 
 export default class Header extends React.Component {
     constructor(props) {

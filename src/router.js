@@ -10,7 +10,8 @@ import AdminPage from './components/admin/AdminPage.js';
 import axios from "axios";
 import _ from "lodash";
 import AnswerPage from "./components/answerpage/answerpage.js";
-import {checkCookie} from "./components/authentication/cookie";
+import {checkCookie} from "./utils/cookieHandler";
+import {Spinner} from "reactstrap";
 
 function NotFound() {
     return (
@@ -28,7 +29,8 @@ export default class Router extends React.Component {
         super(props);
         this.state = {
             user: null,
-            loggedIn: false
+            loggedIn: false,
+            loading: true
         };
     }
 
@@ -64,60 +66,70 @@ export default class Router extends React.Component {
 
     };
 
-    componentDidMount() {
+    async componentDidMount() {
+        const self = this;
+        // this timeout sets a loading bar to allow state to reset without rendering an temp error page
+        await setTimeout(() => {
+            self.setState({loading: false}); }, 100);
         if (!this.state.loggedIn) {
-            this.setLoggedIn(checkCookie('email'));
+            await this.setLoggedIn(checkCookie('email'));
         }
     }
 
     render() {
-        return (
-            <BrowserRouter>
-                <Header
-                    user={this.state.user} loggedIn={this.state.loggedIn}
-                    setLoggedIn={this.setLoggedIn}/>
-                <Switch>
-                    <Route exact path="/"
-                           render={props => <Login {...props}
-                                                   user={this.state.user}
-                                                   loggedIn={this.state.loggedIn}
-                                                   setLoggedIn={this.setLoggedIn}
-                           />}/>
-                    <Route exact path="/user"
-                           render={props => (this.state.loggedIn && this.state.user) ?
-                               <UserPage {...props}
-                                         user={this.state.user}
-                                         loggedIn={this.state.loggedIn}
-                                         setLoggedIn={this.setLoggedIn}
-                           /> : <NotFound/>}/>
+        if (this.state.loading) {
+            return (
+                <Spinner style={{width: '3rem', height: '3rem'}}/>
+            )
+        } else {
+            return (
+                <BrowserRouter>
+                    <Header
+                        user={this.state.user} loggedIn={this.state.loggedIn}
+                        setLoggedIn={this.setLoggedIn}/>
+                    <Switch>
+                        <Route exact path="/"
+                               render={props => <Login {...props}
+                                                       user={this.state.user}
+                                                       loggedIn={this.state.loggedIn}
+                                                       setLoggedIn={this.setLoggedIn}
+                               />}/>
+                        <Route exact path="/user"
+                               render={props => (this.state.loggedIn && this.state.user) ?
+                                   <UserPage {...props}
+                                             user={this.state.user}
+                                             loggedIn={this.state.loggedIn}
+                                             setLoggedIn={this.setLoggedIn}
+                                   /> : <NotFound/>}/>
 
-                    <Route exact path="/admin"
-                           render={props => (this.state.loggedIn && this.state.user) ?
-                               <AdminPage {...props}
-                                          user={this.state.user}
-                                          loggedIn={this.state.loggedIn}
-                                          setLoggedIn={this.setLoggedIn}
-                               /> : <NotFound/>}/>
+                        <Route exact path="/admin"
+                               render={props => (this.state.loggedIn && this.state.user) ?
+                                   <AdminPage {...props}
+                                              user={this.state.user}
+                                              loggedIn={this.state.loggedIn}
+                                              setLoggedIn={this.setLoggedIn}
+                                   /> : <NotFound/>}/>
 
-                    <Route exact path="/signUp"
-                           render={props => <SignUp {...props}
-                                                    user={this.state.user}
-                                                    loggedIn={this.state.loggedIn}
-                                                    setLoggedIn={this.setLoggedIn}
-                           />}/>
-                    <Route exact path="/answer/:requestId"
-                           render={props => (this.state.loggedIn && this.state.user) ?
-                               <AnswerPage {...props}
-                                           user={this.state.user}
-                                           loggedIn={this.state.loggedIn}
-                                           setLoggedIn={this.setLoggedIn}
-                           /> : <NotFound/>}/>
+                        <Route exact path="/signUp"
+                               render={props => <SignUp {...props}
+                                                        user={this.state.user}
+                                                        loggedIn={this.state.loggedIn}
+                                                        setLoggedIn={this.setLoggedIn}
+                               />}/>
+                        <Route exact path="/answer/:requestId"
+                               render={props => (this.state.loggedIn && this.state.user) ?
+                                   <AnswerPage {...props}
+                                               user={this.state.user}
+                                               loggedIn={this.state.loggedIn}
+                                               setLoggedIn={this.setLoggedIn}
+                                   /> : <NotFound/>}/>
 
-                    <Route><NotFound/></Route>
-                </Switch>
+                        <Route><NotFound/></Route>
+                    </Switch>
 
-            </BrowserRouter>
-        );
+                </BrowserRouter>
+            );
+        }
     }
 }
 

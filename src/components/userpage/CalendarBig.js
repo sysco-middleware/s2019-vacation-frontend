@@ -3,7 +3,7 @@ import {Calendar, momentLocalizer} from 'react-big-calendar'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Moment from 'moment'
 import {extendMoment} from 'moment-range';
-import {Col, InputGroup, Row, Spinner} from "reactstrap";
+import {Col, InputGroup, Label, Row, Spinner} from "reactstrap";
 import _ from "lodash";
 import axios from "axios";
 import SearchBar from './searchBar2.js';
@@ -166,6 +166,10 @@ export default class CalendarBig extends React.Component {
 
     render() {
         const {showAllRequestSpinner, user, loggedIn} = this.props;
+        const localMenuStyle = {
+            fontSize: '23px',
+            paddingTop: '19px',
+        };
 
         if (loggedIn && user !== null && showAllRequestSpinner === false) {
             const localizer = momentLocalizer(moment);
@@ -173,9 +177,13 @@ export default class CalendarBig extends React.Component {
 
             return (
                 <div>
-                    <Row style={{marginBottom: "15px"}}>
-                        <Col md={{size: 4, order: 2, offset: 8}}>
-                            <InputGroup>
+                    <Row >
+                        <Col/>
+                        <Col md="auto">
+                            <Label style={localMenuStyle} htmlFor="reason">Employee group to view:</Label>
+                        </Col>
+                        <Col md="auto">
+                            <InputGroup >
                                 <SearchBar createEvents={this.createEvents}/>
                             </InputGroup>
                         </Col>
