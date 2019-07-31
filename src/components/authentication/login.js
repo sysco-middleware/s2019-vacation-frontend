@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/loginStyling.css';
-import {setCookie} from './cookie.js';
+import {setCookie} from '../../utils/cookieHandler.js';
 import {
     Button,
     Col,
