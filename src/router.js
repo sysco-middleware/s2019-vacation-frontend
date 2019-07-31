@@ -77,55 +77,6 @@ export default class Router extends React.Component {
     }
 
     render() {
-<<<<<<< HEAD
-        return (
-            <BrowserRouter>
-                <Header
-                    user={this.state.user} loggedIn={this.state.loggedIn}
-                    setLoggedIn={this.setLoggedIn}/>
-                <Switch>
-                    <Route exact path="/"
-                           render={props => <Login {...props}
-                                                   user={this.state.user}
-                                                   loggedIn={this.state.loggedIn}
-                                                   setLoggedIn={this.setLoggedIn}
-                           />}/>
-                    <Route exact path="/user"
-                           render={props => (this.state.loggedIn && this.state.user) ?
-                               <UserPage {...props}
-                                         user={this.state.user}
-                                         loggedIn={this.state.loggedIn}
-                                         setLoggedIn={this.setLoggedIn}
-                           /> : <NotFound/>}/>
-
-                    <Route exact path="/admin"
-                           render={props => (this.state.loggedIn && this.state.user) ?
-                               <AdminPage {...props}
-                                          user={this.state.user}
-                                          loggedIn={this.state.loggedIn}
-                                          setLoggedIn={this.setLoggedIn}
-                               /> : <NotFound/>}/>
-
-                    <Route exact path="/signUp"
-                           render={props => <SignUp {...props}
-                                                    user={this.state.user}
-                                                    loggedIn={this.state.loggedIn}
-                                                    setLoggedIn={this.setLoggedIn}
-                           />}/>
-                    <Route exact path="/answer/:requestId"
-                           render={props => (this.state.loggedIn && this.state.user) ?
-                               <AnswerPage {...props}
-                                           user={this.state.user}
-                                           loggedIn={this.state.loggedIn}
-                                           setLoggedIn={this.setLoggedIn}
-                           /> : <NotFound/>}/>
-
-                    <Route><NotFound/></Route>
-                </Switch>
-
-            </BrowserRouter>
-        );
-=======
         if (this.state.loading) {
             return (
                 <Spinner style={{width: '3rem', height: '3rem'}}/>
@@ -179,7 +130,6 @@ export default class Router extends React.Component {
                 </BrowserRouter>
             );
         }
->>>>>>> 5cde77d40bc70964273cb76854ef2c5f0945d411
     }
 }
 
