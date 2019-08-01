@@ -209,6 +209,7 @@ export default class userPage extends React.Component {
                         <Row>
                             <Col md={4}>
                                 <UserBox user={user} onErrorMsgChange={this.onErrorMsgChange}
+                                setLoggedIn={this.props.setLoggedIn}
                                          onInfoMsgChange={this.onInfoMsgChange}
                                          setShowUserBoxSpinner={this.setShowUserBoxSpinner}
                                          showUserBoxSpinner={this.state.showUserBoxSpinner}/>
