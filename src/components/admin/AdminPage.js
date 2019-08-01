@@ -5,7 +5,8 @@ import {Col, Row, UncontrolledAlert} from 'reactstrap';
 import axios from "axios";
 import {withRouter} from "react-router-dom";
 import AdminUserList from "./AdminUserList";
-import _ from "lodash"
+import AdminTagList from "./AdminTagList";
+import _ from "lodash";
 
 export class AdminPage extends React.Component {
     constructor(props) {
@@ -16,11 +17,13 @@ export class AdminPage extends React.Component {
             allUsersEnabled: [],
             allUsersDisabled: [],
             allUsersSevera: [],
+            tags: [],
             errorMsg: null,
             infoMsg: null,
             showAllRequestSpinner: false,
             showAllUsersSpinner: false,
             showAllUsersSeveraSpinner: false,
+            showAllTagsSpinner: false
         }
     }
 
@@ -32,6 +35,7 @@ export class AdminPage extends React.Component {
             user.roles.includes("ADMIN")) {
             await this.fetchAllRequests();
             await this.fetchAllUsers();
+            await this.fetchAllTags();
             await this.fetchAllUsersSevera();
         }
     }
@@ -46,6 +50,10 @@ export class AdminPage extends React.Component {
 
     setShowAllUsersSeveraSpinner = (showAllUsersSeveraSpinner) => {
         this.setState({showAllUsersSeveraSpinner})
+    };
+
+    setShowAllTagsSpinner = (showAllTagsSpinner) => {
+        this.setState({showAllTagsSpinner})
     };
 
 
@@ -145,6 +153,34 @@ export class AdminPage extends React.Component {
         this.setShowAllUsersSeveraSpinner(false)
     };
 
+    fetchAllTags = async () => {
+        this.setShowAllTagsSpinner(true);
+
+        if (this.props.loggedIn) {
+
+            this.onErrorMsgChange(null);
+            const response = await axios.get(`https://sysco-feri.herokuapp.com/api/tag`)
+                .catch(error => {
+                    this.onErrorMsgChange("something went wrong! ");
+                });
+
+            console.log(response);
+            if (response !== null && response !== undefined) {
+                if (response.status === 200) {
+                    this.setState({tags: response.data})
+                } else {
+                    // to empty the input field
+                    this.onErrorMsgChange("something went wrong!");
+                }
+            } else {
+                this.onErrorMsgChange("something went wrong!");
+            }
+        } else {
+            this.props.history.push("/error");
+        }
+        this.setShowAllTagsSpinner(false)
+    };
+
 
     renderErrorMsg = () => {
         if (this.state.errorMsg !== null && this.state.errorMsg.length > 0) {
@@ -221,6 +257,17 @@ export class AdminPage extends React.Component {
                                                fetchAllUsers={this.fetchAllUsers}
                                                setShowAllUsersSpinner={this.setShowAllUsersSpinner}
                                                showAllUsersSpinner={this.state.showAllUsersSpinner}/>
+                            </Col>
+                        </Row>
+                        <Row className="adminPage">
+                            <Col md={12}>
+                                <AdminTagList user={user}  onErrorMsgChange={this.onErrorMsgChange}
+                                               title={"Tags"}
+                                               tags={this.state.tags}
+                                               onInfoMsgChange={this.onInfoMsgChange}
+                                               fetchAllTags={this.fetchAllTags}
+                                               setShowAllTagsSpinner={this.setShowAllTagsSpinner}
+                                              showAllTagsSpinner={this.state.showAllTagsSpinner}/>
                             </Col>
                         </Row>
                         <Row className="adminPage">
