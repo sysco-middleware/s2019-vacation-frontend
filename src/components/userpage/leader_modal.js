@@ -73,6 +73,7 @@ export default class ModalLeader extends React.Component {
                 <FormGroup>
                     <Label for="backdrop"></Label>{' '}
                     <Input type="select" name="backdrop" id="backdrop" onChange={(e) =>this.setSelect(e)}>
+                        <option type="selected">Select leader</option>
                         {this.state.user.map((user,i)=>{
                             return <option value={i}>{user.firstName + ' ' + user.lastName}</option>
                         })}
