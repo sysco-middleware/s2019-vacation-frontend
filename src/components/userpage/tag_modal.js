@@ -18,7 +18,7 @@ export default class ModalLeader extends React.Component {
     }
 
     fetchTags = async () => {
-        const response = await axios.get('https://sysco-feri.herokuapp.com/api/user/tags')
+        const response = await axios.get('https://sysco-feri.herokuapp.com/api/tag')
             .catch(error => {
             });
         if (response !== null && response !== undefined) {
@@ -47,8 +47,8 @@ export default class ModalLeader extends React.Component {
         const {toggle, user} = this.props;
         if(this.state.tag !== null){
         const payload = {
-            tag: this.state.tag
-        }
+            tagId: this.state.tag.tagId
+        };
         const response = await axios.post('https://sysco-feri.herokuapp.com/api/user/'+ user.userId + '/tags', payload)
             .catch(error => {
                 alert('something went wrong!')
@@ -83,8 +83,8 @@ export default class ModalLeader extends React.Component {
                 <FormGroup>
                     <Label for="backdrop"></Label>{' '}
                     <Input type="select" name="backdrop" id="backdrop" onChange={(e) =>this.setSelect(e)}>
-                        {this.state.tags.map((tag,i)=>{
-                            return <option value={i}>{tag}</option>
+                        {this.state.tags.map((t,i)=>{
+                            return <option value={i}>{t.tag}</option>
                         })}
                     </Input>
                 </FormGroup>

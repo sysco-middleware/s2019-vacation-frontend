@@ -19,7 +19,7 @@ export default class UserBox extends React.Component {
     }
 
     async componentDidMount() {
-        await this.fetchLeaders()
+        await this.fetchLeaders();
         await this.fetchTags()
     }
 
@@ -37,7 +37,7 @@ export default class UserBox extends React.Component {
 
     fetchLeaders = async () => {
         const {user} = this.props;
-        console.log(user.superiorId)
+        console.log(user.superiorId);
         if(user !== null && user !== undefined && user.superiorId !== null){
             const response = await axios.get('https://sysco-feri.herokuapp.com/api/user/' + user.superiorId)
                 .catch(error => {
@@ -48,7 +48,7 @@ export default class UserBox extends React.Component {
                     await this.setState({leader: response.data})
                 } 
             } 
-            this.props.setLoggedIn(user.email)
+            await this.props.setLoggedIn(user.email)
         }
     };
 
@@ -92,9 +92,9 @@ export default class UserBox extends React.Component {
                             <ul style={{
                                 listStyle: "none",
                             }}>
-                                {user.tags !== undefined ? user.tags.map((tag) => {
+                                {user.tags !== undefined ? user.tags.map((t) => {
                                     return <li >
-                                        <pre>{tag}</pre>
+                                        <pre>{t.tag}</pre>
                                     </li>
                                 }) : "No tags!"}
                             </ul>

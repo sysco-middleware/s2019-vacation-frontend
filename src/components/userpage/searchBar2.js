@@ -27,7 +27,7 @@ export default class SearchBar2 extends React.Component {
     }
 
     fetchTags = async () => {
-        const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/tags`)
+        const response = await axios.get(`https://sysco-feri.herokuapp.com/api/tag`)
             .catch(error => {
 
             });
@@ -38,7 +38,7 @@ export default class SearchBar2 extends React.Component {
                 const list = [];
                 const tags = response.data;
                 _.forEach(tags, (t, i) => {
-                    list.push({label: t, value: i})
+                    list.push({label: t.tag, value: t.tagId})
                 });
                 await this.setState({tags: list})
             } else {
@@ -47,9 +47,9 @@ export default class SearchBar2 extends React.Component {
         }
     };
 
-    fetchSearch = async (tag) => {
+    fetchSearch = async (tagId) => {
         const {createEvents} = this.props;
-        const response = await axios.get(`https://sysco-feri.herokuapp.com/api/request/tag/${tag}`)
+        const response = await axios.get(`https://sysco-feri.herokuapp.com/api/request/tag/${tagId}`)
             .catch(error => {
 
             });
@@ -68,7 +68,7 @@ export default class SearchBar2 extends React.Component {
         return (
                 <Select className="SearchBar2" styles={{
                     menu: provided => ({...provided, zIndex: 9999})
-                }} options={this.state.tags} onChange={(opt, meta) => this.fetchSearch(opt.label)}/>
+                }} options={this.state.tags} onChange={(opt, meta) => this.fetchSearch(opt.value)}/>
         );
     }
 }
