@@ -3,13 +3,13 @@ import '../styling/adminPageStyling.css';
 import axios from 'axios'
 import {readableTime} from "../../utils/unixTranslate";
 import {Badge, Input} from 'reactstrap';
-import { FaBeer } from 'react-icons/fa';
+import { FaLock, FaLockOpen } from 'react-icons/fa';
 
 export default class AdminUserList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            vacationDays: null
+            vacationDays: null,
         }
     }
 
@@ -36,9 +36,44 @@ export default class AdminUserList extends React.Component {
         }
     };
 
+    onLockClick = async () => {
+        const {user} = this.props;
+        const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/${user.userId}/enable`)
+            .catch(error => {
+            });
+
+        console.log(response);
+        if (response !== null && response !== undefined) {
+            if (response.status === 200) {
+            } else {
+                alert("Something went wrong!")
+            }
+        }
+        await this.props.fetchAllUsers();
+    };
+
+    onLockOpenClick = async () => {
+        const {user} = this.props;
+        const response = await axios.get(`https://sysco-feri.herokuapp.com/api/user/${user.userId}/disable`)
+            .catch(error => {
+            });
+
+        console.log(response);
+        if (response !== null && response !== undefined) {
+            if (response.status === 200) {
+            } else {
+                alert("Something went wrong!")
+            }
+        }
+        await this.props.fetchAllUsers();
+    };
+
 
     render() {
         const {user, index, isLocalUsers} = this.props;
+        const lockStyle = {
+            cursor: "pointer"
+        };
 
         if (user !== null && user !== undefined) {
             return (
@@ -50,7 +85,7 @@ export default class AdminUserList extends React.Component {
                     <td>{user.phone !== undefined ? user.phone : "No Phone!"}</td>
                     <td>{user.severaUserGUID !== undefined ? user.severaUserGUID : "No GUID"}</td>
                     <td>{user.severaSuperiorGUID !== undefined ? user.severaSuperiorGUID : "No superiorGUID!"}</td>
-                    <td>{isLocalUsers?(user.enabled !== undefined ? (user.enabled ? "TRUE" : <FaBeer />) : "No Data"):"-"}</td>
+                    <td>{isLocalUsers?(user.enabled !== undefined ? (user.enabled ? <FaLockOpen onClick={this.onLockOpenClick} style={lockStyle}/> : <FaLock onClick={this.onLockClick} style={lockStyle}/>) : "No Data"):"-"}</td>
                     <td>{isLocalUsers ? readableTime(user.created, true) : "-"}</td>
                     <td>
                         {isLocalUsers ? (
