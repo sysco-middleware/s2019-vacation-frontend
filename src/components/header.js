@@ -3,6 +3,7 @@ import './styling/general.css';
 import {Link} from 'react-router-dom'
 import {Col, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Row} from 'reactstrap';
 import {deleteCookie} from "../utils/cookieHandler";
+import syscoLogo from '../uploads/sysco.png'
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -45,7 +46,7 @@ export default class Header extends React.Component {
                     <Navbar color="color" light expand="md">
                         <NavbarBrand href="/" onClick={() => deleteCookie()}>
                             <img
-                                src="https://haugesundil.no/wp-content/uploads/2017/04/Sysco_logo_RGB-1-e1467987962479.jpg"
+                                src={syscoLogo}
                                 id="syscoLogo" alt="sysco_Logo"/>
                         </NavbarBrand>
                         <NavbarToggler onClick={this.toggle}/>
