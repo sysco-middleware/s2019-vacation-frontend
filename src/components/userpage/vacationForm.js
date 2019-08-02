@@ -1,9 +1,10 @@
 import React from 'react';
 import '../styling/general.css';
 import '../styling/userpageStyling.css';
-import {Button, Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Spinner} from 'reactstrap';
+import {Button, Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Spinner, Badge} from 'reactstrap';
 import axios from "axios";
 import _ from "lodash"
+import ModalLeader from './leader_modal.js';
 
 
 export default class vacationForm extends React.Component {
@@ -15,6 +16,7 @@ export default class vacationForm extends React.Component {
             comment: "",
             reason: {},
             reasons: [],
+            modal: false,
         };
     }
 
@@ -91,9 +93,25 @@ export default class vacationForm extends React.Component {
         this.setState({reason: this.state.reasons[event.target.value]});
     };
 
+    toggleMod = () => {
+        this.setState({
+            modal: !this.state.modal,
+        });
+    };
+
+    renderNoLeader = () => {
+        const {user} = this.props;
+        return (
+            <div>
+                <p>You need to select a leader to make a request <Badge color="info" style={{cursor: "pointer"}} onClick={()=>this.toggleMod()}>Set leader</Badge></p>
+                <ModalLeader modal={this.state.modal} toggle={this.toggleMod} user={user}/>
+            </div>
+        );
+    };
+
 
     render() {
-        const {showVacationFormSpinner} = this.props;
+        const {showVacationFormSpinner, user} = this.props;
         const {startDate, endDate, reason} = this.state;
         const disabledButton = (_.isEmpty(startDate) || _.isEmpty(endDate) || _.isEmpty(reason));
 
@@ -101,43 +119,45 @@ export default class vacationForm extends React.Component {
         return (
             <Card className='cardBox'>
                 <CardTitle className='cardTitle'>Apply for leave</CardTitle>
+                { user.superiorId !== null ? (
                 <CardBody className='cardBody'>
-                    <Form className="vacationForm">
-                        <FormGroup>
-                            <Label htmlFor="startDate">Start date*</Label>
-                            <Input type="date" name="startDate" id="userPageDateInput"
-                                   value={this.state.startDate}
-                                   onChange={e => this.onStartDateChange(e)}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label htmlFor="endDate">End date*</Label>
-                            <Input type="date" name="endDate" id="userPageDateInput" value={this.state.endDate}
-                                   onChange={e => this.onEndDateChange(e)}/>
-                        </FormGroup>
-                        <FormGroup >
-                            <Label htmlFor="reason">Reason*</Label>
-                            <select className='vacationFormReasonDropDownMenu'
-                                    onChange={(e) => this.onReasonChange(e)}>
-                                <option>SELECT</option>
-                                {this.state.reasons.map((r, i) => {
-                                    return <option value={i}>{r.requestReason}</option>
-                                })}
-                            </select>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label htmlFor="comment">Any comment?</Label>
-                            <Input type="textarea" name="comment" id="userPageDateInput"
-                                   placeholder="Anything we need to know?"
-                                   value={this.state.comment} onChange={e => this.onCommentChange(e)}/>
-                        </FormGroup>
-                    </Form>
-                    {showVacationFormSpinner === false ? (
-                        <Button disabled={disabledButton} onClick={() => this.makeRequest()}
-                                id="vacationFormButton">Apply</Button>
-                    ) : (
-                        <Spinner style={{width: '3rem', height: '3rem'}}/>
-                    )}
-                </CardBody>
+                        <Form className="vacationForm">
+                            <FormGroup>
+                                <Label htmlFor="startDate">Start date*</Label>
+                                <Input type="date" name="startDate" id="userPageDateInput"
+                                       value={this.state.startDate}
+                                       onChange={e => this.onStartDateChange(e)}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="endDate">End date*</Label>
+                                <Input type="date" name="endDate" id="userPageDateInput" value={this.state.endDate}
+                                       onChange={e => this.onEndDateChange(e)}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="reason">Reason*</Label>
+                                <select className='vacationFormReasonDropDownMenu'
+                                        onChange={(e) => this.onReasonChange(e)}>
+                                    <option>SELECT</option>
+                                    {this.state.reasons.map((r, i) => {
+                                        return <option value={i}>{r.requestReason}</option>
+                                    })}
+                                </select>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="comment">Any comment?</Label>
+                                <Input type="textarea" name="comment" id="userPageDateInput"
+                                       placeholder="Anything we need to know?"
+                                       value={this.state.comment} onChange={e => this.onCommentChange(e)}/>
+                            </FormGroup>
+                        </Form>
+                        {showVacationFormSpinner === false ? (
+                            <Button disabled={disabledButton} onClick={() => this.makeRequest()}
+                                    id="vacationFormButton">Apply</Button>
+                        ) : (
+                            <Spinner style={{width: '3rem', height: '3rem'}}/>
+                        )}
+                    </CardBody>
+                ) : <CardBody className='cardBody'>{this.renderNoLeader()}</CardBody>}
             </Card>
         );
     }
