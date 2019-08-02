@@ -231,7 +231,7 @@ export default class userPage extends React.Component {
                                           showRequestSpinner={this.state.showRequestSpinner}/>
                             </Col>
                         </Row>
-                        <Row>
+                        {/* <Row>
                             {user.severaSuperiorGUID !== null && user.severaSuperiorGUID !== undefined ? (
                                 <Col md={4}>
                                     <UserSuperiorBox user={this.state.superior}
@@ -240,7 +240,7 @@ export default class userPage extends React.Component {
                                                      showSuperiorBoxSpinner={this.state.showSuperiorBoxSpinner}/>
                                 </Col>
                             ) : null}
-                        </Row>
+                        </Row> */}
                     </TabPane>
                     <TabPane tabId="2">
                         <Row>
